@@ -142,3 +142,9 @@ span.blackback{
     background: #393939;
     color: #efefef;
 }
+.example2 li {
+display: inline;
+padding:10px 15px;
+border:1px #ccc solid;color:#000053;
+border-radius: 5px / 5px;}
+.example2 .this {background-color:#777;color:#fff;}
