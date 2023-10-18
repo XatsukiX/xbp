@@ -148,3 +148,24 @@ padding:10px 15px;
 border:1px #ccc solid;color:#000053;
 border-radius: 5px / 5px;}
 .example2 .this {background-color:#777;color:#fff;}
+table , td, th {
+	border: 1px solid #595959;
+	border-collapse: collapse;
+}
+td, th {
+	padding: 3px;
+	width: 150px;
+	height: 25px;
+}
+th {
+	background: #f0e6cc;
+}
+td {
+  background: #ffffff
+}
+.even {
+	background: #fbf8f0;
+}
+.odd {
+	background: #fefcf9;
+}
