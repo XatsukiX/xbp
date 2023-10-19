@@ -66,7 +66,7 @@ h2 {
   padding: 0.5em;/*文字周りの余白*/
   display: inline-block;/*おまじない*/
   line-height: 1.3;/*行高*/
-  background: #364e96;/*背景色*/
+  background: #6091d3;/*背景色*/
   vertical-align: middle;
   border-radius: 25px 0px 0px 25px;/*左側の角を丸く*/
 }
@@ -176,4 +176,59 @@ td {
 }
 .odd {
 	background: #fefcf9;
+}
+.loading-005 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-005 span {
+  display: inline-block;
+  color: #2589d0;
+  font-weight: 600;
+  font-size: 1.5em;
+  animation: animation-loading-005 1s infinite;
+}
+
+.loading-005 span:nth-of-type(2) {
+  animation-delay: .1s;
+}
+
+.loading-005 span:nth-of-type(3) {
+  animation-delay: .2s;
+}
+
+.loading-005 span:nth-of-type(4) {
+  animation-delay: .3s;
+}
+
+.loading-005 span:nth-of-type(5) {
+  animation-delay: .4s;
+}
+
+.loading-005 span:nth-of-type(6) {
+  animation-delay: .5s;
+}
+
+.loading-005 span:nth-of-type(7) {
+  animation-delay: .6s;
+}
+
+.loading-005 span:nth-of-type(8) {
+  animation-delay: .7s;
+}
+
+.loading-005 span:nth-of-type(9) {
+  animation-delay: .8s;
+}
+
+.loading-005 span:nth-of-type(10) {
+  animation-delay: .9s;
+}
+
+@keyframes animation-loading-005 {
+  50% {
+      transform: translateY(10px);
+  }
 }
