@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+header {
+    background-color: #333; /* ヘッダーの背景色を設定 */
+    color: white; /* ヘッダーテキストの色を設定 */
+    padding: 20px; /* ヘッダー内の余白を設定 */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white; /* ナビゲーションリンクのテキスト色を設定 */
+}
