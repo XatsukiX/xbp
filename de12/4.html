@@ -10,13 +10,14 @@
     <link rel="shortcut icon" href="./images/xbp.ico">
 </head>
 <body>
+    <main>
             <header>
                 <nav>
                     <ul>
-                        <li><a href="index.html">XBP</a></li>
-                        <li><a href="about.html">デザイン演習Ⅰ・Ⅱ</a></li>
-                        <li><a href="services.html">デジタルファブリケーション</a></li>
-                        <li><a href="contact.html">その他</a></li>
+                        <li><a href="../index.html">XBP</a></li>
+                        <li><a href="../de12/index.html">デザイン演習Ⅰ・Ⅱ</a></li>
+                        <li><a href="../digi_fab/index.html">デジタルファブリケーション</a></li>
+                        <li><a href="../digi_fab/Other object.html">その他</a></li>
                     </ul>
                 </nav>
             </header>
@@ -26,11 +27,57 @@
                 <span>01</span>
                 2班で作ることにしたゲーム
             </h2>
-            <p>私たち2班ではプログラミング言語”python”を使用して、タイピングゲームを作ることになりました。</p>
-            <p>また、他の班員と差別化を設けるため、私は難易度関係なくジャンルごとに作成することにした。ジャンルは以下とする。</p>
+            <div class="box">
+                <p>私たち2班ではプログラミング言語”python”を使用して、タイピングゲームを作ることになりました。</p>
+                <p>また、他の班員と差別化を設けるため、私は難易度関係なくジャンルごとに作成することにします。ジャンルはみなとみらい観光spot,授業,食べ物にします。</p>
+
+            </div>
+            <br>
             <h2 class="heading-017">
                 <span>02</span>
-                使用したコードなど
+                おおまかな作り方
             </h2>
+            <div class="box">
+                <p>まずchat GPTを使って簡単なソースコードを出力してもらいました。それだけでは負けた気分してうざいので解析をしていきます。</p>
+                <p>importをつかってtimeモジュールとrandomモジュールを導入して出力された文字のランダム性と制限時間を実装しました。</p>
+                <p>つぎにwordsというおおきな塊を作り、そこに入力するキーワードを入力します。次に”<font color="red">関数</font>”というものを使います。</p>
+                <p>まず関数を定義して、score(得点)とround_duration(制限時間)を作成します。その後、ゲームのアナウンスをprintで出力します。</p>
+                <p>つぎにWhileを使ってゲームが終わるまで繰り返しをする指示をだします。その後にrandomを使って単語がランダムに出されるようにして</p>
+                <p>それをprintで表示、inputで入力されるようにしてifを使って正解時の文の出力とスコアアップ、不正解時の文の出力とスコアダウンをするようにします。</p>
+                <p>ゲームを終わる設定をした後、スコアアナウンスを出力するようにしたら完成です。<a href="./python/code1.html" target="_blank">ソースコード集</a></p>
+            </div>
+            <br>
+            <h2 class="heading-017">
+                <span>03</span>
+                補足
+            </h2>
+            <div class="box">
+                <p>授業編と食べ物編を遊ぶ際には元ソースコードのwordsを以下の物へと置き換えしてください。</p>
+                <code>
+                    <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                    <li style="background-color:#EFF;">#授業編</li>
+                    <li style="background-color:#EEF;">words = ["FYS", "会計の基礎", "経営の基礎","初級英語","中級英語","上級英語","経営学総論","異文化間コミュニケーション","デザイン経営論", "X Business Program","IBC program","management program", "デザイン演習","デジタルファブリケーション",]</li>
+                    <li style="background-color:#EFF;"></li>
+                    <li style="background-color:#EEF;">#食べ物編</li>
+                    <li style="background-color:#EFF;">words = ["アイス","ラーメン","ハンバーガー",]</li>
+                    </ol>
+                </code>
+                <p>またwords内のテキストを変更することで単語練習などとして利用することが可能です。</p>
+            </div>
+
+
+        <footer>
+            <ul>
+                <li><a href="">X</a></li>
+                <li><a href="">Instagram</a></li>
+            </ul>
+
+            <p>
+                Copy right 2023 Atsuki
+            </p>
+        </footer>
+       
+    </main>
+            
 </body>
 </html>

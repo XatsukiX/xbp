@@ -1,0 +1,49 @@
+<code>
+    <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+    <li style="background-color:#EFF;">import random</li>
+    <li style="background-color:#EEF;">import time</li>
+    <li style="background-color:#EFF;"></li>
+    <li style="background-color:#EEF;"># 単語リスト</li>
+    <li style="background-color:#EFF;">words = [<font style="color:brown;">"みなとみらい"</font>,  <font style="color:brown;">"よこはまコスモワールド"</font>, <font style="color:brown;">"ランドマークタワー"</font>, <font style="color:brown;">"横浜赤レンガ倉庫"</font>, <font style="color:brown;">"山下公園"</font>, <font style="color:brown;">"中華街"</font>, <font style="color:brown;">"大さん橋"</font>, <font style="color:brown;">"カップヌードルミュージアム"</font>, <font style="color:brown;">"日本丸メモリアルパーク"</font>, <font style="color:brown;">"ぷかりさん橋"</font>, <font style="color:brown;">"スカイガーデン"</font>, <font style="color:brown;">"臨港パーク"</font>, <font style="color:brown;">"汽車道"</font>, <font style="color:brown;">"MARK IS みなとみらい"</font>, <font style="color:brown;">"象の鼻パーク"</font>, <font style="color:brown;">"港の見える丘公園"</font>, <font style="color:brown;">"神奈川大学"</font>]</li>
+    <li style="background-color:#EEF;"></li>
+    <li style="background-color:#EFF;">def play_typing_game():</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;score = 0</li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;round_duration = 30  # ゲームの制限時間（秒）</li>
+    <li style="background-color:#EEF;"></li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:brown;">"==== タイピングゲーム ===="</font>)</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;print(f<font style="color:brown;">"30秒以内にできるだけ多くの単語を入力してください。正解ごとに5秒の時間が追加されます"</font>)</li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:brown;">"ゲームを開始します"</font>)</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:brown;">"Now Loading..."</font>)</li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:brown;">"Ready Fight.."</font>)</li>
+    <li style="background-color:#EFF;"></li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;start_time = time.time()</li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;while time.time() - start_time &lt; round_duration:</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;word = random.choice(words)</li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(f<font style="color:brown;">"単語: {word}"</font>)</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;user_input = input(<font style="color:brown;">"入力してください: "</font>)</li>
+    <li style="background-color:#EFF;"></li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if user_input == word:</li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:brown;">"Mission clear!"</font>)</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;score += 1</li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;round_duration += 5</li>
+    <li style="background-color:#EEF;"></li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:brown;">"Mission failed..."</font>)</li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;score -=  1</li>
+    <li style="background-color:#EEF;"></li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;end_time = time.time()</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;game_duration = end_time - start_time</li>
+    <li style="background-color:#EFF;"></li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;print(<font style="color:brown;">"==== ゲーム終了 ===="</font>)</li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;print(f<font style="color:brown;">"スコア: {score}"</font>)</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;print(f<font style="color:brown;">"制限時間内にタイプできた単語数: {score}"</font>)</li>
+    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;print(f<font style="color:brown;">"ゲーム時間: {game_duration:.2f}秒"</font>)</li>
+    <li style="background-color:#EEF;"></li>
+    <li style="background-color:#EFF;">if __name__ == <font style="color:brown;">"__main__"</font>:</li>
+    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;play_typing_game()</li>
+    <li style="background-color:#EFF;"></li>
+    <li style="background-color:#EEF;"></li>
+    </ol></code>
+
+    
