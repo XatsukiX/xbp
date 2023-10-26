@@ -46,6 +46,10 @@ main{
     border-top: 11px solid #2589d0;
 }
 
+a{
+    color: black;
+}
+
 footer {
     text-align: center; /* テキストを中央に配置 */
     background-color: #333; /* フッターの背景色を設定 */
