@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+header {
+    background-color: #333; /* ヘッダーの背景色を設定 */
+    color: white; /* ヘッダーテキストの色を設定 */
+    padding: 20px; /* ヘッダー内の余白を設定 */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white; /* ナビゲーションリンクのテキスト色を設定 */
+}
+
+main{
+    background-color:darkgray;
+    color: black;
+}
+
+.grid-container {
+     display: grid; 
+     grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(100px, auto); 
+    grid-gap: 10px; 
+}
+     
+.item {
+     background-color: #f0f0f0; 
+     padding: 20px; 
+     text-align: center; 
+}
+
+footer {
+    text-align: center; /* テキストを中央に配置 */
+    background-color: #333; /* フッターの背景色を設定 */
+    color: white; /* フッターテキストの色を設定 */
+    padding: 10px; /* フッター内の余白を設定 */
+}
