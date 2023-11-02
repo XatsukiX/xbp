@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <!-- ⑥↓タイトルを変えてみよう -->
+    <title>DESIGNⅣ GAME START</title>
+    <!-- ⑤スタイルシートの設定をしよう -->
+    <link rel="stylesheet" href="./css/5.css">
+    <!-- h1.htmlからある行をコピペしてくればOK -->
+    <link rel="shortcut icon" href="./images/xbp.ico">
+</head>
+<body>
+    <main>
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">XBP</a></li>
+                        <li><a href="../de12/index.html">デザイン演習Ⅰ・Ⅱ</a></li>
+                        <li><a href="../digi_fab/index.html">デジタルファブリケーション</a></li>
+                        <li><a href="../digi_fab/Other object.html">その他</a></li>
+                    </ul>
+                </nav>
+            </header>
+            <h1>pythonのライブラリを使って便利ツールを作る</h1>
+
+            <h2 class="head">作るもの</h2>
+            <p>私は課題を提出するの忘れがちなのでそれをリマインドしてくれるプログラムを作りたいと思いました。</p>
+            <p>また、度忘れ対策でデスクトップとメール通知の２重でリマインドするようにしました。</p>
+
+            <h2 class="head">   おおまかな仕組み</h2>
+            まず関数を定義します。そしてWebclassのURLを定義し情報を取得したあとSoupにかけて中身を解析します。このときにCSSセレクターを定義し対象を絞ります（今回の場合は課題）
+            次にtry-except構文を使ってoasnがからの場合を除き、テキストファイルとして保存します。if構文を使って課題が出てるかを判別します。この場合はasnとoasnが同じときは、
+            課題が出ておらず、違う場合は課題がでており、この場合のみメールを送信します。
+            メールの作成はサーバー接続→暗号化→ログイン→作成→送信→切断の順で行います。最後に関数を呼び出してデスクトップ表示、メールの送信を行います。
+
+
+            <h2 class="head">使うライブラリ</h2>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <th>ライブラリ</th>
+                        <th>目的</th>
+                    </tr>
+                    <tr>
+                        <td>beautifulsoup</td>
+                        <td>HTTPリクエストを送信してWebページの内容を取得する</td>
+                    </tr>
+                    <tr>
+                        <td>requests</td>
+                        <td>httpリクエストを送信してWebページの内容を取得する</td>
+                    </tr>
+                    <tr>
+                        <td>plyer</td>
+                        <td>デスクトップに表示する</td>
+                    </tr>
+                    <tr>
+                        <td>smtplib</td>
+                        <td>メール送信時のプロトコルを定める。</td>
+                    </tr>
+                    <tr>
+                        <td>MIMEMultipart</td>
+                        <td>電子メールの規格の拡大</td>
+                    </tr>
+                    <tr>
+                        <td>MIMEText</td>
+                        <td>メールを送信する際にテキスト（メール本文）を入力する</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 class="head">ソースコード</h2>
+
+            <code>
+                <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                <li style="background-color:#EFF;">import requests</li>
+                <li style="background-color:#EEF;">from bs4 import BeautifulSoup</li>
+                <li style="background-color:#EFF;">from plyer import notification</li>
+                <li style="background-color:#EEF;">import smtplib</li>
+                <li style="background-color:#EFF;">from email.mime.multipart import  MIMEMultipart</li>
+                <li style="background-color:#EEF;">from email.mime.text import MIMEText</li>
+                <li style="background-color:#EFF;"></li>
+                <li style="background-color:#EEF;">#関数を定義()</li>
+                <li style="background-color:#EFF;">def d_confirm ():  </li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;#解析対象のURLを定義</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;url= "https://kulms.kanagawa-u.ac.jp/webclass/"</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;#URLの情報を取得</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;res = requests.get(url)</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;#</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;soup = BeautifulSoup(res.text, "html.parser")</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#CSSセレクターで定義する asnはassignment=課題の略,</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;asn = str(soup.select('course-contents-info'))</li>
+                <li style="background-color:#EEF;"></li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;#oasnが空の時をのぞいてoasnをテキストファイルとして保存</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;try:</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with open('oasn.txt') as f: </li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oasn = f.read()</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;except:</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;oasn = ''</li>
+                <li style="background-color:#EFF;"></li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;#もしasnとoasnが同じ時デスクトップに表示</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;if asn ==oasn: </li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notification.notify(</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;title="Webclass",</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;message="課題はありません",</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;app_name="Webclass",</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;timeout=10</li>
+                <li style="background-color:#EFF;">)</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;#それ以外＝課題があるときに表示</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;else:</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with open('oasn.txt','w') as f: </li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f.write(asn)</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;notification.notify(</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;title="Webclass",</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;message="締め切りの近い課題があります",</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;app_name="Webclass",</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;timeout=10</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;)</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#サーバーに接続（ここでは神大メールのおおもとであるoutlookのサーバーを使っている）</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;smtp_server = "smtp-mail.outlook.com"</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port = 587</li>
+                <li style="background-color:#EFF;"></li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server = smtplib.SMTP(smtp_server, port)</li>
+                <li style="background-color:#EFF;"></li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#暗号化の設定</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server.starttls()</li>
+                <li style="background-color:#EEF;"></li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#サーバーにログイン</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;login_address = "自分の神大メール"</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;login_password = "パスワード"</li>
+                <li style="background-color:#EEF;"></li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server.login(login_address, login_password)</li>
+                <li style="background-color:#EEF;"></li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#メールの作成</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message = MIMEMultipart()</li>
+                <li style="background-color:#EFF;"></li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message["Subject"] = "締め切りの近い課題があります。"</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message["From"] = "自分の神大メール"</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message["To"] = "自分の神大メール"</li>
+                <li style="background-color:#EFF;"></li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text = MIMEText("締め切りの近い課題があります。")</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message.attach(text)</li>
+                <li style="background-color:#EEF;"></li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#メールの送信</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server.send_message(message)</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#サーバーの切断</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server.quit()</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li style="background-color:#EEF;">#d_confirm関数を呼び出してデスクトップの表示とメールを送信（必要な時のみ）</li>
+                <li style="background-color:#EFF;">d_confirm()</li>
+                </ol>
+            </code>
+
+            <h2 class="head">改善点</h2>
+            <div>
+                <p></p>
+            </div>
+
+            <blockquote class="quote-001">
+
+                <p><a href="https://gakushikiweblog.com/python-email">【Python】もっとも基本的なメール送信の方法</a></p>
+                
+            </blockquote>
+    
+
+
+        <footer>
+            <ul class="sns-button">
+                <li><a href="https://twitter.com/suic_502" target="_blank"><img src="./images/sns icon/logo-white.png" alt=""></a></li>
+                <li><a href="https://www.instagram.com/suic_502" target="_blank"><img src="./images/sns icon/Instagram_Glyph_Gradient.png" ></a></li>
+            </ul>
+
+            <p>
+                Copy right 2023 Atsuki
+            </p>
+        </footer>
+       
+    </main>
+            
+</body>
+</html>
