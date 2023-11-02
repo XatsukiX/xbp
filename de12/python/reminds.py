@@ -2,12 +2,14 @@ import requests
 from bs4 import BeautifulSoup
 from plyer import notification
 import smtplib
-from email.mime.multipart import  MIMEMultipart
+from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import schedule
+import time
 
-#関数を定義()
-def d_confirm ():  
-    #解析対象のURLを定義
+# 関数を定義
+def d_confirm():
+   #解析対象のURLを定義
     url= "https://kulms.kanagawa-u.ac.jp/webclass/"
     #URLの情報を取得
     res = requests.get(url)
@@ -73,3 +75,17 @@ def d_confirm ():
             
 #d_confirm関数を呼び出してデスクトップの表示とメールを送信（必要な時のみ）
 d_confirm()
+
+# 定期実行の間隔（秒数）
+interval = 12 * 60 * 60  # 12時間（12 * 60分 * 60秒）
+
+# 定期実行のスケジュールを設定
+def schedule_task():
+    d_confirm()  # 定期実行する関数を呼び出す
+
+# スケジュールを設定
+schedule.every(interval).seconds.do(schedule_task)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
