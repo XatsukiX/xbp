@@ -15,7 +15,7 @@ def d_confirm():
     res = requests.get(url)
     #
     soup = BeautifulSoup(res.text, "html.parser")
-     #CSSセレクターで定義する asnはassignment=課題の略,
+     #CSSセレクターで定義する asnはassignment=課題の略,course-contents-infoは締め切りの近い課題のやつ。
     asn = str(soup.select('course-contents-info'))
 
     #oasnが空の時をのぞいてoasnをテキストファイルとして保存
@@ -77,7 +77,7 @@ def d_confirm():
 d_confirm()
 
 # 定期実行の間隔（秒数）
-interval = 12 * 60 * 60  # 12時間（12 * 60分 * 60秒）
+interval = 110 * 60  # 110分　大学の授業時間+休み時間（110分 * 60秒）
 
 # 定期実行のスケジュールを設定
 def schedule_task():

@@ -77,18 +77,20 @@
                 <li style="background-color:#EEF;">from bs4 import BeautifulSoup</li>
                 <li style="background-color:#EFF;">from plyer import notification</li>
                 <li style="background-color:#EEF;">import smtplib</li>
-                <li style="background-color:#EFF;">from email.mime.multipart import  MIMEMultipart</li>
+                <li style="background-color:#EFF;">from email.mime.multipart import MIMEMultipart</li>
                 <li style="background-color:#EEF;">from email.mime.text import MIMEText</li>
+                <li style="background-color:#EFF;">import schedule</li>
+                <li style="background-color:#EEF;">import time</li>
                 <li style="background-color:#EFF;"></li>
-                <li style="background-color:#EEF;">#関数を定義()</li>
-                <li style="background-color:#EFF;">def d_confirm ():  </li>
-                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;#解析対象のURLを定義</li>
+                <li style="background-color:#EEF;"># 関数を定義</li>
+                <li style="background-color:#EFF;">def d_confirm():</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;#解析対象のURLを定義</li>
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;url= "https://kulms.kanagawa-u.ac.jp/webclass/"</li>
                 <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;#URLの情報を取得</li>
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;res = requests.get(url)</li>
                 <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;#</li>
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;soup = BeautifulSoup(res.text, "html.parser")</li>
-                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#CSSセレクターで定義する asnはassignment=課題の略,</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#CSSセレクターで定義する asnはassignment=課題の略,course-contents-infoは締め切りの近い課題のやつ。</li>
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;asn = str(soup.select('course-contents-info'))</li>
                 <li style="background-color:#EEF;"></li>
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;#oasnが空の時をのぞいてoasnをテキストファイルとして保存</li>
@@ -116,7 +118,7 @@
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;app_name="Webclass",</li>
                 <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;timeout=10</li>
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;)</li>
-                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#サーバーに接続（ここでは神大メールのおおもとであるoutlookのサーバーを使っている）</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#サーバーに接続</li>
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;smtp_server = "smtp-mail.outlook.com"</li>
                 <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;port = 587</li>
                 <li style="background-color:#EFF;"></li>
@@ -126,8 +128,8 @@
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server.starttls()</li>
                 <li style="background-color:#EEF;"></li>
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#サーバーにログイン</li>
-                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;login_address = "自分の神大メール"</li>
-                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;login_password = "パスワード"</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;login_address = "r202301989ko@jindai.jp"</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;login_password = "u7LjzfbQmE"</li>
                 <li style="background-color:#EEF;"></li>
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;server.login(login_address, login_password)</li>
                 <li style="background-color:#EEF;"></li>
@@ -135,8 +137,8 @@
                 <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message = MIMEMultipart()</li>
                 <li style="background-color:#EFF;"></li>
                 <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message["Subject"] = "締め切りの近い課題があります。"</li>
-                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message["From"] = "自分の神大メール"</li>
-                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message["To"] = "自分の神大メール"</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message["From"] = "r202301989ko@jindai.jp"</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message["To"] = "r202301989ko@jindai.jp"</li>
                 <li style="background-color:#EFF;"></li>
                 <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text = MIMEText("締め切りの近い課題があります。")</li>
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;message.attach(text)</li>
@@ -148,6 +150,20 @@
                 <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
                 <li style="background-color:#EEF;">#d_confirm関数を呼び出してデスクトップの表示とメールを送信（必要な時のみ）</li>
                 <li style="background-color:#EFF;">d_confirm()</li>
+                <li style="background-color:#EEF;"></li>
+                <li style="background-color:#EFF;"># 定期実行の間隔（秒数）</li>
+                <li style="background-color:#EEF;">interval = 110 * 60  # 110分　大学の授業時間+休み時間（110分 * 60秒）</li>
+                <li style="background-color:#EFF;"></li>
+                <li style="background-color:#EEF;"># 定期実行のスケジュールを設定</li>
+                <li style="background-color:#EFF;">def schedule_task():</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;d_confirm()  # 定期実行する関数を呼び出す</li>
+                <li style="background-color:#EFF;"></li>
+                <li style="background-color:#EEF;"># スケジュールを設定</li>
+                <li style="background-color:#EFF;">schedule.every(interval).seconds.do(schedule_task)</li>
+                <li style="background-color:#EEF;"></li>
+                <li style="background-color:#EFF;">while True:</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;schedule.run_pending()</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;time.sleep(1)</li>
                 </ol>
             </code>
 
@@ -156,6 +172,8 @@
                 <p>おそらくこのプログラムでは完全放置で動くことがないので今回は現時点で断念することとなったが普通に有能プログラムくんだとは思うので完成させて</p>
                 <p>.exeに書き出して配布したいなぁとは思います。<a href="../board.html" target="_blank">更新履歴掲示板</a>のページを作りました。ここにできたか上げます。</p>
                 <p>これも自動化したい。</p>
+                <p>2023-11-04更新.</p>
+                <p>定期実行もできたっぽいです。</p>
             </div>
 
             <blockquote class="quote-001">
