@@ -1,32 +1,23 @@
 import requests
-from bs4 import BeautifulSoup
+import json
+from pprint import pprint
+from datetime import datetime, timedelta, timezone
+import pandas as pd
+import matplotlib.pyplot as plt
+import japanize_matplotlib
 
-html = BeautifulSoup("<html><head></head><body></body></html>", "html.parser")
-head = html.head
-body = html.body
-main = html.new_tag("main")
-header = html.new_tag("header")
-main.append(header)
-nav = html.new_tag("nav")
-header.append(nav)
-ul = html.new_tag("ul")
-nav.append(ul)
-li = html.new_tag("li")
-ul.append(li)
-a = html.new_tag("a")
-li.append(a)
-body.append(main)
-div = html.new_tag("div")
-main.append(div)
-p = html.new_tag("p")
-div.append(p)
-footer = html.new_tag("footer")
-main.append(footer)
-footer.append(ul)
-ul.append(li)
-li.append(a)
-footer.append(p)
-print(html.prettify())
+url="https://api.openweathermap.org/data/2.5/forecast?q={city}&appid{key}&lang=ja&units=metric"
+url= url.format(city="Yokohama,JP",key="8244421fd46689f818a49b723dca75c9")
 
-with open("my_page.html", "w") as file:
-    file.write(str(html))
+jsondata = requests.get(url).json()
+df = pd.DataFrame(columns=["気温"])
+tz = timezone(timedelta(hours=+9), "JST")
+for dat in jsondata["list"]:
+    jst = str(datetime.fromtimestamp(dat["dt"],tz))[:-9]
+    temp = dat["main"]["temp"]
+    df.loc[jst] = temp
+
+df.plot(figsize=(15,8))
+plt.ylim(-10,40)
+plt.grid()
+plt.show()

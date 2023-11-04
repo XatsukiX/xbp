@@ -1,11 +1,12 @@
-# HTML文書の基本的な構造を生成する例
 html = """
+
+#作りたいHTMLを書いていく。これはいつも使ってるテンプレ。
 <!DOCTYPE html>
 <html lang="jp">
     <head>
         <meta charset="UTF-8">
         <title>my-page</title>
-        <link rel="stylesheet" href="./css/5.css">
+        <link rel="stylesheet" href="./css/my-page.css">
         <link rel="shortcut icon" href="./images/xbp.ico">
     </head>
     <body>
@@ -33,6 +34,7 @@ html = """
 
 CSS= """
 
+#さっきのCSSver。これもいつも使ってるテンプレ。
 @charset "UTF-8";
 
 header {
@@ -137,7 +139,7 @@ footer {
 
 """
 
-# HTMLをファイルに保存する場合
+#my-page.(拡張子)を作るよって指示。これでHTMLとCSSが自動で生成される。
 with open("my-page.html", "w", encoding="utf-8") as f:
     f.write(html)
 
