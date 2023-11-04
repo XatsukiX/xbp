@@ -4,32 +4,34 @@
 @import url('https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c:400,700&display=swap&subset=japanese');
 /* フォントを指定したいところで */
 
-.breadcrumb {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  
-  .breadcrumb li {
-    display: inline;/*横に並ぶように*/
-    list-style: none;
-    font-weight: bold;/*太字*/
-  }
-  
+header {
+  background-color: #333; /* ヘッダーの背景色を設定 */
+  color: white; /* ヘッダーテキストの色を設定 */
+  padding: 20px; /* ヘッダー内の余白を設定 */
+}
 
-  
-  .breadcrumb li:last-child:after {
-    content: '';
-  }
-  
-  .breadcrumb li a {
-    text-decoration: none;
-    color: #52b5ee;/*色*/
-  }
-  
-  .breadcrumb li a:hover {
-    text-decoration: underline;
-  }
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white; /* ナビゲーションリンクのテキスト色を設定 */
+}
+
+main{
+  background-color:darkgray;
+  color: black;
+}
+
+
 logo img{
     border-radius: 50%;
     width: 150px;
@@ -56,6 +58,7 @@ html, body {
 	background: #efefef;
 }
 h1 {
+    background-color: white;
     color: #364e96;/*文字色*/
     padding: 0.5em 0;/*上下の余白*/
     border-top: solid 3px #364e96;/*上線*/
@@ -234,3 +237,18 @@ td {
   }
 }
 
+footer {
+  text-align: center; /* テキストを中央に配置 */
+  background-color: #333; /* フッターの背景色を設定 */
+  color: white; /* フッターテキストの色を設定 */
+  padding: 10px; /* フッター内の余白を設定 */
+}
+
+.footer a{
+  
+  display: inline-block;
+  justify-content: center;
+  color: #ffffff;
+  list-style: none;
+
+}
