@@ -1,5 +1,4 @@
-html = """
-<!DOCTYPE html>
+html = """<!DOCTYPE html>
 <html lang="jp">
     <head>
         <meta charset="UTF-8">
@@ -30,8 +29,7 @@ html = """
 </html>
 """
 
-CSS= """
-@charset "UTF-8";
+CSS= """@charset "UTF-8";
 
 header {
     background-color: #333; /* ヘッダーの背景色を設定 */
