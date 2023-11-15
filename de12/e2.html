@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="jp">
+    <head>
+        <meta charset="UTF-8">
+        <title>my-page</title>
+        <link rel="stylesheet" href="./css/e2.css">
+        <link rel="shortcut icon" href="./images/xbp.ico">
+    </head>
+    <body>
+        <main>      
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">XBP</a></li>
+                        <li><a href="../de12/index.html">デザイン演習Ⅰ・Ⅱ</a></li>
+                        <li><a href="../digi_fab/index.html">デジタルファブリケーション</a></li>
+                        <li><a href="../digi_fab/Other object.html">その他</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <h1>CSSについて</h1>
+            <h2>CSSとは？</h2>
+            <div class="box">
+                <p>CSSとは「Cascading Style Sheets」の略で、文書の見た目を装飾するための言語です。CSSファイルを保存するときの拡張子は「.css」です。</p>
+                <p>試しにCSSを切ってみると違いがわかると思います。すごい白紙のようになります。</p>
+            </div>
+
+            <h2>CSSを適用させる方法</h2>
+            <div class="box">
+                <p>CSSを適用させる方法はいくつかあります。1つ目はheadタグ内でcssファイルを読み込ませる方法です。その場合以下のように書きます。</p>
+                <code>
+                    <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                        <li style="background-color:#EFF;">&lt;link rel="stylesheet" href="./css/○○.css"&gt;</li>
+                    </ol>
+                </code>
+                <p>個人的にこれが1番多い気がします。その理由も大方ついていて、例えばXBP.cssというファイル1つさえあれば複数のhtmlに読み込ませることができ、一括でファイル管理ができるからです。</p>
+                <p>2つ目はCSSファイルを作らずにheadタグ内にstyleタグを使って直接書き込む方法です。これは他のHTMLに反映されないので私は特定のページだけを変えたいときに使ってます。</p>
+                <p>3つ目はタグ内に直接書き込む方法です。これは手間がかかりますがここのh1タグだけデザインを変えたい!というときに使えます。</p>
+            </div>
+
+            <h2>CSSの文法</h2>
+            <div class="box">
+                <p>CSSにも文法というものがあります。以下を例に見てみます。</p>
+                <p>h1 { color : red ; }</p>
+                <p>これがCSSの基本文法です。これはh1タグの色を赤にする指示です。まずh1がセレクターというもので変更する対象を指定します。他にもidやclassを指定できたり応用するとolタグ内のliタグやid,classを指定することができます。</p>
+                <p>次にプロパティーです。これはなにを変えるかです。この例文の場合は色を選択しています。他にもサイズや余白なども変えられます。最後に：を打っておきます。</p>
+                <p>最後は値です。これはプロパティーを何に変えるかを指示します。ここではわかりやすくredとしていますが#をつけて16進数で選ぶこともできます。なんならそのほうが多いです。これは最後に;を打ちます。</p>
+            </div>
+            <footer>
+                <p>Copy right 2023 Atsuki</p>
+            </footer>
+        </main>
+    </body>
+</html>
