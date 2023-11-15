@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="jp">
+    <head>
+        <meta charset="UTF-8">
+        <title>CSSのプロパティー</title>
+        <link rel="stylesheet" href="./css/e3.css">
+        <link rel="shortcut icon" href="./images/xbp.ico">
+    </head>
+    <body>
+        <main>      
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">XBP</a></li>
+                        <li><a href="../de12/index.html">デザイン演習Ⅰ・Ⅱ</a></li>
+                        <li><a href="../digi_fab/index.html">デジタルファブリケーション</a></li>
+                        <li><a href="../digi_fab/Other object.html">その他</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <h1>CSSのプロパティー</h1>
+            <h2>フォント系</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>プロパティー名</th>
+                        <th>説明</th>
+                        <th>指定方法</th>
+                        <th>説明</th>
+                    </tr>
+                    <tr>
+                        <td>font-size</td>
+                        <td>フォントの大きさを変える</td>
+                        <td>数値</td>
+                        <td>入力した数値に単位をつける。主にpx</td>
+                    </tr>
+                    <tr>
+                        <td>fomt-family</td>
+                        <td>フォントの変更をする。</td>
+                        <td>フォント名</td>
+                        <td>フォントの名前を記述。日本語名やフォント名にスペースが含まれる場合は’や”で囲う。</td>
+                    </tr>
+                    <tr>
+                        <td>font-weight</td>
+                        <td>フォントの太さを変える</td>
+                        <td>数値</td>
+                        <td>1～1000の任意の数字</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">line-height</td>
+                        <td rowspan="3">行の高さの変更</td>
+                        <td>normal</td>
+                        <td>ブラウザーが判断した行の高さで表示</td>
+                    </tr>
+                    <tr>
+                        <td>数値（単位なし）</td>
+                        <td>フォントサイズとの比率で指定</td>
+                    </tr>
+                    <tr>
+                        <td>数値（単位あり）</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">text-align</td>
+                        <td rowspan="4">文章をそろえる</td>
+                        <td>left</td>
+                        <td>左揃え</td>
+                    </tr>
+                    <tr>
+                        <td>right</td>
+                        <td>右揃え</td>
+                    </tr>
+                    <tr>
+                        <td>center</td>
+                        <td>中央揃え</td>
+                    </tr>
+                    <tr>
+                        <td>justify</td>
+                        <td>両端揃え</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="box">
+                <p>フォントの指定はWEBフォントを使うという手もあり、google fontのページに飛べばすぐにできます。</p>
+            </div>
+
+            <h2>背景関連</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>プロパティー名
+            </th>
+                        <th>説明</th>
+                        <th>指定方法</th>
+                        <th>説明</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">color</td>
+                        <td rowspan="3">文字色の変更</td>
+                        <td>カラーコード</td>
+                        <td>#から始まる3桁か6桁のカラーコードを指定。</td>
+                    </tr>
+                    <tr>
+                        <td>色の名前</td>
+                        <td>redやblueなどの決められた色の名前を指定</td>
+                    </tr>
+                    <tr>
+                        <td>RGB値</td>
+                        <td>RGBの順で書き込む。,で区切って指定。</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">background-color</td>
+                        <td rowspan="3">背景色の変更</td>
+                        <td>カラーコード</td>
+                        <td>#から始まる3桁か6桁のカラーコードを指定。</td>
+                    </tr>
+                    <tr>
+                        <td>色の名前</td>
+                        <td>redやblueなどの決められた色の名前を指定</td>
+                    </tr>
+                    <tr>
+                        <td>RGB値</td>
+                        <td>RGBの順で書き込む。,で区切って指定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">background-image</td>
+                        <td rowspan="2">背景に画像を設置</td>
+                        <td>url
+            </td>
+                        <td>画像ファイルの指定</td>
+                    </tr>
+                    <tr>
+                        <td>none
+            </td>
+                        <td>背景画像を表示しない</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">background-repeat</td>
+                        <td rowspan="4">背景画像の繰り返し表示。</td>
+                        <td>repeats</td>
+                        <td>縦横に繰り返して表示</td>
+                    </tr>
+                    <tr>
+                        <td>repeat-x</td>
+                        <td>横に繰り返して表示</td>
+                    </tr>
+                    <tr>
+                        <td>repeat-Y</td>
+                        <td>縦に繰り返して表示</td>
+                    </tr>
+                    <tr>
+                        <td>no-repeat</td>
+                        <td>繰り返さない</td>
+                    </tr>
+                    <tr>
+                        <td>background-size</td>
+                        <td>背景画像の大きさを指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>background-position</td>
+                        <td>表示する位置を指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>その他</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>プロパティー名</th>
+                        <th>説明</th>
+                        <th>指定方法</th>
+                        <th>方法</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">width/height</td>
+                        <td rowspan="2">幅/高さのサイズを指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            
+            <footer>
+                <p>Copy right 2023 Atsuki</p>
+            </footer>
+        </main>
+    </body>
+</html>
