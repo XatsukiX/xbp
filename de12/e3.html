@@ -20,7 +20,7 @@
             </header>
 
             <h1>CSSのプロパティー</h1>
-            <h2>フォント系</h2>
+            <h2>文字の装飾</h2>
             <table>
                 <tbody>
                     <tr>
@@ -79,21 +79,33 @@
                         <td>justify</td>
                         <td>両端揃え</td>
                     </tr>
-                </tbody>
-            </table>
-            <div class="box">
-                <p>フォントの指定はWEBフォントを使うという手もあり、google fontのページに飛べばすぐにできます。</p>
-            </div>
-
-            <h2>背景関連</h2>
-            <table>
-                <tbody>
                     <tr>
-                        <th>プロパティー名
-            </th>
-                        <th>説明</th>
-                        <th>指定方法</th>
-                        <th>説明</th>
+                        <td rowspan="5">text-decoration</td>
+                        <td rowspan="5">テキストに飾りをつける</td>
+                        <td>none</td>
+                        <td>飾りなし</td>
+                    </tr>
+                    <tr>
+                        <td>underline</td>
+                        <td>下線をつける</td>
+                    </tr>
+                    <tr>
+                        <td>overline</td>
+                        <td>上線をつける</td>
+                    </tr>
+                    <tr>
+                        <td>line-throgh</td>
+                        <td>打消し線</td>
+                    </tr>
+                    <tr>
+                        <td>blink</td>
+                        <td>点滅</td>
+                    </tr>
+                    <tr>
+                        <td>letter-spacing</td>
+                        <td>文字の間隔を指定</td>
+                        <td>数値</td>
+                        <td>入力した数値に単位をつける。</td>
                     </tr>
                     <tr>
                         <td rowspan="3">color</td>
@@ -110,6 +122,21 @@
                         <td>RGBの順で書き込む。,で区切って指定。</td>
                     </tr>
                     <tr>
+                </tbody>
+            </table>
+            <div class="box">
+                <p>フォントの指定はWEBフォントを使うという手もあり、google fontのページに飛べばすぐにできます。</p>
+            </div>
+
+            <h2>背景関連</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>プロパティー名</th>
+                        <th>説明</th>
+                        <th>指定方法</th>
+                        <th>説明</th>
+                    </tr>
                         <td rowspan="3">background-color</td>
                         <td rowspan="3">背景色の変更</td>
                         <td>カラーコード</td>
@@ -168,7 +195,7 @@
                 </tbody>
             </table>
 
-            <h2>その他</h2>
+            <h2>高さ・幅</h2>
             <table>
                 <tbody>
                     <tr>
@@ -178,8 +205,134 @@
                         <th>方法</th>
                     </tr>
                     <tr>
-                        <td rowspan="2">width/height</td>
-                        <td rowspan="2">幅/高さのサイズを指定</td>
+                        <td rowspan="2">width</td>
+                        <td rowspan="2">幅のサイズを指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">height</td>
+                        <td rowspan="2">高さのサイズを指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            
+            <h2>余白</h2>
+
+
+
+            <table>
+                <tbody>
+                    <tr>
+                        <th>プロパティー名</th>
+                        <th>説明</th>
+                        <th>指定方法</th>
+                        <th>説明</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">margin</td>
+                        <td rowspan="2">要素の外側の余白を指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">margin-top</td>
+                        <td rowspan="2">要素の外側・上部分の余白を指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">margin-bottom</td>
+                        <td rowspan="2">要素の外側・下部分の余白を指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">margin-left</td>
+                        <td rowspan="2">要素の外側・左部分の余白を指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">margin-right</td>
+                        <td rowspan="2">要素の外側・右部分の余白を指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">padding</td>
+                        <td rowspan="2">要素の内側の余白を指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">padding-top</td>
+                        <td rowspan="2">要素の内側・上部分の余白を指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">padding-bottom</td>
+                        <td rowspan="2">要素の内側・下部分の余白を指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">padding-left</td>
+                        <td rowspan="2">要素の内側・左部分の余白を指定</td>
+                        <td>数値</td>
+                        <td>単位で数値を指定。</td>
+                    </tr>
+                    <tr>
+                        <td>auto</td>
+                        <td>関連するプロパティーの値によって自動設定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">padding-right</td>
+                        <td rowspan="2">要素の内側・右部分の余白を指定</td>
                         <td>数値</td>
                         <td>単位で数値を指定。</td>
                     </tr>
@@ -189,6 +342,132 @@
                     </tr>
                 </tbody>
             </table>
+            <img src="" alt="">
+            <!--説明画像を挿入-->
+
+            <h2>margin/paddingの書き方</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>書き方</th>
+                        <th>例</th>
+                    </tr>
+                    <tr>
+                        <td>margin: 4辺;</td>
+                        <td>margin: 10px;</td>
+                    </tr>
+                    <tr>
+                        <td>margin: 上下 左右;</td>
+                        <td>margin: 10px 20px;</td>
+                    </tr>
+                    <tr>
+                        <td>margin: 上 左右 下;</td>
+                        <td>margin: 10px 20px 30px;</td>
+                    </tr>
+                    <tr>
+                        <td>margin: 上 右 下 左;</td>
+                        <td>margin: 10px 20px 30px 40px;</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>線</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>プロパティー名</th>
+                        <th>用途</th>
+                        <th>指定方法</th>
+                        <th>説明</th>
+                    </tr>
+                    <tr>
+                        <td>border-width</td>
+                        <td>線の太さを指定</td>
+                        <td>数値</td>
+                        <td>数値に単位をつけて指定</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="9">border-style</td>
+                        <td rowspan="9">線の種類を指定</td>
+                        <td>none</td>
+                        <td>線を非表示</td>
+                    </tr>
+                    <tr>
+                        <td>solid</td>
+                        <td>1本の実線</td>
+                    </tr>
+                    <tr>
+                        <td>double</td>
+                        <td>2本の実線</td>
+                    </tr>
+                    <tr>
+                        <td>dashed</td>
+                        <td>破線</td>
+                    </tr>
+                    <tr>
+                        <td>dotted</td>
+                        <td>点線</td>
+                    </tr>
+                    <tr>
+                        <td>groove</td>
+                        <td>立体的な谷型の線</td>
+                    </tr>
+                    <tr>
+                        <td>ridge</td>
+                        <td>立体的な山形の線</td>
+                    </tr>
+                    <tr>
+                        <td>inset</td>
+                        <td>囲まれた部分が凹んで見える立体的な線</td>
+                    </tr>
+                    <tr>
+                        <td>outset</td>
+                        <td>囲まれた部分が浮き上がって見える立体的な線</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">border-color</td>
+                        <td rowspan="2">背景色の変更</td>
+                        <td>カラーコード</td>
+                        <td>#から始まる3桁か6桁のカラーコードを指定。</td>
+                    </tr>
+                    <tr>
+                        <td>色の名前</td>
+                        <td>redやblueなどの決められた色の名前を指定</td>
+                    </tr>
+                    <tr>
+                        <td>border</td>
+                        <td>線に関するプロパティーをまとめて指定</td>
+                        <td>プロパティー</td>
+                        <td>border-width,border-style,border-colorの値を指定</td>
+                    </tr>
+                    <tr>
+                        <td>border-top</td>
+                        <td>要素上部の線に関するプロパティーをまとめて指定</td>
+                        <td>プロパティー</td>
+                        <td>border-width,border-style,border-colorの値を指定</td>
+                    </tr>
+                    <tr>
+                        <td>border-bottom</td>
+                        <td>要素下部の線に関するプロパティーをまとめて指定</td>
+                        <td>プロパティー</td>
+                        <td>border-width,border-style,border-colorの値を指定</td>
+                    </tr>
+                    <tr>
+                        <td>border-left</td>
+                        <td>要素左の線に関するプロパティーをまとめて指定</td>
+                        <td>プロパティー</td>
+                        <td>border-width,border-style,border-colorの値を指定</td>
+                    </tr>
+                    <tr>
+                        <td>border-right</td>
+                        <td>要素右の線に関するプロパティーをまとめて指定</td>
+                        <td>プロパティー</td>
+                        <td>border-width,border-style,border-colorの値を指定</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            つづきp172~
 
             
             <footer>
