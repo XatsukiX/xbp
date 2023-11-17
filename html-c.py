@@ -21,6 +21,10 @@ html = """<!DOCTYPE html>
 
             <h1>見出しを入力</h1>
             <p> 文章を入力</p>
+
+            <br>
+            <button class="button-030"><a href="./e3.html">TOPへ</a></button>
+            <br>
             <footer>
                 <p>Copy right 2023 Atsuki</p>
             </footer>
@@ -128,6 +132,40 @@ footer {
     margin-right: 10px;
     list-style: none;
     margin: 0 20px;
+    }
+
+    a{
+        text-align: center;
+        font-size: 20px;
+        color: #000000;
+    }
+
+    .button-030 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 250px;
+        margin:0 auto;
+        padding: .9em 2em;
+        border: 1px solid #2589d0;
+        border-radius: 25px;
+        background-color: #2589d0;
+        color: #2589d0;
+        font-size: 1em;
+    }
+    
+    .button-030:hover {
+        animation: anima-button-030 1s;
+    }
+    
+    @keyframes anima-button-030 {
+        0% {
+            box-shadow: 0 0 0 0 rgb(37 137 208 / 50%);
+        }
+        100% {
+            box-shadow: 0 0 0 1.2em rgb(0 0 0 / 0%);
+        }
     }
 
 
