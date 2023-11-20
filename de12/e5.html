@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="jp">
+    <head>
+        <meta charset="UTF-8">
+        <title>プログラミング言語"Python"について</title>
+        <link rel="stylesheet" href="./css/e5.css">
+        <link rel="shortcut icon" href="./images/xbp.ico">
+    </head>
+    <body>
+        <main>      
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">XBP</a></li>
+                        <li><a href="../de12/index.html">デザイン演習Ⅰ・Ⅱ</a></li>
+                        <li><a href="../digi_fab/index.html">デジタルファブリケーション</a></li>
+                        <li><a href="../digi_fab/Other object.html">その他</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <h1>プログラミング言語"Python"について</h1>
+            <h2>pythonとは？</h2>
+            <div class="box">
+                <p>PythonはWeb開発やデータ分析など、さまざまな分野に使える汎用性の高い言語です。なかでも、「人工知能(AI)」をはじめとした先端技術の開発で人気が高く、話題の「ChatGPT」もPythonで開発されています。</p>
+            </div>
+
+            <h2>pythonの基本文法</h2>
+            <div class="box">
+                <p>pythonで文字列を出力する場合、.pyファイルに以下のように入力します。文字列は"で囲います。また#をつけるとプログラムに影響しないコメントをつけることができます。</p>
+            </div>
+
+            <pre class="sourse">print("Hello,world")
+                <br>
+                <br>#出力結果
+                <br>Hello,world
+            </pre>
+
+            <h2>変数について</h2>
+            <div class="box">
+                <p>pythonには変数という機能が実装されており、プログラミングにおいて、データを一時的に保存する箱が変数になります。変数はまず宣言を行い、宣言した変数に対して値の代入を行います。</p>
+            </div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>入力</th>
+                        <th>名前</th>
+                        <th>説明</th>
+                    </tr>
+                    <tr>
+                        <td>+,-,*,/</td>
+                        <td>四則演算</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>%</td>
+                        <td>余剰</td>
+                        <td>余りを出す計算</td>
+                    </tr>
+                    <tr>
+                        <td>//</td>
+                        <td>除算</td>
+                        <td>/と//では意味が変わってきます。</td>
+                    </tr>
+                    <tr>
+                        <td>**</td>
+                        <td>べき乗</td>
+                        <td>3乗とかできます。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <pre class="sourse">num1 = 100
+               <br>num2 = 200
+               <br>
+               <br> print("num1=",num1)
+               <br>print("num2=",num2)
+               <br>print(num1 + num2)
+               <br>
+               <br>#出力結果
+               <br>num1= 100
+               <br>num2= 200
+               <br>300
+            </pre>
+
+            <h2>条件分岐（if文）</h2>
+            <div class="box">
+                <p>条件分岐とは仮に質問があったとしてそれをYes,Noで処理を分岐させることができます。</p>
+                <p>例はinput関数と一緒に紹介します。</p>
+            </div>
+
+            <h2>input関数</h2>
+            <div class="box">
+                <p>input関数を使うと変数を指定することができます。前述したif文と合わせて使ってみます。このままではageが数字ではなく文字として認識されるのでinputの前に数字へ変換するinitを入力します。小数点まで認識させたい場合はfloatを使います。</p>
+            </div>
+            <pre class="sourse">
+                <br>age = int(input("年齢を入力してください"))
+                <br> if age > 18:
+                <br>    print("あなたは成人です")
+                <br>else:
+                <br>    print("あなたは未成年です")
+                <br>
+                <br>#19と入力した場合の出力結果
+                <br>あなたは成人です。
+            </pre>
+
+            <h2>ループ処理（For文）</h2>
+            <div class="box">
+                <p>for文は決まった回数分処理を繰り返したい場合に使用します。スタート位置も指定できます。たとえば、表示を1から3で処理を3回繰り返したい場合は以下のように記述します。</p>
+            </div>
+
+            <pre class="sourse">
+                <br>#()内で1~4未満を選択
+                <br>for i in range(1,4):
+                <br>  print(i)
+                <br>
+                <br>#出力結果
+                <br>1
+                <br>2
+                <br>3
+            </pre>
+
+            <h2>ループ文（While文）</h2>
+            <div class="box">
+                <p>ループ処理にはもう１種類あり、それがwhile文です。これは条件があっているときに繰り返しの処理を行います。</p>
+            </div>
+
+            <pre class="sourse">
+                <br>i = 0
+                <br>while i < 5:
+                <br>print(i)
+                <br>i= i+1
+                <br>
+                <br>#出力結果
+                <br>1
+                <br>2
+                <br>3
+                <br>4
+            </pre> 
+
+            <h2>辞書の使い方</h2>
+            <div class="box">
+                <p>辞書（dictionary）型はキーと値を組み合わせた値が格納されているデータのことです。キーの中に値があります。ソースはこんな感じ</p>
+            </div>
+            
+            <pre class="sourse">
+                <br>key = {"black":000000,"white":ffffff,"red":ff0000}
+                <br>
+                <br>print(key["black"])
+                <br>print(key["white"])
+                <br>print(key["red"])
+                <br>
+                <br>#出力結果
+                <br>000000
+                <br>ffffff
+                <br>ff0000
+            </pre>
+            
+
+            <br>
+            <button class="button-030"><a href="./e3.html">TOPへ</a></button>
+            <br>
+            <footer>
+                <p>Copy right 2023 Atsuki</p>
+            </footer>
+        </main>
+    </body>
+</html>
