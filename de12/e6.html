@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="jp">
+    <head>
+        <meta charset="UTF-8">
+        <title>pythonの公開ライブラリについてmy-page</title>
+        <link rel="stylesheet" href="./css/e6.css">
+        <link rel="shortcut icon" href="./images/xbp.ico">
+    </head>
+    <body>
+        <main>      
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="../index.html">XBP</a></li>
+                        <li><a href="../de12/index.html">デザイン演習Ⅰ・Ⅱ</a></li>
+                        <li><a href="../digi_fab/index.html">デジタルファブリケーション</a></li>
+                        <li><a href="../digi_fab/Other object.html">その他</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <h1>pythonの公開ライブラリについて</h1>
+            <h2>ライブラリとは？</h2>
+            <div class="box">
+                <p>Pythonのライブラリとは、Pythonで開発を行うにあたって良く使われる関数やパッケージがまとめられたものを言います。インターネットからダウンロードして使うものであり、ライブラリを活用することで、クラスなどを1から作らなくても簡単に関数を呼び出して開発に取り組めます</p>
+            </div>
+
+            <h2>ライブラリのインストール方法</h2>
+            <div class="box">
+                <p>Pythonには最初から組み込まれている標準ライブラリと、pipというライブラリ管理ソフトを用いてインターネットからダウンロードする外部ライブラリがあります。Python開発で頻繁に使われるようなライブラリは標準ライブラリに組み込まれているので、まずPythonのライブラリを使いたいと思ったら、使いたいライブラリが標準ライブラリにあるか確認するところから始めましょう。</p>
+                <p>無かった場合はコマンドプロンプトを経由してインストールします。（この時pipを最新verにしましょう。pip install -U pipと打てばアップデートできます。）コマンドプロンプト上でpip install ○○でライブラリをインストールできます。</p>
+            </div>
+
+            <h2>ライブラリの使い方</h2>
+            <div class="box">
+                <p>プログラム上でライブラリを使用する場合は下記のようにimport ○○のように記述して使います。その下にまたプログラムを書くのですがライブラリごとに違うので調べてみてください。例のプログラムは0～31をランダムで生成するものです。</p>
+            </div>
+
+            <pre class="sourse">
+                <br>import random
+                <br>for i in range(1,7):
+                <br>    a = random.randint(0, 31)   
+                <br>    print(i)  
+                <br>
+                <br>#出力結果
+                <br>4
+                <br>18
+                <br>8
+                <br>31
+                <br>11
+                <br>2       
+            </pre>
+
+            <br>
+            <button class="button-030"><a href="./e3.html">TOPへ</a></button>
+            <br>
+            <footer>
+                <p>Copy right 2023 Atsuki</p>
+            </footer>
+        </main>
+    </body>
+</html>
