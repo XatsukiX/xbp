@@ -64,7 +64,6 @@ footer {
 }
 
 .box{
-    max-width: 1000px;
     position: relative;
     background-color: #ffffff;
     margin: 1em auto;
@@ -134,61 +133,4 @@ footer {
         }
     }
 
-    h1 {
-        text-align: center;
-        max-width: 400px;
-        display: flex;
-        align-items: center;
-        position: relative;
-        margin:  0 auto;
-        padding: 1.1em 1.4em 1.1em 1em;
-        background-color: #b3b3b3;
-        color: #fff;
-    }
-    
-    h1::before {
-        position: absolute;
-        left: 5px;
-        width: calc(100% - 10px);
-        height: 65%;
-        border-top: 10px dashed #fff;
-        border-bottom: 10px dashed #fff;
-        content: '';
-    }
 
-    h2 {
-        position: relative;
-        color: #333333;
-        -webkit-box-reflect: below -10px -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .5));
-    }
-    
-    h2:first-letter {
-        color: #2589d0;
-        font-size: 2em;
-    }
-    .download {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-width: 250px;
-        margin: 0 auto;
-        padding: .9em 2em;
-        border: none;
-        border-radius: 5px;
-        background-color: #2589d0;
-        color: #fff;
-        font-weight: 600;
-        font-size: 1em;
-    }
-    
-    .download:hover {
-        background-color: 2589d0;
-    }
-    
-    .download::before {
-        width: 1em;
-        height: 1em;
-        margin-right: 10px;
-        background: url('data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M15.6%208.4V1.2H8.4v7.198h-6l9.6%209.6%209.6-9.6h-6zM0%2020.4h24v2.4H0v-2.4z%22%20fill%3D%22%23fff%22%2F%3E%3C%2Fsvg%3E') no-repeat center;
-        content: '';
-    }
