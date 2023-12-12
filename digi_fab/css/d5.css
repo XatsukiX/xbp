@@ -32,14 +32,17 @@ main{
     padding: 1em 1.5em;
     border-left: 4px solid #d6dde3;
     color: #333333;
+    text-align: right;
 }
 
 .quote-001:has(cite) {
     padding-bottom: .5em;
+    text-align: right;
 }
 
 .quote-001 p {
     margin-top: 0;
+    text-align: left;
 }
 
 .quote-001 p:last-of-type {
