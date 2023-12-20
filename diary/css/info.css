@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.twitter{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #FFF;
+    background: #6eb7ff;
+    border-bottom: solid 6px #3f87ce;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 9px;
+    min-width: 600px;
+    max-width: 600px;
+}
+.twitter p {
+    margin: 0; 
+    padding: 0;
+}
+
+.instagram{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #FFF;
+    background: #ff6ee7;
+    border-bottom: solid 6px #ce3fa3;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 9px;
+    min-width: 600px;
+    max-width: 600px;
+}
+.instagram p {
+    margin: 0; 
+    padding: 0;
+}
+
+.friend-code{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #FFF;
+    background: grey;
+    border-bottom: solid 6px black;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 9px;
+    min-width: 600px;
+    max-width: 600px;
+}
+.friend-code p {
+    margin: 0; 
+    padding: 0;
+}
+
+.person{
+    padding: 0.5em 1em;
+    margin: 2em 0;
+    color: #FFF;
+    background: grey;
+    border-bottom: solid 6px black;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 9px;
+    min-width: 600px;
+    max-width: 600px;
+}
+.person p {
+    margin: 0; 
+    padding: 0;
+}
+
+.wrapping{
+    display: flex;
+    justify-content: space-around;
+}
