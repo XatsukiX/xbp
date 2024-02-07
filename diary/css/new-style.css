@@ -1,14 +1,5 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: skyblue;
-    color: #fff;
+header{
     text-align: center;
-    padding: 20px;
 }
 
 nav ul{
@@ -34,27 +25,23 @@ nav ul{
     padding: 20px;
   }
 
+  main{
+    background-color: skyblue;
+  }
 
-
-main {
-    padding: 20px;
-}
-
-article {
-    background-color: grey;
-    margin-bottom: 40px;
-    max-width: 400px;
-    min-width: 400px;
-}
-
-article img{
-    margin-left: 20px;
-    margin-bottom: 20px;
-    max-height: 200px;
+  img{
+    min-width: 600px;
     max-width: 600px;
-}
+  }
 
-footer {
+  button{
+    text-align: center;
+    margin-left: 600px;
+    min-width: 200px;
+    min-height: 30px;
+  }
+
+  footer {
     background-color: skyblue;
     color: #fff;
     text-align: center;
@@ -62,9 +49,4 @@ footer {
     position: fixed;
     bottom: 0;
     width: 100%;
-}
-
-.wrapping{
-    display: flex;
-    justify-content: space-around;
 }
