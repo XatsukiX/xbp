@@ -68,3 +68,18 @@ footer {
     display: flex;
     justify-content: space-around;
 }
+
+@media screen and (max-width: 480px){
+    article{
+    min-width: 90px;
+    max-width: 90px;
+    margin:10px; font-size: 100%; 
+    padding: 20px;
+    }
+
+    article img{
+        margin: 0 auto;
+        max-height: 200px;
+        max-width: 100px;
+    }
+  }
