@@ -171,7 +171,6 @@ footer {
 
 """
 
-#my-page.(拡張子)を作るよって指示。これでHTMLとCSSが自動で生成される。
 with open("my-page.html", "w", encoding="utf-8") as f:
     f.write(html)
 
