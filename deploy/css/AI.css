@@ -1,14 +1,16 @@
 @charset "UTF-8";
 
+/*p{
+    font-size: 20px;
+}*/
+
 header {
     background-color: #00ccff; /* ヘッダーの背景色を設定 */
     color: white; /* ヘッダーテキストの色を設定 */
     padding: 20px; /* ヘッダー内の余白を設定 */
 }
 
-
-
-#nav {
+  #nav {
     list-style: none;
     overflow: hidden;
   }
@@ -34,26 +36,6 @@ main{
     background-color: dodgerblue;
 }
 
-.quote-001 {
-    max-width: 500px;
-    background-color: #ffffff;
-    padding: 1em 1.5em;
-    border-left: 4px solid #d6dde3;
-    color: #333333;
-}
-
-.quote-001:has(cite) {
-    padding-bottom: .5em;
-}
-
-.quote-001 p {
-    margin-top: 0;
-}
-
-.quote-001 p:last-of-type {
-   margin-bottom: 0;
-}
-
 /* フッタースタイル */
 footer {
     text-align: center; /* テキストを中央に配置 */
@@ -70,42 +52,6 @@ footer {
     list-style: none;
 
 }
-
-.box{
-    position: relative;
-    background-color: #ffffff;
-    margin: 1em auto;
-    padding: 1em 1.5em;
-    border: 2px solid #2589d0;
-    border-radius: 3px;
-    color: #333;
-}
-
-.box::before {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    border-radius: 3px;
-    background-color: #2589d0;
-    color: #fff;
-    font-weight: 600;
-    content: attr(data-number);
-}
-
-.sns-button {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    }
-
-.sns-button li {
-    width: 30px;
-    margin-left: 10px;
-    margin-right: 10px;
-    list-style: none;
-    margin: 0 20px;
-    }
 
     a{
         text-align: center;
@@ -147,20 +93,9 @@ footer {
         }
     }
 
-    .logo img{
-        max-width: 1300px;
-    }
-
-    article{
-        background: #165e83; 
-        box-shadow: #165e83 0 0 10px 10px; 
-        margin:10px; font-size: 100%; 
-        padding: 20px;
-    }
-
-    .article{
-        background: #007F89; 
-        box-shadow: #007F89 0 0 10px 10px; 
+    .text{
+        background: blue; 
+        box-shadow: blue 0 0 10px 10px; 
         margin:10px; font-size: 100%; 
         padding: 20px;
     }

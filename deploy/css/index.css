@@ -8,7 +8,30 @@ header {
 
 
 
-#nav {
+#AI {
+    list-style: none;
+    overflow: hidden;
+  }
+   
+  #AI li {
+    list-style: none;
+    width: 400px;
+    text-align: center;
+    background-color: blue;
+    float: left;
+    
+    line-height: 45px;
+    margin-right: 2px;
+  }
+   
+  #AI li a {
+    text-decoration: white;
+    color: #fff;
+    font-weight: bold;
+    padding: 20px;
+  }
+
+  #nav {
     list-style: none;
     overflow: hidden;
   }
