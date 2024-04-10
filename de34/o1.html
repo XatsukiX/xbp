@@ -23,8 +23,204 @@
         </ul>
       </header>
 
-      <h1>マイコンについて</h1>
+      <div class="box">
+        <h1>マイコンについて</h1>
+        <p >
+          マイクロコントローラ通称マイコンとは冷蔵庫や洗濯機などの電子機器に組み込まれた電子機器を制御するための電子部品。
+          マイクロコントローラという名称のほかにMCU（Micro Controller Unit）、マイクロコンピュータとも呼ばれている。
+        </p>
+      </div>
 
+      <div class="box">
+        <h1>電子部品の説明</h1>
+        <table>
+          <tbody>
+            <tr>
+              <th>名前</th>
+              <th>目的</th>
+            </tr>
+            <tr>
+              <td>抵抗</td>
+              <td>
+                抵抗は電気を流れにくくする電子部品。
+                流れる電気の量を制限したり調整したりすることで、
+                電子回路を適正に動作させる役割をもつ大切な部品。
+              </td>
+            </tr>
+            <tr>
+              <td>コンデンサ</td>
+              <td>
+                コンデンサは電気を蓄えたり放出したりする電子部品。
+                直流を通さないで絶縁するはたらきもあります。
+                電子回路では必ず使うと言って良いほど、
+                電子機器に欠かせない部品
+              </td>
+            </tr>
+            <tr>
+              <td>トランジスタ</td>
+              <td>
+                トランジスタは電気の流れをコントロールする部品。
+                半導体でできた能動部品の代表と言われるぐらいとても重要な部品で、
+                いろんな電子回路で活躍している。
+              </td>
+            </tr>
+            <tr>
+              <td>ダイオード</td>
+              <td>
+                ダイオードは、電気の流れを一方通行にする部品。
+                トランジスタやICなどと同じ仲間で、能動部品と呼ばれる。
+                半導体を用いた基本的な部品。
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="box">
+        <h1>Inputデバイス</h1>
+        <ul>
+          <li>スイッチ</li>
+          <li>明るさセンサー</li>
+          <li>温度センサー</li>
+          <li>湿度センサー</li>
+          <li>カラーセンサー</li>
+          <li>ジャイロセンサー</li>
+          <li>GPS</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h1>Outputデバイス</h1>
+        <ul>
+          <li>モーター</li>
+          <li>LED</li>
+          <li>ディスプレイ</li>
+        </ul>
+      </div>
+
+      <div class="box">
+        <h1>LEDについて</h1>
+        <p>
+          LEDを使ったプログラムを組んでみる。LEDは長い方が+（アノード）で短い方が-（カソード）と呼ばれる。
+          早速LEDのアノードを13番にカソードをGNDに接続し、以下のプログラムをArduinoに記述し、書き込む。
+          すると0.5秒おきに点灯、消灯を繰り返すようになる。</p>
+          <code>
+            <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+            <li style="background-color:#EFF;">void setup() {</li>
+            <li style="background-color:#EEF;">&nbsp;&nbsp;// put your setup code here, to run once:</li>
+            <li style="background-color:#EFF;">&nbsp;&nbsp;pinMode(13,OUTPUT);</li>
+            <li style="background-color:#EEF;">}</li>
+            <li style="background-color:#EFF;"></li>
+            <li style="background-color:#EEF;">void loop() {</li>
+            <li style="background-color:#EFF;">&nbsp;&nbsp;// put your main code here, to run repeatedly:</li>
+            <li style="background-color:#EEF;">&nbsp;&nbsp;digitalWrite(13,HIGH);</li>
+            <li style="background-color:#EFF;">&nbsp;&nbsp;delay(500);</li>
+            <li style="background-color:#EEF;">&nbsp;&nbsp;digitalWrite(13,LOW);</li>
+            <li style="background-color:#EFF;">&nbsp;&nbsp;delay(500);</li>
+            <li style="background-color:#EEF;"></li>
+            <li style="background-color:#EFF;">}</li>
+            <li style="background-color:#EEF;"></li>
+            </ol></code>
+      </div>
+
+      <div class="box">
+        <h1>プログラムのルール</h1>
+        <p>
+          まずArduinoではプログラムの最後に；がつく。またsetupとloopがあるがsetupは最初に一回だけ実行されるプログラムであり、loopは
+          ずっと繰り返し実行されるプログラムとなる。最初のpinmodeは定したピンを入力用に使うのか、出力用に使うのかを設定する構文。
+          今回はLEDを点灯させるために13番ピンから電気を流したい（出力したい）ので、pinMode(13,OUTPUT);と記述する。digitalWriteは
+          デジタルピンの出力をLOWかHIGHで設定する。Lowだと消え、Highだと点灯する。delayは指定された時間を待つ命令。単位はミリ秒となる。
+          1000にすると1秒待つことになる。
+        </p>
+      </div>
+
+      <div class="box">
+        <h1>For構文</h1>
+        <p>
+          for文は波カッコに囲まれたブロックを繰り返し実行する。さまざまな繰り返し処理に活用でき、データやピンの配列と組み合わせて使われることがある。
+          まず初期化が一度だけ行われる。処理が繰り返されるたびに条件式がテストされ、trueならば波カッコ内の処理が実行され、加算が行われる。次に条件式が
+          テストされたときにfalseならば、そこでループは終了。構文は以下の通り。
+        </p>
+        <br>
+        <strong>for (初期化; 条件式; 加算) {
+          <br>// 実行される文 ;
+         <br> }</strong>
+
+          <br>
+         <code>
+          <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+          <li style="background-color:#EFF;">void setup() {</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;// put your setup code here, to run once:</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;pinMode(13,OUTPUT);</li>
+          <li style="background-color:#EEF;">}</li>
+          <li style="background-color:#EFF;"></li>
+          <li style="background-color:#EEF;">void loop() {</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;// put your main code here, to run repeatedly:</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;for(int i=0; i &lt; 10; i++){</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(13,HIGH);</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;delay(300);</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(13,LOW);</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;delay(300);</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;}</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;for(int i=0; i &lt; 3; i++){</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(13,HIGH);</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;delay(2000);</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(13,LOW);</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;delay(2000);</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+          <li style="background-color:#EFF;"></li>
+          <li style="background-color:#EEF;">}</li>
+          <li style="background-color:#EFF;"></li>
+          </ol></code>
+      </div>
+
+      <div class="box">
+        <h1>if文</h1>
+        <p>
+          if else文を使うと複数のテストをまとめることができる。elseに続けてifを書くことで、さらに複数のテストを書くことができる。
+          以下は構文例。
+        </p>
+        <br>
+        <strong>
+          if (条件1) {
+          <br>  // 動作A
+          <br>} else if (条件2) {
+          <br>  // 動作B
+          <br>} else {
+          <br>  // 動作C
+          <br>}
+        </strong>
+        <br>
+        <code>
+          <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+          <li style="background-color:#EFF;">void setup() {</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;// put your setup code here, to run once:</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;pinMode(13,OUTPUT);</li>
+          <li style="background-color:#EEF;">}</li>
+          <li style="background-color:#EFF;"></li>
+          <li style="background-color:#EEF;">void loop() {</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;// intervalという変数を作って、間隔を制御する</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;int interval=0;</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;for(int i=0; i &lt; 13; i++){</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;if(i&lt;10){</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// もしiが10より小さかったら間隔は0.3秒</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval=300;</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;}else{</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// そうじゃなかったら間隔は2秒</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval=2000;</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(13,HIGH);</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delay(interval);</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(13,LOW);</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delay(interval);</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+          <li style="background-color:#EFF;"></li>
+          <li style="background-color:#EEF;">}</li>
+          <li style="background-color:#EFF;"></li>
+          </ol></code>
+      </div>
 
       <footer>
         <p>&copy All rights reserved Atsuki</p>
