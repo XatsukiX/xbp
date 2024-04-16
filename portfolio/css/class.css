@@ -83,3 +83,34 @@ table , td, th {
     font-size: .8em;
     text-align: right;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0 8px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.pagination a {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2em;
+    height: 2em;
+    border-radius: 1px;
+    background-color: #f2f2f2;
+    color: #ff7575;
+}
+
+.pagination a:not(:hover) {
+    text-decoration: none;
+}
+
+.pagination .current a {
+    background-color: #ff7575;
+    color: #fff;
+    pointer-events: none;
+}
