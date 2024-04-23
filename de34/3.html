@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <title>loTのデータ</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="shortcut icon" href="./de12/images/xbp.ico" type="image/x-icon">
+</head>
+<body>
+    <main>
+    <h1 style="text-align: center;">loTについて</h1>
+    <div class="box">
+        <h2>loTのデータを集めてできること</h2>
+        <p>
+            以下のデータなどを集めることにより、日々私たちの暮らしや企業の運営に役立てている。（多いため一部抜粋）
+        </p>
+        <ul>
+            <li>レシート</li>
+            →企業のマーケティング
+            <li>通販（amazonや楽天）</li>
+            →ユーザーのデータからどれを一緒に買ってるか分析、購入を提案する。
+            <li>国土交通省ETCカード</li>
+            →どこの高速道が一番使われているかを分析し、どのタイミングで道路の点検を行うかを検討する。
+            <li>気象庁の天候データ</li>
+            →どの条件だとどの天気が多いかのデータを収集し、天気の予測の精度を上げる。
+            <li>トリマ</li>
+            →どの年齢、性別の人がどの経路を使って通勤、通学をしているか
+            <li>アンケート</li>
+            <li>You Tube各種機能</li>
+        </ul>
+        <img src="./img/3-post.jpg" alt="">
+    </div>
+        <h2>使用したプログラム</h2>
+    <div class="box">
+        <code>
+            <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+            <li style="background-color:#EFF;">const int sensorPin = A0;</li>
+            <li style="background-color:#EEF;">const int ledPin = 13;</li>
+            <li style="background-color:#EFF;"></li>
+            <li style="background-color:#EEF;">void setup() {</li>
+            <li style="background-color:#EFF;">&nbsp;&nbsp;pinMode(ledPin, OUTPUT);</li>
+            <li style="background-color:#EEF;">&nbsp;&nbsp;Serial.begin(9600);</li>
+            <li style="background-color:#EFF;">}</li>
+            <li style="background-color:#EEF;"></li>
+            <li style="background-color:#EFF;">void loop() {</li>
+            <li style="background-color:#EEF;">&nbsp;&nbsp;int sensorValue = analogRead(sensorPin);</li>
+            <li style="background-color:#EFF;">&nbsp;&nbsp;Serial.println(sensorValue); </li>
+            <li style="background-color:#EEF;"></li>
+            <li style="background-color:#EFF;">&nbsp;&nbsp;if (sensorValue &gt; 600) { </li>
+            <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(ledPin, HIGH); </li>
+            <li style="background-color:#EFF;">&nbsp;&nbsp;}else {</li>
+            <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(ledPin, LOW);</li>
+            <li style="background-color:#EFF;">&nbsp;&nbsp;}</li>
+            <li style="background-color:#EEF;"></li>
+            <li style="background-color:#EFF;">&nbsp;&nbsp;delay(100); </li>
+            <li style="background-color:#EEF;">}</li>
+            <li style="background-color:#EFF;"></li>
+            </ol></code>
+    </div>
+
+      <footer>
+        <p>&copy All rights reserved Atsuki</p>
+    </footer> 
+    </main>
+</body>
+</html>
