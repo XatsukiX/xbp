@@ -1,4 +1,4 @@
-html = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="jp">
 <head>
     <meta charset="UTF-8">
@@ -25,12 +25,31 @@ html = """<!DOCTYPE html>
       </header>
 
         <div class = box>
-            <h1>タイトル</h1>
             <p>
-                本文
+                私たちの班ではステッピングモーターとNeopixelを利用して２つの作品を作成しました。
             </p>
         </div>
 
+        <div class="box">
+          <h1>1.道用スロット</h1>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/2kFdXLPlZw0?si=OJsXIskms2a69kKl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          <p>Neopixelの点灯は手動です。</p>
+        </div>
+
+        <div class="box">
+          <h1>2.くるくる回る先生</h1>
+          <iframe width="324" height="575" src="https://www.youtube.com/embed/XFws0Mvh5JY" title="2024年5月13日" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+           <p>これも停止は手動です。</p>
+        </div>
+
+
+        <!--
+        <div class="box">
+          <h1>おまけ</h1>
+          <p>別音源差分です</p>
+          
+        </div>
+      -->
 
       <footer>
         <p>&copy All rights reserved Atsuki</p>
@@ -38,13 +57,4 @@ html = """<!DOCTYPE html>
     </main>
 </body>
 </html>
-
-"""
-
-
-
-
-with open("my-page.html", "w", encoding="utf-8") as f:
-    f.write(html)
-
 
