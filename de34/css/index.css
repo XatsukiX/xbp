@@ -182,3 +182,30 @@ img{
     margin:10px; font-size: 100%; 
     padding: 20px;
 }
+
+.item {
+    cursor: pointer;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #333;
+    padding: 20px;
+    background-color: white;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.popup .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
