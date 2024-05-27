@@ -484,6 +484,7 @@ footer a {text-decoration: none;}
 
 /*list内のNEWマーク*/
 .list .new {
+	color: #ffffff;
 	font-size: 0.6em;		/*文字サイズ*/
 	background: #ff0000;	/*背景色*/
 	width: 50px;			/*幅*/
