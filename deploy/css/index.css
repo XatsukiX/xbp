@@ -924,8 +924,8 @@ html, body {
 }
 /*  ↓ スライド（コンテンツ） */
 .slide { /*スライド全体 */
-  width: 300%;
   height: 100%;
+
   display: flex;
   transition: all 0.3s;
 }
