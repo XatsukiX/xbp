@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <title>XBP</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
+    <link href="../css/ress.css" media="all" rel="stylesheet" type="text/css" />
+    <link href="../css/works.css" media="all" rel="stylesheet" type="text/css" />
+  </head>
+
+<body>
+  <div class="wrapper">
+
+    <!-- header -->
+    <header class="header ">
+      <div class="container">
+        <h1 class="header-logo">
+          <a href=".">ATSUKI</a>
+        </h1>
+        <!--<nav class="gnav">
+          <ul class="gnav-list">
+            <li class="gnav-item"><a href=".#works">WORKS</a></li>
+            <li class="gnav-item"><a href="./#skill">SKILL</a></li>
+            <li class="gnav-item"><a href="./#about">ABOUT</a></li>
+            <li class="gnav-item"><a href="./#contact">CONTACT</a></li>
+          </ul>
+        </nav>-->
+      </div>
+    </header>
+    <!-- /header -->
+
+    <main class="content">
+
+      <article class="article">
+        <div class="article-container">
+          <h2 class="article-title"></h2>
+          <div class="article-body">
+            <p>
+              <img src="../img/" alt="">
+            </p>
+            <p>
+              サイトをhtmlとして保存するプログラム
+            </p>
+            <h3>プログラムコード</h3>
+            <p>
+              <code>
+                <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                <li style="background-color:#EFF;">import requests</li>
+                <li style="background-color:#EEF;">import codecs</li>
+                <li style="background-color:#EFF;"></li>
+                <li style="background-color:#EEF;">#URLを定義して情報を取得</li>
+                <li style="background-color:#EFF;">url="マネしたいサイトのURL"</li>
+                <li style="background-color:#EEF;">response = requests.get(url)</li>
+                <li style="background-color:#EFF;"></li>
+                <li style="background-color:#EEF;">#filenameを定義してhtmlファイルを書き込む。(download.htmlができます。)</li>
+                <li style="background-color:#EFF;">filename = "download.html"</li>
+                <li style="background-color:#EEF;">#encodingを忘れずに!忘れると文字化けします。</li>
+                <li style="background-color:#EFF;">with open(filename, mode="w", encoding="utf-8") as f:</li>
+                <li style="background-color:#EEF;"></li>
+                <li style="background-color:#EFF;">&nbsp;f.write(response.text )</li>
+                <li style="background-color:#EEF;"></li>
+                <li style="background-color:#EFF;"></li>
+                </ol>
+            </code>
+            </p>
+
+            <h3>プログラムの意図について</h3>
+            <p>私が所属しているプログラム、X-Business Programでは自身でhtmlとcssを作成する必要がありました。そこで私はPythonでコピーしたいサイトからhtmlを引っ張てくるプログラムを作成しました。</p>
+          </div>
+          <div class="home-link">
+            <a href="../index.html">Works一覧へ</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="page-top" id="js-page-top">
+        <span class="material-icons-outlined">expand_less</span>
+      </div>
+    </main>
+
+    <!-- footer -->
+    <footer class="footer">
+      <div class="copyright">&copy;ATSUKI</div>
+    </footer>
+    <!-- /footer -->
+
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type='text/javascript' src="js/script.js"></script>
+</body>
+</html>
