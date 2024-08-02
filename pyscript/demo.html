@@ -1,0 +1,46 @@
+<html lang="ja">
+  <head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+  </head>
+  <body>
+    <button py-click="show_tasks()" class="py-button">今日のタスクを表示</button>
+    <div id="tasks"></div>
+    <py-script>
+      from datetime import datetime
+
+      # タスクを曜日ごとに定義
+      tasks = {
+          '月曜日': ['タスク1', 'タスク2'],
+          '火曜日': ['タスク3', 'タスク4'],
+          '水曜日': ['タスク5', 'タスク6'],
+          '木曜日': ['タスク7', 'タスク8'],
+          '金曜日': ['タスク9', 'タスク10'],
+          '土曜日': ['タスク11', 'タスク12'],
+          '日曜日': ['タスク13', 'タスク14']
+      }
+
+      def show_tasks():
+          now = datetime.now()
+          weekday = now.strftime('%A')  # 曜日を取得
+          # 日本語の曜日に変換
+          days_jp = {
+              'Monday': '月曜日',
+              'Tuesday': '火曜日',
+              'Wednesday': '水曜日',
+              'Thursday': '木曜日',
+              'Friday': '金曜日',
+              'Saturday': '土曜日',
+              'Sunday': '日曜日'
+          }
+          jp_day = days_jp[weekday]
+          
+          # 今日のタスクを取得
+          todays_tasks = tasks.get(jp_day, [])
+          # タスクを表示
+          task_list = '<br>'.join(todays_tasks)
+          display(f"{jp_day} のタスク: {task_list}", target="tasks")
+    </py-script>
+  </body>
+</html>
