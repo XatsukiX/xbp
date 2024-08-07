@@ -905,3 +905,24 @@ html, body {
 /*　※注意！　下の閉じカッコ　}　はこのブロックに必要なので、削除しないで下さい。　*/
 
 }
+
+blockquote {
+	margin: 20px;
+	padding: 10px 20px;
+	border-left: 5px solid #ccc;
+	background: #f9f9f9;
+	font-style: italic;
+}
+blockquote cite {
+	display: block;
+	margin-top: 10px;
+	font-size: 0.9em;
+	color: #555;
+}
+blockquote cite a {
+	color: #555;
+	text-decoration: none;
+}
+blockquote cite a:hover {
+	text-decoration: underline;
+}
