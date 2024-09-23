@@ -14,3 +14,20 @@
   line-height: 2em;
   padding: 2em 1em 0.2em 1em;
 }
+table{
+  width: 95%;
+  margin: 0 auto;
+}
+table , td, th {
+	border: 1px solid #595959;
+	border-collapse: collapse;
+}
+th {
+	background: #f0e6cc;
+}
+.even {
+	background: #fbf8f0;
+}
+.odd {
+	background: #fefcf9;
+}
