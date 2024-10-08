@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>マイコンについて</title>
-    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="../css/note.css">
     <link rel="shortcut icon" href="../images/xbp.ico">
 </head>
 <body>
     <main>
+      <div class="note">
+        <div class="sen">
 
-      <div class="box">
         <h1>マイコンについて</h1>
         <p >
           マイクロコントローラ通称マイコンとは冷蔵庫や洗濯機などの電子機器に組み込まれた電子機器を制御するための電子部品。
           マイクロコントローラという名称のほかにMCU（Micro Controller Unit）、マイクロコンピュータとも呼ばれている。
         </p>
-      </div>
-
-      <div class="box">
+ 
         <h1>電子部品の説明</h1>
         <table>
           <tbody>
@@ -60,9 +59,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
 
-      <div class="box">
         <h1>Inputデバイス</h1>
         <ul>
           <li>スイッチ</li>
@@ -73,18 +70,14 @@
           <li>ジャイロセンサー</li>
           <li>GPS</li>
         </ul>
-      </div>
 
-      <div class="box">
         <h1>Outputデバイス</h1>
         <ul>
           <li>モーター</li>
           <li>LED</li>
           <li>ディスプレイ</li>
         </ul>
-      </div>
 
-      <div class="box">
         <h1>LEDについて</h1>
         <p>
           LEDを使ったプログラムを組んでみる。LEDは長い方が+（アノード）で短い方が-（カソード）と呼ばれる。
@@ -107,9 +100,7 @@
             <li style="background-color:#EFF;">}</li>
             <li style="background-color:#EEF;"></li>
             </ol></code>
-      </div>
 
-      <div class="box">
         <h1>プログラムのルール</h1>
         <p>
           まずArduinoではプログラムの最後に；がつく。またsetupとloopがあるがsetupは最初に一回だけ実行されるプログラムであり、loopは
@@ -118,9 +109,7 @@
           デジタルピンの出力をLOWかHIGHで設定する。Lowだと消え、Highだと点灯する。delayは指定された時間を待つ命令。単位はミリ秒となる。
           1000にすると1秒待つことになる。
         </p>
-      </div>
-
-      <div class="box">
+  
         <h1>For構文</h1>
         <p>
           for文は波カッコに囲まれたブロックを繰り返し実行する。さまざまな繰り返し処理に活用でき、データやピンの配列と組み合わせて使われることがある。
@@ -159,9 +148,7 @@
           <li style="background-color:#EEF;">}</li>
           <li style="background-color:#EFF;"></li>
           </ol></code>
-      </div>
-
-      <div class="box">
+ 
         <h1>if文</h1>
         <p>
           if else文を使うと複数のテストをまとめることができる。elseに続けてifを書くことで、さらに複数のテストを書くことができる。
@@ -207,10 +194,7 @@
           <li style="background-color:#EFF;"></li>
           </ol></code>
       </div>
-
-      <footer>
-        <p>&copy All rights reserved Atsuki</p>
-    </footer> 
+      </div>
     </main>
 </body>
 </html>
