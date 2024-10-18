@@ -2,7 +2,7 @@
 <!-- saved from url=(0075)https://template-party.com/template/tp_biz60/tp_biz60_bg_black/company.html -->
 <html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>Roland VersaUV LEF-12の使い方</title>
+<title>タイトル</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="./css/note.css">
 <link rel="shortcut icon" href="./img/fab.png">
@@ -11,8 +11,7 @@
 <body>
 <div class="note">
     <div class="sen">
-    <h1>Roland VersaUV LEF-12の使い方</h1>
-    <p>fablabみなとみらいの規定に基づき、記載不可。</p>
-    <p>学生の方はスタッフにお声掛けください、教えます。</p>
+    <h1>見出し</h1>
+    <p>本文</p>
     </div>
 </div>
