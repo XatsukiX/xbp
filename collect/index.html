@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポケモンカード所持状況記録</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .series-title {
+            margin: 20px 0 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>ポケモンカード所持状況記録</h1>
+    <p>以下の表に所持状況を記録してください。</p>
+
+    <!-- カードシリーズ1 -->
+    <div class="series-title">シリーズ: 基本セット</div>
+    <table>
+        <thead>
+            <tr>
+                <th>カード名</th>
+                <th>所持</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ピカチュウ</td>
+                <td><input type="checkbox" name="pikachu"></td>
+            </tr>
+            <tr>
+                <td>リザードン</td>
+                <td><input type="checkbox" name="charizard"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- カードシリーズ2 -->
+    <div class="series-title">シリーズ: 拡張セット</div>
+    <table>
+        <thead>
+            <tr>
+                <th>カード名</th>
+                <th>所持</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ミュウツー</td>
+                <td><input type="checkbox" name="mewtwo"></td>
+            </tr>
+            <tr>
+                <td>カイリュー</td>
+                <td><input type="checkbox" name="dragonite"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button onclick="saveData()">所持状況を保存</button>
+    <button onclick="loadData()">保存したデータを読み込む</button>
+    <button onclick="hideOwned()">所持カードを非表示</button>
+    <button onclick="showAll()">すべて表示</button>
+
+    <script>
+        // 保存機能
+        function saveData() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const data = {};
+            checkboxes.forEach(checkbox => {
+                data[checkbox.name] = checkbox.checked;
+            });
+            localStorage.setItem('pokemonCards', JSON.stringify(data));
+            alert('所持状況を保存しました！');
+        }
+
+        // 読み込み機能
+        function loadData() {
+            const data = JSON.parse(localStorage.getItem('pokemonCards'));
+            if (!data) {
+                alert('保存されたデータがありません。');
+                return;
+            }
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = data[checkbox.name] || false;
+            });
+            alert('保存されたデータを読み込みました！');
+        }
+
+        // 所持カードを非表示
+        function hideOwned() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                const row = checkbox.closest('tr');
+                if (checkbox.checked) {
+                    row.classList.add('hidden');
+                }
+            });
+        }
+
+        // すべて表示
+        function showAll() {
+            const rows = document.querySelectorAll('tr.hidden');
+            rows.forEach(row => {
+                row.classList.remove('hidden');
+            });
+        }
+    </script>
+</body>
+</html>
