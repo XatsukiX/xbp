@@ -691,11 +691,13 @@
 
     <button onclick="saveData()">所持状況を保存</button>
     <button onclick="loadData()">保存したデータを読み込む</button>
+    <button onclick="exportToFile()">JSONファイルとして保存</button>
+    <input type="file" accept=".json" onchange="importFromFile(event)">
     <button onclick="hideOwned()">所持カードを非表示</button>
     <button onclick="showAll()">すべて表示</button>
 
     <script>
-        // 保存機能
+        // 保存機能（ローカルストレージ）
         function saveData() {
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             const data = {};
@@ -706,7 +708,7 @@
             alert('所持状況を保存しました！');
         }
 
-        // 読み込み機能
+        // 読み込み機能（ローカルストレージ）
         function loadData() {
             const data = JSON.parse(localStorage.getItem('pokemonCards'));
             if (!data) {
@@ -718,6 +720,38 @@
                 checkbox.checked = data[checkbox.name] || false;
             });
             alert('保存されたデータを読み込みました！');
+        }
+
+        // JSONファイルとして保存
+        function exportToFile() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const data = {};
+            checkboxes.forEach(checkbox => {
+                data[checkbox.name] = checkbox.checked;
+            });
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'pokemon_cards.json';
+            link.click();
+        }
+
+        // JSONファイルを読み込み
+        function importFromFile(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const data = JSON.parse(e.target.result);
+                const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = data[checkbox.name] || false;
+                });
+                alert('ファイルからデータを読み込みました！');
+            };
+            reader.readAsText(file);
         }
 
         // 所持カードを非表示
@@ -747,20 +781,6 @@
             } else {
                 table.classList.add('hidden');
             }
-        }
-
-        // 検索機能
-        function searchCards() {
-            const query = document.getElementById('searchBox').value.toLowerCase();
-            const rows = document.querySelectorAll('tbody tr');
-            rows.forEach(row => {
-                const cardName = row.querySelector('td').textContent.toLowerCase();
-                if (cardName.includes(query)) {
-                    row.classList.remove('hidden');
-                } else {
-                    row.classList.add('hidden');
-                }
-            });
         }
     </script>
 </body>

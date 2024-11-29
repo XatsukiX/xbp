@@ -16,7 +16,7 @@
 }
 table{
   width: 95%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
 }
 table , td, th {
 	border: 1px solid #595959;
