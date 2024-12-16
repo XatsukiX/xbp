@@ -1,0 +1,31 @@
+.group {
+    color: #333333;
+    font-weight: 400;
+    font-size: .75rem;
+    letter-spacing: .04em;
+    text-align: center;
+}
+
+.group::before {
+    display: block;
+    font-weight: 700;
+    font-size: 1.65rem;
+    line-height: 1.5;
+    letter-spacing: .02em;
+    content: attr(data-label);
+}
+
+table,td,th{
+    border: 1px solid #595959;
+	border-collapse: collapse;
+    width: 90%;
+    margin: 0 auto;
+}
+
+td,th{
+    padding: 5px;
+}
+
+th{
+    width: 10%;
+}

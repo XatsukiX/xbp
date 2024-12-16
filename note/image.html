@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)https://template-party.com/template/tp_biz60/tp_biz60_bg_black/company.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>タイトル</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./css/note.css">
+<link rel="shortcut icon" href="./img/fab.png">
+</head>
+
+<body>
+<div class="note">
+    <div class="sen">
+    <h1>画像から3dデータを生成</h1>
+
+    <br>
+
+    <p>たまたまCuraを触っていたら画像から3Dデータに変換できることを知ったのでここに記していこうと思います。</p>
+
+    <p>
+        と言っても特殊な操作が必要というわけではなく、普通にCuraを開いて3Dデータ（.stlや.3mf）ではなく、画像データ
+        （jpg,pngなど）を開きます。そうすると色々な設定画面が出てきます。以下の表に設定の項目についてまとめます。
+    </p>
+
+    <br>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>高さ</th>
+                <td>3DデータのZ軸</td>
+            </tr>
+            <tr>
+                <th>ベース</th>
+                <td>画像の元の部分の厚さについて。ここを0にすると白は認識されずに色があるところだけ3Dデータが精製されます。</td>
+            </tr>
+            <tr>
+                <th>幅</th>
+                <td>3DデータのX軸の長さ</td>
+            </tr>
+            <tr>
+                <th>深さ</th>
+                <td>3DデータのY軸の長さ</td>
+            </tr>
+            <tr>
+                <th>（何も書かれていないところ）</th>
+                <td>私はは暗い方を高くに設定しています。つまり色が濃ければ濃いほど高さが高くなり、逆に薄いと高さが出なくなります。</td>
+            </tr>
+            <tr>
+                <th>1mm透過率</th>
+                <td>厚さ1㎜のプリントを貫通する光の割合。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <h3>この技術を使ってできること、できそうなこと</h3>
+    <ul>
+        <li>UVプリンターと組み合わせた立体の絵</li>
+    </ul>
+
+    </div>
+</div>
+</body>
+</html>
