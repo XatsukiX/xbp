@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<!-- saved from url=(0075)https://template-party.com/template/tp_biz60/tp_biz60_bg_black/company.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>XBP</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/a.css">
+</head>
+
+<body class="p">
+
+<div id="container">
+
+<header>
+
+<div id="logo">
+<h1><a href="./index.html"><img src="./images/logo.jpg" alt=""></a></h1>
+</div>
+
+</header>
+
+<!--開閉ブロック-->
+<div id="menubar" class="db">
+
+<div class="sh">
+
+</div>
+<!--/.sh-->
+
+</div>
+<!--/#menubar-->
+
+<main>
+
+<section>
+
+<h2 class="linestyle"><span class="uline">Otto</span></h2>
+
+<h1>はじめに</h1>
+<p>
+    すこし仕事で機会があったので<a href="https://www.printables.com/model/167324-otto-diy-quadruped-robot">OttoのDIY Quadruped robot</a>を作る工程をここに掲載していきたいと思います。
+    ほかにもOttoにはキャタピラ型やホイール型、人型など様々な種類があります。主なボディパーツは3Dプリンターで出力できますが、中のArduinoなどの内部パーツは<a href="https://www.ottodiy.com/">Otto DIYのホームぺージ</a>から購入する必要があります。
+</p>
+
+<h1>機能のオミットについて</h1>
+<p>
+    本来、このモデルのOttoにはBluetooth機能やリチウムイオン電池などが内蔵されていますが、今回は一部の機能をオミットしようと思います。
+    まず、BluetoothとLEDの感情表現機能をオミットし、リチウムイオン電池を単三電池3本分に代替します。配線図は以下となります。
+</p>
+<img src="./images/map_otto.png" alt="配線図">
+
+<h1>部品を3Dプリントしてみる</h1>
+<p>
+    それでは部品を3dプリントしてみます。部品はそれぞれhead,body,hips,legs.pinsの5パーツに分かれていて、基盤にプログラムを入れ込んだうえでそれぞれに電子部品を組み込み、組み立てることで完成します。
+</p>
+<img src="./images/print_otto.jpg" alt="3DプリントしたOtto">
+
+<h1>プログラム</h1>
+<p>
+    <code>
+        <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+        <li style="background-color:#EFF;">#include &lt;setjmp.h&gt;</li>
+        <li style="background-color:#EEF;">#include "OTTOKame.h"</li>
+        <li style="background-color:#EFF;"></li>
+        <li style="background-color:#EEF;">jmp_buf jump_env;</li>
+        <li style="background-color:#EFF;"></li>
+        <li style="background-color:#EEF;">// Ottoのインスタンス</li>
+        <li style="background-color:#EFF;">Ottokame robot;</li>
+        <li style="background-color:#EEF;"></li>
+        <li style="background-color:#EFF;">// グローバル変数</li>
+        <li style="background-color:#EEF;">int MODE = 0; // モード: 0 (待機), 1 (ダンス), 2 (障害物検知), 3 (音検知)</li>
+        <li style="background-color:#EFF;"></li>
+        <li style="background-color:#EEF;">const int PIN_Buzzer = 13;       // ブザーのピン</li>
+        <li style="background-color:#EFF;">const int CAL_TRIGGER_PIN = 12; // キャリブレーション用トリガーピン</li>
+        <li style="background-color:#EEF;">bool obstacleDetected = false;  // 障害物検知フラグ</li>
+        <li style="background-color:#EFF;"></li>
+        <li style="background-color:#EEF;">// 設定関数</li>
+        <li style="background-color:#EFF;">void setup() {</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;Serial.begin(9600);                // シリアル通信を開始</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;robot.init(PIN_Buzzer);            // Otto ロボットの初期化</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;robot.reverseServo(2);             // サーボモーターの設定</li>
+        <li style="background-color:#EFF;"></li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;pinMode(CAL_TRIGGER_PIN, INPUT_PULLUP); // キャリブレーションピンを入力モードに設定</li>
+        <li style="background-color:#EFF;"></li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;// キャリブレーション</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;while (digitalRead(CAL_TRIGGER_PIN)) { // トリガーピンが HIGH の間</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;robot.home();                        // 初期位置に戻る</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;delay(100);                          // 少し待機</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+        <li style="background-color:#EFF;">}</li>
+        <li style="background-color:#EEF;"></li>
+        <li style="background-color:#EFF;">// メインループ関数</li>
+        <li style="background-color:#EEF;">void loop() {</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;switch (MODE) {</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;case 0: // 待機モード</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;case 1: // ダンスモード</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int randomDance = random(5, 15); // ランダムなダンスコマンドを生成</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;robot.home();                    // 初期位置に戻る</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gaits(randomDance);              // ダンス動作を実行</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;case 2: // 障害物検知モード</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;robot.run(0);         // 前進</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;obstacleDetector();   // 障害物検知を実行</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (obstacleDetected) {</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;robot.home();        // 障害物が検知された場合は停止</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delay(500);          // 少し待機</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;case 3: // 音検知モード</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;default:</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODE = 0; // 待機モードにリセット</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+        <li style="background-color:#EFF;">}</li>
+        <li style="background-color:#EEF;"></li>
+        <li style="background-color:#EFF;">// 動作関数</li>
+        <li style="background-color:#EEF;">void gaits(int cmd) {</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;switch (cmd) {</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;case 1: robot.run(0); break;        // 前進</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;case 2: robot.run(1); break;        // 後退</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;case 3: robot.turnL(1, 550); break; // 左回転</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;case 4: robot.turnR(1, 550); break; // 右回転</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;case 12: robot.dance(1, 1000); break; // ダンス</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;}</li>
+        <li style="background-color:#EEF;">}</li>
+        <li style="background-color:#EFF;"></li>
+        <li style="background-color:#EEF;">// 障害物検知関数</li>
+        <li style="background-color:#EFF;">void obstacleDetector() {</li>
+        <li style="background-color:#EEF;">&nbsp;&nbsp;int distance = robot.getDistance();  // 距離を取得</li>
+        <li style="background-color:#EFF;">&nbsp;&nbsp;obstacleDetected = (distance &lt; 15);  // 距離が15cm未満の場合、障害物ありと判断</li>
+        <li style="background-color:#EEF;">}</li>
+        <li style="background-color:#EFF;"></li>
+        </ol></code>
+</p>
+
+</section>
+
+
+<div class="c2">
+
+<div class="main">
+
+<section>
+
+
+
+<div class="list-container">
+
+
+
+</div>
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+
+</div>
+
+
+<div class="sub">
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3249.8460473771543!2d139.6253831745593!3d35.45860564217342!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60185d20638e2f53%3A0xbfc81397cc4b7284!2z56We5aWI5bed5aSn5a2mIOOBv-OBquOBqOOBv-OCieOBhOOCreODo-ODs-ODkeOCuQ!5e0!3m2!1sja!2sjp!4v1716357997609!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+</main>
+
+<footer>
+
+<div class="copy">
+<small>Copyright©  All Rights Reserved.</small>
+</div>
+
+</footer>
+
+<!--開閉ボタン（ハンバーガーアイコン）-->
+<div id="menubar_hdr" class="dn">
+<span></span><span></span><span></span>
+</div>
+
+</div>
+
+
+</body></html>

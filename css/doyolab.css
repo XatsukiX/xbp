@@ -39,8 +39,8 @@ html,body {
 body {
 	font-family: 'BIZ UDPGothic', "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;	/*フォント種類*/
 	-webkit-text-size-adjust: none;
-	background: #f0e68c;	/*背景色*/
-	color: #000;		/*全体の文字色*/
+	background: #222;	/*背景色*/
+	color: #eee;		/*全体の文字色*/
 	line-height: 2;		/*行間*/
 	overflow-x: hidden;
 }
@@ -69,7 +69,7 @@ ul, ol {margin-bottom: 30px;}
 /*リンクテキスト全般の設定
 ---------------------------------------------------------------------------*/
 a {
-	color: #000;	/*文字色*/
+	color: #eee;	/*文字色*/
 	transition: 0.3s;
 }
 
@@ -102,7 +102,7 @@ main > article {
 ---------------------------------------------------------------------------*/
 /*ヘッダーブロック*/
 header {
-	background: #cd853f;	/*背景色*/
+	background: #00b1d4;	/*背景色*/
 	position: relative;
 }
 
@@ -291,7 +291,7 @@ main h2 .uline {
 main h2 .uline::before {
 	content: "";position: absolute;bottom: 0px;left: 0px;width: 100%;
 	height: 3px;	/*ラインの高さ。上の「border-bottom」と「bottom」の３ヶ所の数字部分を合わせる*/
-	background: #cd853f;		/*アニメーション時のラインの色*/
+	background: #00b1d4;		/*アニメーション時のラインの色*/
 	transition: 1s 0.5s;		/*1sはアニメーションの実行時間は1秒。0.5秒遅れてスタートする指定。*/
 	transform: scaleX(0);		/*幅。最初は0にして見えなくしておく。*/
 	transform-origin: left top;	/*線の出現起点が左からになるように。中央からの出現がよければこの１行削除。*/
@@ -384,7 +384,7 @@ ul.submenu li a {
 /*マウスオンj時の背景色*/
 ul.submenu li a:hover {
 	opacity: 1;
-	background: #fff;
+	background: #000;
 }
 
 
@@ -395,7 +395,7 @@ footer small {font-size: 100%;}
 footer {
 	font-size: 0.7rem;		/*文字サイズ*/
 	text-align: center;		/*内容をセンタリング*/
-	background: #cd853f;	/*背景色*/
+	background: #000;	/*背景色*/
 }
 
 /*リンクテキスト*/
@@ -643,7 +643,7 @@ p.btn {margin: 0;}
 /*bg1（背景に色がついたタイプ）
 ---------------------------------------------------------------------------*/
 .bg1 {
-	background: #cd853f;	/*背景色*/
+	background: #00b1d4;	/*背景色*/
 }
 
 
@@ -925,4 +925,21 @@ blockquote cite a {
 }
 blockquote cite a:hover {
 	text-decoration: underline;
+}
+
+table , td, th {
+	border: 1px solid #595959;
+	border-collapse: collapse;
+}
+td,th{
+    padding: 10px;
+}
+th {
+	background: #f0e6cc;
+}
+.even {
+	background: #fbf8f0;
+}
+.odd {
+	background: #fefcf9;
 }
