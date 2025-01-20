@@ -56,11 +56,6 @@ table {border-collapse:collapse;}
 /*画像全般の設定*/
 img {border: none;max-width: 100%;height: auto;vertical-align: middle;}
 
-/*videoタグ*/
-video {max-width: 100%;}
-
-/*iframeタグ*/
-iframe {width: 100%;}
 
 /*ul,olタグ*/
 ul, ol {margin-bottom: 30px;}
