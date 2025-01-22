@@ -1,62 +1,119 @@
+
 <!DOCTYPE html>
-<html lang="jp">
-<head>
-    <meta charset="UTF-8">
-    <title>HTMLとGitについて</title>
-    <link rel="stylesheet" href="../css/note.css">
-    <link rel="shortcut icon" href="./images/xbp.ico">
-</head>
-<body>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>htmlとGitについて</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/colum.css" rel="stylesheet">
+        <link rel="shortcut icon" href="./images/xbp.ico">
+    </head>
 
-<div class="note">
-    <div class="sen">
-   <h1>今回学んだこと</h1>
-   <div class="box1">
-        <P>初回のデザイン演習ではHTMLをいじることをしました。まずいじるにあたってテキストエディターに入力をするのだが文字を大きくしたり画像を表示するなどの</P>
-        <P>特殊な効果を付与するためにはタグで囲う必要があります。</P>
-        <P>今この文章の上に大きく「今回学んだこと」と表示されてますがそれはh1タグで囲っているからです。改行するにはbrタグを使う必要があります。</P>
-        <P><a href="../index.html" target="_blank">XBPのトップページ</a>左のリンクを押すとXBPポートフォリオのトップページに飛びますがこれもaタグやhref,targetを利用しています。</p>
-        <P>またこの文章もPタグを使って書いてます。</P>
-   </div>
-    <P>以下が個人的によく使うタグのまとめである</P>
-    <img src="./images/tags.png">
+    <body>
+        <div id="news" class="big-bg">
+            <header class="page-header wrapper">
+                <h1><a href="index.html"><img class="logo" src="images/logo.svg" alt="home_img"></a></h1>
+            </header>
 
-   <BR>
+            <div class="wrapper">
+                <h2 class="page-title">デザイン演習Ⅰ・Ⅱ</h2>
+            </div>
+        </div>
 
-   <h1>Gitとは？</h1>
-   <div class="box1">
-        <p>Gitとは分散型バージョン管理を行うシステム。分散型バージョン管理システムと聞くと難しく思えてしまいますが、保存場所として専用の保管場所を提供するということです。</p>
-        <P>流れとしては、個人の保管場所で作業しファイル修正などが済むと共有する保管場所にアップロードする形になります。</P>
-        <p>この流れはHTMLファイルを修正してソース管理⇒コミット⇒同期のこの授業でとっている形と似てます。</p>
-        <P>また分散型の他にも集中型のものもありますが、保管場所が1か所しかないため、複数人で同時修正すると上書きされてしまうデメリットがあります。</P>
-        <ｓP>しかし分散型の方法をとっているGitはそのようなデメリットはないです。勘違いをしている人もいるかもしれないがGithubとは別物です。</P>
-   </div>
-   <br>
-   <div class="box2">
-        <h3>Gitでは以下のことができます。</h3>
-        <ul>
-            <li>ファイルの変更履歴の確認</li>
-            <li>過去の状態にファイルを戻す</li>
-            <li>チーム間のファイル共有</li>
-            <li>様々なファイルの管理</li>
-            <li>ポートフォリオとしての活用</li>
-        </ul>
-   </div>
-   <br>
-   <h1>htmlについて</h1>
-   <div class="box1">
-        <p>htmlとは授業でやった通り、Hyper Text Makeup Languageの頭文字をとったものでwebページの土台となるファイルを作成するマークアップ言語の1つです。webページに表示したい文章などを"<"と">"で挟まれた「タグ」と呼ばれる特殊な文字列で囲んで書いていきます。</p>
-        <p>「タグ」には様々な種類があり、それぞれに意味があります。タグで文字列を囲うことで、「ここは見出しです」「ここはリンクで、クリックするとこのページへ移動します」などの指示をしています。そうやってコンピューターがそのページをの構造を理解できるようにすることがHTMLタグの役目です。インターネット上に存在する多くのwebサイトがHTMLを使ってつくられています。</p>
-        <p>また、記述により、YahooやGoogleなどの検索エンジンがWebサイトの構造を把握しやすくなります。</p>
-   </div>
-   <p>以下は自身で図示したものです。</p>
-   <img src="./images/repository.jpg" width="50%" height="30%">
-   <br>
-   <h2><font color="red">引用サイト</font></h2>
-   <br>
-   <a href="https://and-engineer.com/articles/Yt4s9BAAACEA700C">Gitとは？GitHubとの違いやメリットをわかりやすく解説/アンドエンジニア</a><br>
-   <a href="https://www.u-can.co.jp/coursefdata/in_html/1459/column/column02.html">htmlとは？CSSとの違いやメリット・デメリット、代表的なタグについても解説/生涯学習のユーキャン</a>
-   </div>
-   </div>
-</body>
+        <div class="news-contents wrapper">
+            <article>
+                <header class="post-info">
+                    <h2 class="post-title">htmlとGitについて</h2>
+                    <p class="post-date">9/26 <span>2023</span></p>
+                    <p class="post-cat">デザイン演習Ⅰ・Ⅱ</p>
+                </header>
+                <h1>今回学んだこと</h1>
+                <p>
+                    初回のデザイン演習ではHTMLをいじることをした。まずいじるにあたってテキストエディターに入力をするのだが文字を大きくしたり画像を表示するなどの特殊な効果を付与するためにはタグで囲う必要がある。<br>
+                    今この文章の上に大きく「今回学んだこと」と表示されているが、それはh1タグで囲っているからだ。改行するにはbrタグを使う必要がある。<br>
+                    <a href="../index.html" target="_blank">XBPのトップページ</a>を押すとXBPポートフォリオのトップページに飛ぶがこれもaタグやhref,targetを利用しているためだ。<br>
+                    この文章もpタグとbrタグを併用して書いている。以下は軽いまとめである。
+                </p>
+                <table>
+                    <tbody>
+                         <tr>
+                              <td>h1~6</td>
+                              <td>見出し作成の際に使用するタグh1が一番大きな文字であり、サイトのメインとなる見出しに使用されます。h2,h3・・・→h6と、数字が大きくなるにつれてどんどん小さな文字の見出しになる。</td> 
+                         </tr>
+                         <tr>
+                              <td>p</td>
+                              <td>pタグは段落を表わすためのタグ。pタグで囲むと、その文章が1つの段落となり、段落ごとに文章が区切られるために改行を伴う。段落の途中で改行させたい場合はbrタグを使用する。</td>
+                         </tr>
+                         <tr>
+                              <td>div</td>
+                              <td>複数の要素をまとめるタグ。まとめて置くとCSSでデザインを変更する際に便利。</td>
+                         </tr>
+                         <tr>
+                              <td>font</td>
+                              <td>フォントの指定やカラーの指定ができるタグ。</td>
+                         </tr>
+                         <tr>
+                              <td>img</td>
+                              <td>画像を貼り付ける際に使用するタグで、終了タグが存在しない。</td>
+                         </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h1>Gitとは？</h1>
+                <p>
+               Gitとは分散型バージョン管理を行うシステム。分散型バージョン管理システムと聞くと難しく思えてしまいますが、保存場所として専用の保管場所を提供するということだ。
+               流れとしては、個人の保管場所で作業しファイル修正などが済むと共有する保管場所にアップロードする形になります。<br>
+               この流れはHTMLファイルを修正してソース管理⇒コミット⇒同期のこの授業でとっている形と似ている。
+               また分散型の他にも集中型のものもありますが、保管場所が1か所しかないため、複数人で同時修正すると上書きされてしまうデメリットがあるが、分散型の方法をとっているGitはそのようなデメリットがない。
+               勘違いをしている人もいるかもしれないがGithubとは別物である。
+                </p>
+
+                <br>
+
+                <h1>Gitでできること</h1>
+                <ul>
+                    <li>ファイルの変更履歴の確認</li>
+                    <li>過去の状態にファイルを戻す</li>
+                    <li>チーム間のファイル共有</li>
+                    <li>様々なファイルの管理</li>
+                    <li>ポートフォリオとしての活用</li>
+                </ul>
+
+                <br>
+
+                <h1></h1>
+                <p>
+                    htmlとは授業でやった通り、Hyper Text Makeup Languageの頭文字をとったものでwebページの土台となるファイルを作成するマークアップ言語の1つです。webページに表示したい文章などを"<"と">"で挟まれた「タグ」と呼ばれる特殊な文字列で囲んで書いていく。<br>
+                    「タグ」には様々な種類があり、それぞれに意味があります。タグで文字列を囲うことで、「ここは見出しです」「ここはリンクで、クリックするとこのページへ移動します」などの指示をしています。そうやってコンピューターがそのページをの構造を理解できるようにすることがHTMLタグの役目だ。インターネット上に存在する多くのwebサイトがHTMLを使ってつくられている。<br>
+                    また、記述により、YahooやGoogleなどの検索エンジンがWebサイトの構造を把握しやすくなります。<br>
+                    以下は自身で図示したものだ。
+                </p>
+
+                <img src="./images/repository.jpg" alt="">
+
+            </article>
+
+            <aside>
+                <h3 class="sub-title">関連知識/引用</h3>
+                <ul class="sub-menu">
+                    <li><a href="https://www.bold.ne.jp/engineer-club/html-tag" target="_blank">htmlタグとは？/株式会社ボールド</a></li>
+                    <li><a href="https://and-engineer.com/articles/Yt4s9BAAACEA700C" target="_blank">Gitとは？GitHubとの違いやメリットをわかりやすく解説/アンドエンジニア</a></li>
+                    <li><a href="https://www.u-can.co.jp/coursefdata/in_html/1459/column/column02.html" target="_blank">htmlとは？CSSとの違いやメリット・デメリット、代表的なタグについても解説/生涯学習のユーキャン</a></li>
+                </ul>
+
+                <h3 class="sub-title">この授業について</h3>
+                <p>
+                    インタビューや観察、データ分析を通し、共感力、洞察力、表現力を身につける。共創、発信のための基礎スキルを身につける。プログラミングの基礎を体験する。
+                </p>
+            </aside>
+        </div>
+
+        <footer>
+            <div class="wrapper">
+                <p>All rights reserved</p>
+            </div>
+        </footer>
+    </body>
 </html>
