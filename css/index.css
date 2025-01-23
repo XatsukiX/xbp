@@ -96,6 +96,18 @@ header{
     background-image: url(../images/main.jpg);
 }
 
+/* ボタン */
+.button {
+    font-size: 1.375rem;
+    background: #0bd;
+    color: #fff;
+    border-radius: 5px;
+    padding: 18px 32px;
+}
+.button:hover {
+    background: #0090aa;
+}
+
 /* 下記メインコンテンツ */
 
 
@@ -170,6 +182,23 @@ header{
 
 .item-list2 {
     list-style-type: none
+}
+
+/* エクスビジネスの説明 */
+.XBP{
+    text-align: center;
+    margin: 0 auto;
+    width: 60%;
+}
+
+.XBP p{
+    margin: 10px 0 42px;
+}
+
+.XBP h2{
+    font-family: fantasy;
+    text-transform: uppercase;
+    font-weight: normal;
 }
 
 /* フッター
