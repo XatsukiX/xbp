@@ -1,206 +1,284 @@
+
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
         <title>プログラミング言語"Python"について</title>
-        <link rel="stylesheet" href="../css/note.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/colum.css" rel="stylesheet">
         <link rel="shortcut icon" href="./images/xbp.ico">
     </head>
+
     <body>
-        <main>      
-            <div class="note">
-                <div class="sen">
+        <div id="news" class="big-bg">
+            <header class="page-header wrapper">
+                <h1><a href="index.html"><img class="logo" src="../images/logo.PNG" alt="home_img"></a></h1>
+            </header>
 
-            <h1>プログラミング言語"Python"について</h1>
-            <h2>pythonとは？</h2>
-            <div class="box">
-                <p>PythonはWeb開発やデータ分析など、さまざまな分野に使える汎用性の高い言語です。なかでも、「人工知能(AI)」をはじめとした先端技術の開発で人気が高く、話題の「ChatGPT」もPythonで開発されています。Pythonは1989 年に Guido van Rossum により実装が始まりました。2000 年に Version 2.0
-                    が公開され、2008 年に Version 3.0 が公開されてます．</p>
+            <div class="wrapper">
+                <h2 class="page-title">Portfolio</h2>
             </div>
+        </div>
 
-            <h2>pythonの特徴</h2>
-            <div class="box">
-                <p>pythonの特徴として以下のものがあげられます。</p>
-                <ul>
-                    <li><p>初心者にも学びやすく，高度なプログラミングも可能</p></li>
-                    <li><p>多様な応用が可能</p></li>
-                    <li><p>科学計算などのライブラリ(numpy, scipy, matplotlib, pandas など）が多くの人により開発されている</p></li>
-                    <li><p>近年のデータ科学，人工知能（機械学習）技術への関心から、ライブラリが豊富な Python が人気を集めている。</p></li>
+        <div class="news-contents wrapper">
+            <article>
+                <header class="post-info">
+                    <h2 class="post-title">プログラミング言語"Python"について</h2>
+                    <p class="post-date">9/26 <span>2023</span></p>
+                    <p class="post-cat">デザイン演習Ⅰ・Ⅱ</p>
+                </header>
 
-                </ul>
-            </div>
+                <h1>pythonとは？</h1>
+                <p>
+                    PythonはWeb開発やデータ分析など、さまざまな分野に使える汎用性の高い言語。
+                    なかでも、「人工知能(AI)」をはじめとした先端技術の開発で人気が高く、話題の「ChatGPT」もPythonで開発されている。
+                    Pythonは1989 年に Guido van Rossum により実装が始まった。2000 年に Version 2.0が公開され、2008 年に Version 3.0 が公開されている。
+                </p>
 
-            <h2>pythonの基本文法</h2>
-            <div class="box">
-                <p>pythonで文字列を出力する場合、.pyファイルに以下のように入力します。文字列は"で囲います。また#をつけるとプログラムに影響しないコメントをつけることができます。</p>
-            </div>
-
-            <pre class="sourse">print("Hello,world")
                 <br>
-                <br>#出力結果
-                <br>Hello,world
-            </pre>
 
-            <h2>変数について</h2>
-            <div class="box">
-                <p>pythonには変数という機能が実装されており、プログラミングにおいて、データを一時的に保存する箱が変数になります。変数はまず宣言を行い、宣言した変数に対して値の代入を行います。</p>
-            </div>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>入力</th>
-                        <th>名前</th>
-                        <th>説明</th>
-                    </tr>
-                    <tr>
-                        <td>+,-,*,/</td>
-                        <td>四則演算</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>%</td>
-                        <td>余剰</td>
-                        <td>余りを出す計算</td>
-                    </tr>
-                    <tr>
-                        <td>//</td>
-                        <td>除算</td>
-                        <td>/と//では意味が変わってきます。</td>
-                    </tr>
-                    <tr>
-                        <td>**</td>
-                        <td>べき乗</td>
-                        <td>3乗とかできます。</td>
-                    </tr>
-                    <tr>
-                        <td>()</td>
-                        <td>演算の優先</td>
-                        <td>（２+３）*5みたいに使います。</td>
-                    </tr>
-                </tbody>
-            </table>
+                <h1>pythonの特徴</h1>
+                <p>pythonの特徴として以下のものがあげられる。</p>
+                    <ul>
+                        <li>初心者にも学びやすく，高度なプログラミングも可能</li>
+                        <li>多様な応用が可能</li>
+                        <li>科学計算などのライブラリ(numpy, scipy, matplotlib, pandas など）が多くの人により開発されている</li>
+                        <li>近年のデータ科学，人工知能（機械学習）技術への関心から、ライブラリが豊富な Python が人気を集めている。</li>
+                    </ul>
 
-            <pre class="sourse">num1 = 100
-               <br>num2 = 200
-               <br>
-               <br> print("num1=",num1)
-               <br>print("num2=",num2)
-               <br>print(num1 + num2)
-               <br>
-               <br>#出力結果
-               <br>num1= 100
-               <br>num2= 200
-               <br>300
-            </pre>
-
-            <h2><strong style="color: red;">+α</strong> 代入演算子について</h2>
-            <div class="box">
-                <p>プログラムではある変数に一定数（例えば 1）を加える、一定数を差し引く、という計算をしばしば行います。このような計算を便利に行うため、代入演算子として“=” 以外に以下のようなものも利用可能になっています。</p>
-            </div>
-            <table>
-                <tbody>
-                    <tr>
-                        <th>演算子</th>
-                        <th>例</th>
-                        <th>意味</th>
-                    </tr>
-                    <tr>
-                        <td>+=</td>
-                        <td>a += b</td>
-                        <td>a = a + b</td>
-                    </tr>
-                    <tr>
-                        <td>-=</td>
-                        <td>a -= b</td>
-                        <td>a = a - b</td>
-                    </tr>
-                    <tr>
-                        <td>*=</td>
-                        <td>a *= b</td>
-                        <td>a = a * b</td>
-                    </tr>
-                    <tr>
-                        <td>/=</td>
-                        <td>a /= b</td>
-                        <td>a = a / b</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2>条件分岐（if文）</h2>
-            <div class="box">
-                <p>条件分岐とは仮に質問があったとしてそれをYes,Noで処理を分岐させることができます。</p>
-                <p>例はinput関数と一緒に紹介します。</p>
-            </div>
-
-            <h2>input関数</h2>
-            <div class="box">
-                <p>input関数を使うと変数を指定することができます。前述したif文と合わせて使ってみます。このままではageが数字ではなく文字として認識されるのでinputの前に数字へ変換するinitを入力します。小数点まで認識させたい場合はfloatを使います。</p>
-            </div>
-            <pre class="sourse">
-                <br>age = int(input("年齢を入力してください"))
-                <br> if age > 18:
-                <br>    print("あなたは成人です")
-                <br>else:
-                <br>    print("あなたは未成年です")
                 <br>
-                <br>#19と入力した場合の出力結果
-                <br>あなたは成人です。
-            </pre>
 
-            <h2>ループ処理（For文）</h2>
-            <div class="box">
-                <p>for文は決まった回数分処理を繰り返したい場合に使用します。スタート位置も指定できます。たとえば、表示を1から3で処理を3回繰り返したい場合は以下のように記述します。</p>
-            </div>
+                <h1>pythonの基本文法</h1>
+                <p>
+                    pythonで文字列を出力する場合、.pyファイルに以下のように入力する。
+                    文字列は"で囲う。また#をつけるとプログラムに影響しないコメントをつけることができる。
+                </p>
 
-            <pre class="sourse">
-                <br>#()内で1~4未満を選択
-                <br>for i in range(1,4):
-                <br>  print(i)
+                <code>
+                    <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                    <li style="background-color:#EFF;">print("Hello,world")</li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EFF;">#出力結果</li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EFF;">Hello,world</li>
+                    </ol>
+                </code>
+
                 <br>
-                <br>#出力結果
-                <br>1
-                <br>2
-                <br>3
-            </pre>
 
-            <h2>ループ文（While文）</h2>
-            <div class="box">
-                <p>ループ処理にはもう１種類あり、それがwhile文です。これは条件があっているときに繰り返しの処理を行います。</p>
-            </div>
-
-            <pre class="sourse">
-                <br>i = 0
-                <br>while i < 5:
-                <br>print(i)
-                <br>i= i+1
-                <br>
-                <br>#出力結果
-                <br>1
-                <br>2
-                <br>3
-                <br>4
-            </pre> 
-
-            <h2>辞書の使い方</h2>
-            <div class="box">
-                <p>辞書（dictionary）型はキーと値を組み合わせた値が格納されているデータのことです。キーの中に値があります。ソースはこんな感じ</p>
-            </div>
+                <h2>変数について</h2>
+                <p>
+                    pythonには変数という機能が実装されており、プログラミングにおいて、データを一時的に保存する箱が変数となる。
+                    変数はまず宣言を行い、宣言した変数に対して値の代入を行う。
+                </p>
             
-            <pre class="sourse">
-                <br>key = {"black":000000,"white":ffffff,"red":ff0000}
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>入力</th>
+                            <th>名前</th>
+                            <th>説明</th>
+                        </tr>
+                        <tr>
+                            <td>+,-,*,/</td>
+                            <td>四則演算</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>%</td>
+                            <td>余剰</td>
+                            <td>余りを出す計算</td>
+                        </tr>
+                        <tr>
+                            <td>//</td>
+                            <td>除算</td>
+                            <td>/と//では意味が変わってきます。</td>
+                        </tr>
+                        <tr>
+                            <td>**</td>
+                            <td>べき乗</td>
+                            <td>3乗とかできます。</td>
+                        </tr>
+                        <tr>
+                            <td>()</td>
+                            <td>演算の優先</td>
+                            <td>（２+３）*5みたいに使います。</td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <br>
-                <br>print(key["black"])
-                <br>print(key["white"])
-                <br>print(key["red"])
+
+                <code>
+                    <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                    <li style="background-color:#EFF;">num1 = 100     </li>
+                    <li style="background-color:#EEF;">num2 = 200</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;">print("num1=",num1)               </li>
+                    <li style="background-color:#EFF;">print("num2=",num2)               </li>
+                    <li style="background-color:#EEF;">print(num1 + num2)</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;"></li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;">#出力結果</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;">num1= 100             </li>
+                    <li style="background-color:#EFF;">num2= 200             </li>
+                    <li style="background-color:#EEF;">300</li>
+                    </ol>
+                </code>
+
                 <br>
-                <br>#出力結果
-                <br>000000
-                <br>ffffff
-                <br>ff0000
-            </pre>
-                </div>
+
+                <h1><strong style="color: red;">+α</strong> 代入演算子について</h1>
+                <p>
+                    プログラムではある変数に一定数（例えば 1）を加える、一定数を差し引く、という計算をしばしば行う。
+                    このような計算を便利に行うため、代入演算子として“=” 以外に以下のようなものも利用可能になっている。
+                </p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>演算子</th>
+                            <th>例</th>
+                            <th>意味</th>
+                        </tr>
+                        <tr>
+                            <td>+=</td>
+                            <td>a += b</td>
+                            <td>a = a + b</td>
+                        </tr>
+                        <tr>
+                            <td>-=</td>
+                            <td>a -= b</td>
+                            <td>a = a - b</td>
+                        </tr>
+                        <tr>
+                            <td>*=</td>
+                            <td>a *= b</td>
+                            <td>a = a * b</td>
+                        </tr>
+                        <tr>
+                            <td>/=</td>
+                            <td>a /= b</td>
+                            <td>a = a / b</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h1>条件分岐（if文）</h1>
+                <p>
+                    条件分岐とは仮に質問があったとしてそれをYes,Noで処理を分岐させることができます。
+                    例はinput関数と一緒に紹介します。
+                </p>
+
+                <br>
+
+                <h1>input関数</h1>
+                <p>
+                    input関数を使うと変数を指定することができる。前述したif文と合わせて使ってみよう。
+                    このままではageが数字ではなく文字として認識されるのでinputの前に数字へ変換するinitを入力する。
+                    小数点まで認識させたい場合はfloatを使う。
+                </p>
+                
+                <code>
+                    <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                    <li style="background-color:#EFF;">age = int(input("年齢を入力してください"))            </li>
+                    <li style="background-color:#EEF;">&nbsp;if age &gt; 18:            </li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;print("あなたは成人です")           </li>
+                    <li style="background-color:#EEF;">else:           </li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;print("あなたは未成年です")</li>
+                    <li style="background-color:#EEF;"></li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;">#19と入力した場合の出力結果</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;">あなたは成人です</li>
+                    </ol>
+                </code>
+
+                <br>
+
+               <h1>ループ処理（For文）</h1>
+                <p>
+                    for文は決まった回数分処理を繰り返したい場合に使用する。スタート位置も指定できる。
+                    たとえば、表示を1から3で処理を3回繰り返したい場合は以下のように記述する。
+                </p>
+
+                <code>
+                    <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                    <li style="background-color:#EFF;">#()内で1~4未満を選択</li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EFF;">for i in range(1,4):            </li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;print(i)</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;"></li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;">#出力結果</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;">1              </li>
+                    <li style="background-color:#EFF;">2              </li>
+                    <li style="background-color:#EEF;">3</li>
+                    </ol>
+                </code>
+
+                <br>
+
+                <h1>ループ文（While文）</h1>
+                <p>
+                    ループ処理にはもう１種類あり、それがwhile文だ。これは条件があっているときに繰り返しの処理を行う。
+                </p>
+
+                <code>
+                    <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                    <li style="background-color:#EFF;">i = 0              </li>
+                    <li style="background-color:#EEF;">while i &lt; 5:              </li>
+                    <li style="background-color:#EFF;">print(i)              </li>
+                    <li style="background-color:#EEF;">i= i+1</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EFF;">#出力結果</li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EFF;">1               </li>
+                    <li style="background-color:#EEF;">2               </li>
+                    <li style="background-color:#EFF;">3             </li>
+                    <li style="background-color:#EEF;">4</li>
+                    </ol>
+                </code>
+
+                <br>
+
+                <h1>辞書の使い方</h1>
+                <p>
+                    辞書（dictionary）型はキーと値を組み合わせた値が格納されているデータのこと。キーの中に値がある。ソースは以下の通り。
+                </p>
+            
+                <code>
+                    <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                    <li style="background-color:#EFF;">key = {"black":000000,"white":ffffff,"red":ff0000}</li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EFF;">print(key["black"])         </li>
+                    <li style="background-color:#EEF;">print(key["white"])</li>
+                    <li style="background-color:#EFF;">print(key["red"])</li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;">#出力結果</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                    <li style="background-color:#EEF;">000000          </li>
+                    <li style="background-color:#EFF;">ffffff                </li>
+                    <li style="background-color:#EEF;">ff0000</li>
+                    </ol>
+                </code>
+
+
+            </article>
+        </div>
+
+
+        <footer>
+            <div class="wrapper">
+                <p>All rights reserved</p>
             </div>
-        </main>
+        </footer>
     </body>
 </html>
