@@ -1,99 +1,115 @@
+
 <!DOCTYPE html>
-<html lang="jp">
+<html lang="ja">
     <head>
-        <meta charset="UTF-8">
-        <title>pythonライブラリ"pandas"をつかっての分析e</title>
-        <link rel="stylesheet" href="../css/note.css">
+        <meta charset="utf-8">
+        <title>Pythonライブラリ"Pandas"を使っての分析</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/colum.css" rel="stylesheet">
         <link rel="shortcut icon" href="./images/xbp.ico">
     </head>
+
     <body>
-        <main>      
+        <div id="news" class="big-bg">
+            <header class="page-header wrapper">
+                <h1><a href="index.html"><img class="logo" src="../images/logo.PNG" alt="home_img"></a></h1>
+            </header>
 
-            <div class="note">
-                <div class="sen">
-            <h1>pythonライブラリ"pandas"をつかっての分析</h1>
-
-            <h2 class="heading-017">
-                <span>01</span>
-                ターゲット
-            </h2>
-            <div class="box">
-                <p>私たちは神奈川大学へ通っていて東急東横線を使う人にターゲットを絞り込み、分析をしました。私の担当は日吉駅と綱島駅です。</p>
+            <div class="wrapper">
+                <h2 class="page-title">Portfolio</h2>
             </div>
-           
-            <h2 class="heading-017">
-                <span>02</span>
-                何をもって住みやすいとするか
-            </h2>
-            <div class="box">
-                <p>ここで問題となってくるのが"何をもって住みやすいとするか"です。そこで私は上限を決めました。色々調べた結果、どうやら1人暮らしの人は</p>
-                <p>バイト代＋仕送りでやりくりしていることがわかりその他生活費を考慮し8万としました。スーモ全体的に高すぎんか？</p>
+        </div>
+
+        <div class="news-contents wrapper">
+            <article>
+                <header class="post-info">
+                    <h2 class="post-title">Pythonライブラリ"Pandas"を使っての分析</h2>
+                    <p class="post-date">11/14 <span>2023</span></p>
+                    <p class="post-cat">デザイン演習Ⅰ・Ⅱ</p>
+                </header>
+                <h1>ターゲット</h1>
+                <p>
+                    私たちは神奈川大学へ通っていて東急東横線を使う人にターゲットを絞り込み、分析をした。私の担当は日吉駅と綱島駅だ。
+                </p>
+
+                <br>
+
+                <h1>何を以て住みやすいとするか</h1>
+                <p>
+                    ここで問題となってくるのが"何をもって住みやすいとするか"である。そこで私は上限を決めた。
+                    色々調べた結果、どうやら1人暮らしの人はバイト代+仕送りでやりくりしていることがわかりその他生活費を考慮し8万とした。
+                </p>
+
+                <br>
+
+                <h1>検証</h1>
+                <p>
+                    実際に検証します。pythonのライブラリ"pandas"をつかってグラフを生成し、それを基に表を作っていく。
+                </p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th></th>
+                            <th>日吉駅</th>
+                            <th>綱島駅</th>
+                        </tr>
+                        <tr>
+                            <td>MMまで</td>
+                            <td>約15分</td>
+                            <td>約16分</td>
+                        </tr>
+                        <tr>
+                            <td>家賃</td>
+                            <td>約7.8万円</td>
+                            <td>約8.5万円</td>
+                        </tr>
+                        <tr>
+                            <td>面積</td>
+                            <td>約29㎡</td>
+                            <td>約32㎡</td>
+                        </tr>
+                        <tr>
+                            <td>合計時間</td>
+                            <td>約31分</td>
+                            <td>約33分</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h1>表からわかること</h1>
+                <p>
+                    この表からは家賃が上限内に収まっているのは日吉駅であり、MMまでと合計時間でも優れているが面積は約2㎡程劣っているが正直誤差の範囲なので日吉駅が全体的に優れている。
+                </p>
+
+            </article>
+
+            <aside>
+                <h3 class="sub-title">他の班員</h3>
+                <ul class="sub-menu">
+                    <li><a href="https://shirai2278.github.io/xbp/de12/8.html" target="_blank">しらい</a></li>
+                    <li><a href="https://miyayui.github.io/xbp/de12/6.html" target="_blank">miyayui</a></li>
+                    <li><a href="https://11ryuugo21.github.io/xbp/de12/7.html" target="_blank">グッチ</a></li>
+                    <li><a href="https://kyarafull-kakigori.github.io/xbp/de12/20231114.pdf" target="_blank">カラフルかき氷(資料のみ)</a></li>
+                </ul>
+
+                <h3 class="sub-title">資料</h3>
+                <ul class="sub-menu">
+                    <li><a href="./files/20231114.pdf">賃貸物件の分析</a></li>
+                </ul>
+
+                <h3 class="sub-title">この授業について</h3>
+                <p>
+                    インタビューや観察、データ分析を通し、共感力、洞察力、表現力を身につける。共創、発信のための基礎スキルを身につける。プログラミングの基礎を体験する。
+                </p>
+            </aside>
+        </div>
+
+        <footer>
+            <div class="wrapper">
+                <p>All rights reserved</p>
             </div>
-
-            <h2 class="heading-017">
-                <span>03</span>
-                    検証
-            </h2>
-
-            <div class="box">
-                <p> 実際に検証します。pythonのライブラリ"pandas"をつかってグラフを生成し、それを基に表を作っていきます。</p>
-            </div>
-
-            <table>
-                <tbody>
-                    <tr>
-                        <th></th>
-                        <th>日吉駅</th>
-                        <th>綱島駅</th>
-                    </tr>
-                    <tr>
-                        <td>MMまで</td>
-                        <td>約15分</td>
-                        <td>約16分</td>
-                    </tr>
-                    <tr>
-                        <td>家賃</td>
-                        <td>約7.8万円</td>
-                        <td>約8.5万円</td>
-                    </tr>
-                    <tr>
-                        <td>面積</td>
-                        <td>約29㎡</td>
-                        <td>約32㎡</td>
-                    </tr>
-                    <tr>
-                        <td>合計時間</td>
-                        <td>約31分</td>
-                        <td>約33分</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2 class="heading-017">
-                <span>04</span>
-                表からわかること
-            </h2>
-            <div class="box">
-                <p>この表からは家賃が上限内に収まっているのは日吉駅であり、MMまでと合計時間でも優れているが面積は約2㎡程劣っているが</p>
-                <p>正直誤差の範囲なので日吉駅が全体的に優れている。</p>
-            </div>
-
-            <h2 class="heading-017">
-                <span>05</span>
-                他の班員
-            </h2>
-
-            <div class="box">
-                ・<a href="" target="_blank">グッチ</a><br>
-                ・<a href="" target="_blank">カラフルかき氷</a><br>
-                ・<a href="https://miyayui.github.io/xbp/de12/6.html" target="_blank">miyayui</a><br>
-                ・<a href="https://shirai2278.github.io/xbp/de12/8.html" target="_blank">しらい</a>
-            </div>
-
-            <p>発表の際使用した資料は<a href="./files/20231114.pdf">こちら</a></p>
-
-                </div>
-            </div>
-        </main>
+        </footer>
     </body>
 </html>
