@@ -1,49 +1,82 @@
-<!DOCTYPE html>
-<html lang="jp">
-    <head>
-        <meta charset="UTF-8">
-        <title>pythonの公開ライブラリについて</title>
-        <link rel="stylesheet" href="../css/note.css">
-        <link rel="shortcut icon" href="./images/xbp.ico">
-    </head>
-    <body>
-        <main>      
-            <div class="note">
-                <div class="sen">
-            <h1>pythonの公開ライブラリについて</h1>
-            <h2>ライブラリとは？</h2>
-            <div class="box">
-                <p>Pythonのライブラリとは、Pythonで開発を行うにあたって良く使われる関数やパッケージがまとめられたものを言います。インターネットからダウンロードして使うものであり、ライブラリを活用することで、クラスなどを1から作らなくても簡単に関数を呼び出して開発に取り組めます</p>
-            </div>
+<!DOCTYPE html> 
+<html lang="ja"> 
+    <head> 
+        <meta charset="utf-8"> 
+        <title>pythonの公開ライブラリについて</title> 
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <link href="css/colum.css" rel="stylesheet"> 
+        <link rel="shortcut icon" href="./images/xbp.ico"> 
+    </head> 
+    <body> 
+        <div id="news" class="big-bg"> 
+            <header class="page-header wrapper"> 
+                <h1><a href="index.html"><img class="logo" src="../images/logo.PNG" alt="home_img"></a></h1> 
+            </header> 
+            
+            <div class="wrapper"> 
+                <h2 class="page-title">Portfolio</h2> 
+            </div> 
+        </div> 
+        <div class="news-contents wrapper"> 
+            <article> 
+                <header class="post-info"> 
+                    <h2 class="post-title">pythonの公開ライブラリについてhtmlとGitについて</h2> 
+                    <p class="post-date">10/31 <span>2023</span></p> 
+                    <p class="post-cat">デザイン演習Ⅰ・Ⅱ</p> 
+                </header>
+                
+                <h1>ライブラリとは？</h1>
+            <p>
+                Pythonのライブラリとは、Pythonで開発を行うにあたって良く使われる関数やパッケージがまとめられたものを言う。
+                インターネットからダウンロードして使うものであり、ライブラリを活用することで、クラスなどを1から作らなくても簡単に関数を呼び出して開発に取り組むことができる。
+            </p>
 
-            <h2>ライブラリのインストール方法</h2>
-            <div class="box">
-                <p>Pythonには最初から組み込まれている標準ライブラリと、pipというライブラリ管理ソフトを用いてインターネットからダウンロードする外部ライブラリがあります。Python開発で頻繁に使われるようなライブラリは標準ライブラリに組み込まれているので、まずPythonのライブラリを使いたいと思ったら、使いたいライブラリが標準ライブラリにあるか確認するところから始めましょう。</p>
-                <p>無かった場合はコマンドプロンプトを経由してインストールします。（この時pipを最新verにしましょう。pip install -U pipと打てばアップデートできます。）コマンドプロンプト上でpip install ○○でライブラリをインストールできます。</p>
-            </div>
+            <br>
 
-            <h2>ライブラリの使い方</h2>
-            <div class="box">
-                <p>プログラム上でライブラリを使用する場合は下記のようにimport ○○のように記述して使います。その下にまたプログラムを書くのですがライブラリごとに違うので調べてみてください。例のプログラムは0～31をランダムで生成するものです。</p>
-            </div>
+            <h1>ライブラリのインストール方法</h1>
+            <p>
+                Pythonには最初から組み込まれている標準ライブラリと、pipというライブラリ管理ソフトを用いてインターネットからダウンロードする外部ライブラリがある。
+                Python開発で頻繁に使われるようなライブラリは標準ライブラリに組み込まれているので、まずPythonのライブラリを使いたいと思ったら、使いたいライブラリが標準ライブラリにあるか確認するところから始める。
+                無かった場合はコマンドプロンプトを経由してインストールする。（この時pipを最新verにする。pip install -U pipと打てばアップデートできる。）
+                コマンドプロンプト上でpip install ○○でライブラリをインストールできる。
+            </p>
 
-            <pre class="sourse">
-                <br>import random
-                <br>for i in range(1,7):
-                <br>    a = random.randint(0, 31)   
-                <br>    print(i)  
-                <br>
-                <br>#出力結果
-                <br>4
-                <br>18
-                <br>8
-                <br>31
-                <br>11
-                <br>2       
-            </pre>
+            <br>
 
-                </div>
-            </div>
-        </main>
-    </body>
+            <h1>ライブラリの使い方</h1>
+            <p>
+                プログラム上でライブラリを使用する場合は下記のようにimport ○○のように記述して使う。
+                その下にまたプログラムを書くのですがライブラリごとに違うので調べてください。
+                例のプログラムは0～31をランダムで生成するものです。
+            </p>
+
+            <code>
+                <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                <li style="background-color:#EFF;">import random           </li>
+                <li style="background-color:#EEF;">for i in range(1,7):</li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;a = random.randint(0, 31)   </li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;print(i)  </li>
+                <li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li style="background-color:#EFF;">#出力結果</li>
+                <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                <li style="background-color:#EFF;">4              </li>
+                <li style="background-color:#EEF;">18               </li>
+                <li style="background-color:#EFF;">8               </li>
+                <li style="background-color:#EEF;">31               </li>
+                <li style="background-color:#EFF;">11               </li>
+                <li style="background-color:#EEF;">2     </li>
+                </ol>
+            </code>
+                
+            </article> 
+        
+        </div> 
+        
+        <footer> 
+            <div class="wrapper"> 
+                <p>All rights reserved</p> 
+            </div> 
+        </footer> 
+    </body> 
 </html>
