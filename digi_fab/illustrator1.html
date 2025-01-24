@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Illustratorでレーザー加工機用のデータを作る</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="./css/colum.css" rel="stylesheet">
+        <link rel="shortcut icon" href="./images/xbp.ico">
+    </head>
+
+    <body>
+        <div id="news" class="big-bg">
+            <header class="page-header wrapper">
+                <h1><a href="../index.html"><img class="logo" src="../images/logo.PNG" alt="home_img"></a></h1>
+            </header>
+
+            <div class="wrapper">
+                <h2 class="page-title">Portfolio</h2>
+            </div>
+        </div>
+
+        <div class="news-contents wrapper">
+            <article>
+                <header class="post-info">
+                    <h2 class="post-title">Illustratorでレーザー加工機用のデータを作る</h2>
+                    <p class="post-date">11/6 <span>2023</span></p>
+                    <p class="post-cat">デジタルファブリケーション</p>
+                </header>
+
+                <h1>illustratorですること</h1>
+                <p>
+                    まずillustratorでデータを作るのですがillustratorで1から作ることもできるし、Fusion360で作ったデータを.dxf形式で保存してそれを取り込むことができる。
+                    以下の表を参考にデータを作っていく。CMYKモードじゃなくてRGBモードでするように注意。
+                </p>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>何をするか</th>
+                            <th>色</th>
+                            <th>太さ</th>
+                        </tr>
+                        <tr>
+                            <td>カット</td>
+                            <td>赤（Rのみ255、それ以外は0）</td>
+                            <td>0.001pt(mmでも可)</td>
+                        </tr>
+                        <tr>
+                            <td>彫刻</td>
+                            <td>黒</td>
+                            <td>指定なし</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <h2>レーザー加工機</h2>
+                <p>
+                    実際にレーザーカッターを使ってみよう。レーザーカッターのスイッチを入れ、ポインターをあわせる。（下記動画参照）
+                    次にレーザーカッターのPCで完成させたデータを開く。この時点でカット部分が赤の0.001㎜になってるかと彫刻部分が黒になってるか確認すると良い。編集>プリントを押し、プリンターでtrotecを選択。一度完了を押し再度同じ手順でプリントを押す。
+                    するとjobcontrollerが立ち上がるのでUSBのマークがあったらつながってないのでプリンターと接続する。次にプリントを開始したい位置にポインターを動かす。そしたらjobcontrollerに送信したデータを持ってくる。
+                    最後に忘れがちなのですがなにもないところでダブルクリックし、素材にあった設定を行う。（アクリル板3㎜の場合、plastic>acrylic3mm）これで設定は終わりで再生ボタンのようなマークを押せば始まる。
+                </p>
+    
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/cOYaWsn-_4s?si=UlhGqXpreIe7Nd0a" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    
+                <br>
+
+                <h1>使った機材</h1>
+                <ul>
+                    <li>fusion360</li>
+                    <li>adobe illustrator</li>
+                    <li>レーザーカッター（Trotec speedy100）</li>
+                </ul>
+
+
+ 
+
+            </article>
+
+            <aside>
+				<h3 class="sub-title">関連知識</h3>
+				<ul class="sub-menu">
+					<li><a href="./e2.html">illustrator活用法1</a></li>
+					<li><a href="./e3.html">illustrator活用法2</a></li>
+				</ul>
+
+                <h3 class="sub-title">この授業について</h3>
+                <p>
+                    ファブラボで3Dプリンターなどのデジタル工作機器を利用した造形技術を学び、
+					２年生以降でのプロトタピングの基礎的な素養を身につける。
+                </p>
+            </aside>
+        </div>
+
+        <footer>
+            <div class="wrapper">
+                <p>All rights reserved</p>
+            </div>
+        </footer>
+    </body>
+</html>
