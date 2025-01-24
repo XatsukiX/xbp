@@ -1,64 +1,98 @@
-<!DOCTYPE html>
-<html lang="jp">
-<head>
-    <meta charset="UTF-8">
-    <title>loTのデータ</title>
-    <link rel="stylesheet" href="../css/note.css">
-    <link rel="shortcut icon" href="../images/xbp.ico">
-</head>
-<body>
-    <main>
-        <div class="note">
-            <div class="sen">
-    <h1 style="text-align: center;">loTについて</h1>
-        <h2>loTのデータを集めてできること</h2>
-        <p>
-            以下のデータなどを集めることにより、日々私たちの暮らしや企業の運営に役立てている。（多いため一部抜粋、詳細は添付している画像を参照）
-        </p>
-        <ul>
-            <li>レシート</li>
-            →企業のマーケティング
-            <li>通販（amazonや楽天）</li>
-            →ユーザーのデータからどれを一緒に買ってるか分析、購入を提案する。
-            <li>国土交通省ETCカード</li>
-            →どこの高速道が一番使われているかを分析し、どのタイミングで道路の点検を行うかを検討する。
-            <li>気象庁の天候データ</li>
-            →どの条件だとどの天気が多いかのデータを収集し、天気の予測の精度を上げる。
-            <li>トリマ</li>
-            →どの年齢、性別の人がどの経路を使って通勤、通学をしているか
-            <li>アンケート</li>
-            <li>You Tube各種機能</li>
-        </ul>
-        <img src="./img/3-post.jpg" alt="">
- 
-        <h2>使用したプログラム</h2>
-        <code>
-            <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
-            <li style="background-color:#EFF;">const int sensorPin = A0;</li>
-            <li style="background-color:#EEF;">const int ledPin = 13;</li>
-            <li style="background-color:#EFF;"></li>
-            <li style="background-color:#EEF;">void setup() {</li>
-            <li style="background-color:#EFF;">&nbsp;&nbsp;pinMode(ledPin, OUTPUT);</li>
-            <li style="background-color:#EEF;">&nbsp;&nbsp;Serial.begin(9600);</li>
-            <li style="background-color:#EFF;">}</li>
-            <li style="background-color:#EEF;"></li>
-            <li style="background-color:#EFF;">void loop() {</li>
-            <li style="background-color:#EEF;">&nbsp;&nbsp;int sensorValue = analogRead(sensorPin);</li>
-            <li style="background-color:#EFF;">&nbsp;&nbsp;Serial.println(sensorValue); </li>
-            <li style="background-color:#EEF;"></li>
-            <li style="background-color:#EFF;">&nbsp;&nbsp;if (sensorValue &gt; 600) { </li>
-            <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(ledPin, HIGH); </li>
-            <li style="background-color:#EFF;">&nbsp;&nbsp;}else {</li>
-            <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(ledPin, LOW);</li>
-            <li style="background-color:#EFF;">&nbsp;&nbsp;}</li>
-            <li style="background-color:#EEF;"></li>
-            <li style="background-color:#EFF;">&nbsp;&nbsp;delay(100); </li>
-            <li style="background-color:#EEF;">}</li>
-            <li style="background-color:#EFF;"></li>
-            </ol></code>
 
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>Iotのデータ</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="./css/colum.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../images/xbp.ico">
+    </head>
+
+    <body>
+        <div id="news" class="big-bg">
+            <header class="page-header wrapper">
+                <h1><a href="../index.html"><img class="logo" src="../images/logo.PNG" alt="home_img"></a></h1>
+            </header>
+
+            <div class="wrapper">
+                <h2 class="page-title">Portfolio</h2>
             </div>
         </div>
-    </main>
-</body>
+
+        <div class="news-contents wrapper">
+            <article>
+                <header class="post-info">
+                    <h2 class="post-title">Iotのデータ</h2>
+                    <p class="post-date">4/22 <span>2024</span></p>
+                    <p class="post-cat">デザイン演習Ⅲ・Ⅳ</p>
+                </header>
+
+                <h2>loTのデータを集めてできること</h2>
+                <p>
+                    以下のデータなどを集めることにより、日々私たちの暮らしや企業の運営に役立てている。（多いため一部抜粋、詳細は添付している画像を参照）
+                </p>
+                <ul>
+                    <li>レシート</li>
+                    →企業のマーケティング
+                    <li>通販（amazonや楽天）</li>
+                    →ユーザーのデータからどれを一緒に買ってるか分析、購入を提案する。
+                    <li>国土交通省ETCカード</li>
+                    →どこの高速道が一番使われているかを分析し、どのタイミングで道路の点検を行うかを検討する。
+                    <li>気象庁の天候データ</li>
+                    →どの条件だとどの天気が多いかのデータを収集し、天気の予測の精度を上げる。
+                    <li>トリマ</li>
+                    →どの年齢、性別の人がどの経路を使って通勤、通学をしているか
+                    <li>アンケート</li>
+                    <li>You Tube各種機能</li>
+                </ul>
+                <img src="./img/3-post.jpg" alt="">
+
+                <br>
+        
+                <h2>使用したプログラム</h2>
+                <code>
+                    <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                    <li style="background-color:#EFF;">const int sensorPin = A0;</li>
+                    <li style="background-color:#EEF;">const int ledPin = 13;</li>
+                    <li style="background-color:#EFF;"></li>
+                    <li style="background-color:#EEF;">void setup() {</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;pinMode(ledPin, OUTPUT);</li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;Serial.begin(9600);</li>
+                    <li style="background-color:#EFF;">}</li>
+                    <li style="background-color:#EEF;"></li>
+                    <li style="background-color:#EFF;">void loop() {</li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;int sensorValue = analogRead(sensorPin);</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;Serial.println(sensorValue); </li>
+                    <li style="background-color:#EEF;"></li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;if (sensorValue &gt; 600) { </li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(ledPin, HIGH); </li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;}else {</li>
+                    <li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;digitalWrite(ledPin, LOW);</li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;}</li>
+                    <li style="background-color:#EEF;"></li>
+                    <li style="background-color:#EFF;">&nbsp;&nbsp;delay(100); </li>
+                    <li style="background-color:#EEF;">}</li>
+                    <li style="background-color:#EFF;"></li>
+                    </ol>
+                </code>
+
+ 
+
+            </article>
+
+            <aside>
+              <h3 class="sub-title">この授業について</h3>
+                <p>
+                    フィジカルコンピューティング、プログラミング、IoT技術などプロトタイピングに必要なテクノロジーを身につけるとともに、創造的な思考・行動プロセスを身につける。
+                </p>
+            </aside>
+        </div>
+
+        <footer>
+            <div class="wrapper">
+                <p>All rights reserved</p>
+            </div>
+        </footer>
+    </body>
 </html>

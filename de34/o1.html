@@ -1,21 +1,40 @@
-<!DOCTYPE html>
-<html lang="jp">
-<head>
-    <meta charset="UTF-8">
-    <title>マイコンについて</title>
-    <link rel="stylesheet" href="../css/note.css">
-    <link rel="shortcut icon" href="../images/xbp.ico">
-</head>
-<body>
-    <main>
-      <div class="note">
-        <div class="sen">
 
-        <h1>マイコンについて</h1>
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>マイコンについて</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="./css/colum.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../images/xbp.ico">
+    </head>
+
+    <body>
+        <div id="news" class="big-bg">
+            <header class="page-header wrapper">
+                <h1><a href="../index.html"><img class="logo" src="../images/logo.PNG" alt="home_img"></a></h1>
+            </header>
+
+            <div class="wrapper">
+                <h2 class="page-title">Portfolio</h2>
+            </div>
+        </div>
+
+        <div class="news-contents wrapper">
+            <article>
+                <header class="post-info">
+                    <h2 class="post-title">マイコンについて</h2>
+                    <p class="post-date">4/10 <span>2024</span></p>
+                    <p class="post-cat">デザイン演習Ⅲ・Ⅳ</p>
+                </header>
+
+        <h1>マイコンとは</h1>
         <p >
           マイクロコントローラ通称マイコンとは冷蔵庫や洗濯機などの電子機器に組み込まれた電子機器を制御するための電子部品。
           マイクロコントローラという名称のほかにMCU（Micro Controller Unit）、マイクロコンピュータとも呼ばれている。
         </p>
+
+        <br>
  
         <h1>電子部品の説明</h1>
         <table>
@@ -60,6 +79,8 @@
           </tbody>
         </table>
 
+        <br>
+
         <h1>Inputデバイス</h1>
         <ul>
           <li>スイッチ</li>
@@ -71,6 +92,8 @@
           <li>GPS</li>
         </ul>
 
+        <br>
+
         <h1>Outputデバイス</h1>
         <ul>
           <li>モーター</li>
@@ -78,28 +101,35 @@
           <li>ディスプレイ</li>
         </ul>
 
+        <br>
+
         <h1>LEDについて</h1>
         <p>
           LEDを使ったプログラムを組んでみる。LEDは長い方が+（アノード）で短い方が-（カソード）と呼ばれる。
           早速LEDのアノードを13番にカソードをGNDに接続し、以下のプログラムをArduinoに記述し、書き込む。
-          すると0.5秒おきに点灯、消灯を繰り返すようになる。</p>
-          <code>
-            <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
-            <li style="background-color:#EFF;">void setup() {</li>
-            <li style="background-color:#EEF;">&nbsp;&nbsp;// put your setup code here, to run once:</li>
-            <li style="background-color:#EFF;">&nbsp;&nbsp;pinMode(13,OUTPUT);</li>
-            <li style="background-color:#EEF;">}</li>
-            <li style="background-color:#EFF;"></li>
-            <li style="background-color:#EEF;">void loop() {</li>
-            <li style="background-color:#EFF;">&nbsp;&nbsp;// put your main code here, to run repeatedly:</li>
-            <li style="background-color:#EEF;">&nbsp;&nbsp;digitalWrite(13,HIGH);</li>
-            <li style="background-color:#EFF;">&nbsp;&nbsp;delay(500);</li>
-            <li style="background-color:#EEF;">&nbsp;&nbsp;digitalWrite(13,LOW);</li>
-            <li style="background-color:#EFF;">&nbsp;&nbsp;delay(500);</li>
-            <li style="background-color:#EEF;"></li>
-            <li style="background-color:#EFF;">}</li>
-            <li style="background-color:#EEF;"></li>
-            </ol></code>
+          すると0.5秒おきに点灯、消灯を繰り返すようになる。
+        </p>
+
+        <code>
+          <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+          <li style="background-color:#EFF;">void setup() {</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;// put your setup code here, to run once:</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;pinMode(13,OUTPUT);</li>
+          <li style="background-color:#EEF;">}</li>
+          <li style="background-color:#EFF;"></li>
+          <li style="background-color:#EEF;">void loop() {</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;// put your main code here, to run repeatedly:</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;digitalWrite(13,HIGH);</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;delay(500);</li>
+          <li style="background-color:#EEF;">&nbsp;&nbsp;digitalWrite(13,LOW);</li>
+          <li style="background-color:#EFF;">&nbsp;&nbsp;delay(500);</li>
+          <li style="background-color:#EEF;"></li>
+          <li style="background-color:#EFF;">}</li>
+          <li style="background-color:#EEF;"></li>
+          </ol>
+        </code>
+
+        <br>
 
         <h1>プログラムのルール</h1>
         <p>
@@ -109,6 +139,8 @@
           デジタルピンの出力をLOWかHIGHで設定する。Lowだと消え、Highだと点灯する。delayは指定された時間を待つ命令。単位はミリ秒となる。
           1000にすると1秒待つことになる。
         </p>
+
+        <br>
   
         <h1>For構文</h1>
         <p>
@@ -116,10 +148,13 @@
           まず初期化が一度だけ行われる。処理が繰り返されるたびに条件式がテストされ、trueならば波カッコ内の処理が実行され、加算が行われる。次に条件式が
           テストされたときにfalseならば、そこでループは終了。構文は以下の通り。
         </p>
+
         <br>
+
         <strong>for (初期化; 条件式; 加算) {
           <br>// 実行される文 ;
-         <br> }</strong>
+         <br> }
+        </strong>
 
           <br>
          <code>
@@ -147,14 +182,19 @@
           <li style="background-color:#EFF;"></li>
           <li style="background-color:#EEF;">}</li>
           <li style="background-color:#EFF;"></li>
-          </ol></code>
+          </ol>
+        </code>
+
+        <br>
  
         <h1>if文</h1>
         <p>
           if else文を使うと複数のテストをまとめることができる。elseに続けてifを書くことで、さらに複数のテストを書くことができる。
           以下は構文例。
         </p>
+
         <br>
+
         <strong>
           if (条件1) {
           <br>  // 動作A
@@ -164,7 +204,9 @@
           <br>  // 動作C
           <br>}
         </strong>
+
         <br>
+
         <code>
           <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
           <li style="background-color:#EFF;">void setup() {</li>
@@ -192,9 +234,25 @@
           <li style="background-color:#EFF;"></li>
           <li style="background-color:#EEF;">}</li>
           <li style="background-color:#EFF;"></li>
-          </ol></code>
-      </div>
-      </div>
-    </main>
-</body>
+          </ol>
+        </code>
+
+ 
+
+            </article>
+
+            <aside>
+              <h3 class="sub-title">この授業について</h3>
+                <p>
+                    フィジカルコンピューティング、プログラミング、IoT技術などプロトタイピングに必要なテクノロジーを身につけるとともに、創造的な思考・行動プロセスを身につける。
+                </p>
+            </aside>
+        </div>
+
+        <footer>
+            <div class="wrapper">
+                <p>All rights reserved</p>
+            </div>
+        </footer>
+    </body>
 </html>
