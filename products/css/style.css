@@ -399,3 +399,8 @@ footer p {
 .item a{
 	text-align: center;
 }
+
+/* 配布データ */
+.free{
+    color: #ff0000;
+}
