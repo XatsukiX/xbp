@@ -1,104 +1,123 @@
+
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>About Me</title>
-        <meta name="description" content="あっちゃんのプロフィールを詳しく紹介します！" />
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>About_me</title>
+  <link rel="stylesheet" href="./css/about_me.css">
+</head>
 
-            .wrap {
-                padding: 32px 0 64px;
-                background-color: #54B1E5;
-            }
+<body>
 
-            .content {
-                width: 100%;
-                max-width: 600px;
-                margin: 0 auto;
-                padding: 16px;
-                background-color: #fff;
-            }
+  <main>
 
-            .heading-lv1 {
-                font-size: 32px;
-                font-style: italic;
-            }
+    <section>
+      <header>
+        <h1>About_me</h1>
+      </header>
 
-            .heading-lv2 {
-                font-size: 24px;
-            }
+      <div class="row">
 
-            .heading-lv3 {
-                font-size: 20px;
-            }
+      <div class="col"> <!-- カラムの始まりです -->
 
-            .heading-margin {
-                margin-top: 32px;
-            }
+        <h2>私について</h2>
+        <p>
+            神奈川大学経営学部所属。
+            アルバイトは<strong>Fablabみなとみらい</strong>と言うとあるモノづくり工房で働いています。
+            3年時からのゼミではデザイン系の<a href="https://www.kanagawa-u.ac.jp/professor/details/details_101814.html" target="_blank">道用先生</a>とマーケティングの<a href="https://www.kanagawa-u.ac.jp/professor/details/details_102115.html" target="_blank">中見先生</a>のもとで日々学んでいます。
+        </p>
 
-            .text {
-                margin: 16px 0 0;
-                font-size: 16px;
-                line-height: 1.5;
-            }
+        <p>
+            高校の頃、軽音楽部に所属していたこともあり、ギターが趣味です。
+            デジタルファブリケーションを用いたモノ作りが好きなのでいつか自作のエフェクターやアンプを作るのが夢です。
+            家で使っている3DプリンターはSovolやBambulabを使用しています。
+        </p>
 
-            .text-center {
-                text-align: center;
-            }
+        <p>
+            
+        </p>
 
-            .profile-image {
-                margin: 16px 0 0;
-                text-align: center;
-            }
+        <hr>
+        <h2>扱える技術</h2>
+        <ul> 
+            <li>Pythonなどを用いたプログラミング</li>
+            <li>路上観察など仮説をたて実証するプロセス</li>
+            <li>html,css,javascriptを用いた簡単なHP作成</li>
+            <li>デジタルファブリケーション機器を用いたモノづくり</li>
+            <li>Excelなどを用いたデータ分析、テキストマイニング</li>
+            <li>世の中の課題から、事業を立て、解決する手法を考案するプロセス</li>
+        </ul>
 
-            .profile-image img {
-                width: 150px;
-                height: auto;
-                border-radius: 50%;
-            }
+        <hr>
 
-            a {
-                color: #3F82A8;
-            }
+        <h2>お問い合わせ</h2>
+        <p>Mail:r202301989ko@jindai.jp</p>
 
-            a:hover {
-                text-decoration: none;
-            }
-        </style>
-        <link rel="shortcut icon" href="./images/xbp.ico">
-    </head>
-    <body class="wrap">
-        <div class="content">
-            <h1 class="heading-lv1 text-center">Profile</h1>
-            <figure class="profile-image">
-                <img src="./images/profile_icon.jpg" alt="プロフィール画像" width="300" height="300">
-            </figure>
+      </div> 
 
-            <h2 class="heading-lv2 heading-margin text-center">あっちゃん</h2>
-            <p class="text text-center">ものづくりを試行錯誤中…<br>モノづくり工房で働いています！</p>
+      <div class="col"> 
+      <hr class="only-phone"> 
+        <h2>SNS</h2>
 
-            <h3 class="heading-lv3 heading-margin text-center">自己紹介</h3>
-            <p class="text text-center">ものづくり好きな大学生。<br>ものづくりを通して色々な視点から世界を見てみたい。<br>ふらっとディズニー行ったり旅に出たりします。<br>主にXBPで学んだことと作成した作品を記事にしていきます！</p>
-            <br>
-            <p class="text text-center">
-                
-            </p>
-            <div class="SNS" style="text-align: center;">
-                <a href="https://www.instagram.com/suic_502/" target="_blank">Instagram</a>
-                <a href="https://x.com/suic_502" target="_blank">X</a>
-            </div>
+        <ul class="sns-list"> <!-- あつきの使用しているSNS一覧。悪用禁止 -->
+          <li><a href="https://x.com/suic_502" class="twitter" target="_blank">X(旧Twitter)</a></li>
+          <li><a href="https://www.instagram.com/suic_502/" class="instagram" target="_blank">instagram</a></li>
+          <li><a href="https://note.com/suic_502" class="note" target="_blank">note</a></li>
+          <li><a href="https://www.youtube.com/@XBP-se5jf" class="youtube" target="_blank">Youtube</a></li>
+          <!-- <li><a href="#" class="lineat" target="_blank">LINE@</a></li> -->
+        </ul>
 
-            <br>
+        <h2>私の経歴について</h2>
+        <dl class="memo">
+          <dt>2023年</dt>
+          <dd>
+            <ul>
+                <li>神奈川大学経営学部入学</li>
+                <li>神奈川大学みなとみらい祭実行委員所属</li>
+                <li>経営学部 エクスビジネスプログラム所属（3期生）</li>
+            </ul>
+          </dd>
+          <dt>2024年</dt>
+          <dd>
+            <ul>
+                <li>Fablabみなとみらいにて勤務開始</li>
+                <li>Fablabみなとみらい展にて特別ワークショップを開催</li>
+            </ul>
+          </dd>
+          <dt>2025年</dt>
+          <dd>
+            <ul>
+                <li>エクスビジネスプログラムのビジネスプランコンテストにて優秀賞受賞</li>
+                <li>経営学部道用ゼミ所属（16期生）</li>
+                <li>経営学部中見ゼミ所属（5期生）</li>
+            </ul>
+          </dd>
+        </dl>
 
-            <p class="text text-center"><a href="./index.html">XBP TOPページへ</a></p>
-            <p class="text text-center"><a href="./products/index.html">作品一覧へ</a></p>
-        </div>
-        </div>
-    </body>
+        <hr>
+
+        <!-- <h3>コンタクト</h3>
+
+        <form method="post" action="ここにアクション" class="mailform">
+          <input type="text" name="message" placeholder="お名前">
+          <input type="mail" name="message" placeholder="メールアドレス">
+          <textarea rows="5" name="message" placeholder="本文"></textarea>
+          <input type="submit" value="Send">
+        </form> -->
+      </div> 
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <footer>
+    <p>All rights reserved</p>
+  </footer>
+</body>
+
 </html>

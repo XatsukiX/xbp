@@ -1,0 +1,427 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+JP:100,300|Raleway:100,300&display=swap");
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+html {
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+img,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: #f1eded;
+  margin: 2em auto;
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  line-height: 1.6em;
+}
+
+
+body {
+  background: #f3f3f3;
+  font-family: 'Avenir','Helvetica Neue','Helvetica','Arial','Hiragino Sans','ヒラギノ角ゴシック',YuGothic,'Yu Gothic','メイリオ', Meiryo,'ＭＳ Ｐゴシック','MS PGothic',sans-serif;
+  padding: 0;
+  margin: 0;
+  color: #333333;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+section {
+  overflow: hidden;
+  width: calc(90vw - 40px);
+  max-width: 1100px;
+  margin: 40px auto;
+  background: #ffffff;
+  box-shadow: 0 5px 20px -12px #69827d73;
+  display: -webkit-box;
+  display: flex;
+}
+
+@media screen and (max-width: 767px) {
+  section {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+    width: 100%;
+    margin: 0;
+    box-shadow: none;
+  }
+}
+
+header {
+  width: 120px;
+  background: #f6ff93;
+  background: linear-gradient(121deg, #f6ff93 0%, #46e0cc 100%);
+  position: relative;
+}
+
+header h1 {
+  color: #ffffff;
+  font-family: "Spartan", "Noto Sans JP", sans-serif;
+  position: absolute;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  -webkit-transform-origin: right bottom;
+          transform-origin: right bottom;
+  top: -10px;
+  right: -15px;
+  font-size: 40px;
+  font-weight: 100;
+  word-break: keep-all;
+  width: 90vh;
+  text-align: right;
+}
+
+@media screen and (max-width: 991px) {
+  header {
+    width: 80px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  header {
+    width: 100%;
+    height: 50px;
+  }
+  header h1 {
+    -webkit-transform: none;
+            transform: none;
+    width: 100%;
+    top: auto;
+    right: auto;
+    bottom: -10px;
+    font-size: 25px;
+  }
+}
+
+.row {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-flex: 1;
+          flex: 1;
+}
+
+@media screen and (max-width: 767px) {
+  .row {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+            flex-direction: column;
+  }
+}
+
+.col {
+  -webkit-box-flex: 1;
+          flex: 1;
+  padding: 40px 20px;
+}
+
+.col > *:first-of-type {
+  margin-top: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #46e0cc;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+a img {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+a:hover {
+  color: #aefe7c;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+a:hover img {
+  opacity: 0.7;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+a.btn {
+  display: block;
+  background: #46e0cc;
+  color: white;
+  padding: 3px 10px;
+  margin: 20px 0;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+a.btn:hover {
+  background: #aefe7c;
+}
+
+dl,
+ol,
+p,
+ul {
+  margin: 10px auto 20px;
+  padding: 0;
+}
+
+@media screen and (max-width: 767px) {
+  dl,
+  ol,
+  p,
+  ul {
+    margin: 15px auto;
+  }
+}
+
+h2 {
+  color: #46e0cc;
+  font-weight: 100;
+  font-size: 20px;
+  margin: 30px 0 20px;
+}
+
+h3 {
+  margin: 20px 0 10px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.center {
+  text-align: center;
+}
+
+dl.memo dt {
+  width: 100%;
+  color: #46e0cc;
+  padding: 1px 5px;
+}
+
+dl.memo dd {
+  border-left: 1px dotted #d0d0d0;
+  margin: 0 0 0 1em;
+  padding: 0 0 1em 1em;
+}
+
+.box {
+  background: #ecfaee;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+ul.sns-list {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1em auto;
+  max-width: 600px;
+}
+
+ul.sns-list li {
+  margin-bottom: .3em;
+}
+
+ul.sns-list li a {
+  font-size: 12px;
+  border: 1px solid;
+  color: #333;
+  padding: 4px 6px;
+  border-radius: 20px;
+}
+
+ul.sns-list li a:hover {
+  background: #65676d;
+  color: #ffffff;
+}
+
+ul.sns-list li a.twitter:hover {
+  background: #1DA1F2;
+  border: 2px solid #1DA1F2;
+  color: #ffffff;
+}
+
+ul.sns-list li a.tumblr:hover {
+  background: #36465d;
+  border: 2px solid #36465d;
+  color: #ffffff;
+}
+
+ul.sns-list li a.lineat:hover {
+  background: #00b900;
+  border: 2px solid #00b900;
+  color: #ffffff;
+}
+
+ul.sns-list li a.youtube:hover {
+  background: #cd201f;
+  border: 2px solid #cd201f;
+  color: #ffffff;
+}
+
+ul.sns-list li a.note:hover {
+  background: #2dcdb5;
+  border: 2px solid #2dcdb5;
+  color: #ffffff;
+}
+
+ul.sns-list li a.amazon:hover {
+  background: #FF9900;
+  border: 2px solid #FF9900;
+  color: #ffffff;
+}
+
+ul.sns-list li a.marsh:hover {
+  background: #F3969A;
+  border: 2px solid #F3969A;
+  color: #ffffff;
+}
+
+ul.sns-list li a.skeb:hover {
+  background: #30B396;
+  border: 2px solid #30B396;
+  color: #ffffff;
+}
+
+ul.sns-list li a.pixiv:hover {
+  background: #0096FA;
+  border: 2px solid #0096FA;
+  color: #ffffff;
+}
+
+ul.sns-list li a.booth:hover {
+  background: #FC4D50;
+  border: 2px solid #FC4D50;
+  color: #ffffff;
+}
+
+ul.sns-list li a.fantia:hover {
+  background: #FF5600;
+  border: 2px solid #FF5600;
+  color: #ffffff;
+}
+
+ul.sns-list li:not(:last-of-type) {
+  margin-right: 10px;
+}
+
+form.mailform {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+form.mailform input {
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+form.mailform input[type=mail], form.mailform input[type=text] {
+  width: 100%;
+  font-family: YuGothic,'Yu Gothic','TsukuBRdGothic-Regular','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','Cambria Math','Avenir',sans-serif;
+  border: none;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background: #f7f7f7;
+  margin: 5px 0;
+  padding: 5px;
+  font-size: 14px;
+}
+
+form.mailform input[type=mail]:focus, form.mailform input[type=text]:focus {
+  outline: none;
+  background: white;
+}
+
+form.mailform input[type=submit] {
+  border: none;
+  padding: 7px 15px;
+  font-size: 14px;
+  background: #46e0cc;
+  color: #ffffff;
+  border-radius: 5px;
+  margin: 10px 0;
+  background: #46e0cc;
+}
+
+form.mailform input[type=submit]:hover {
+  outline: none;
+  background: #aefe7c;
+  cursor: pointer;
+}
+
+form.mailform textarea {
+  width: 100%;
+  border: 1px solid #ddd;
+  background: #f7f7f7;
+  border-radius: 3px;
+  font-family: YuGothic,'Yu Gothic','TsukuBRdGothic-Regular','Hiragino Kaku Gothic ProN','ヒラギノ角ゴ ProN W3','Cambria Math','Avenir',sans-serif;
+  margin: 5px 0;
+  padding: 5px;
+  font-size: 14px;
+}
+
+form.mailform textarea:focus {
+  outline: none;
+  background: white;
+}
+
+footer p {
+  text-align: center;
+}
+
+footer p a {
+  text-align: center;
+  width: 100%;
+  font-size: 12px;
+  padding: 5px 10px;
+  margin: 0 auto;
+  display: block;
+}
+
+.only-phone {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .only-phone {
+    display: block;
+  }
+}
