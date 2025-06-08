@@ -1,0 +1,296 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>ゴミプロジェクト</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="css/colum.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../images/xbp.ico">
+    </head>
+
+    <body>
+        <div id="news" class="big-bg">
+            <header class="page-header wrapper">
+                <h1><a href="../index.html"><img class="logo" src="../images/logo.PNG" alt="home_img"></a></h1>
+            </header>
+
+            <div class="wrapper">
+                <h2 class="page-title">Portfolio</h2>
+            </div>
+        </div>
+
+        <div class="news-contents wrapper">
+            <article>
+                <header class="post-info">
+                    <h2 class="post-title">プログラム</h2>
+                    <p class="post-date">6/8 <span>2025</span></p>
+                    <p class="post-cat">Doyolab</p>
+                </header>
+
+                <code>
+<ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+<li style="background-color:#EFF;">/**</li>
+<li style="background-color:#EEF;">&nbsp;* LINE Messaging APIからのWebhookリクエストを処理する。</li>
+<li style="background-color:#EFF;">&nbsp;* 画像メッセージを受信し、ChatGPT Visionで品名と特徴を特定後、</li>
+<li style="background-color:#EEF;">&nbsp;* 横浜市ルールスプレッドシートの中からキーワード検索（全一致・部分一致）でルールを選択し分別情報を返す。</li>
+<li style="background-color:#EFF;">&nbsp;* 該当候補が複数ある場合は品目名をリストで提示後、選択ボタンを送信する。見つからない場合はその旨を伝える。</li>
+<li style="background-color:#EEF;">&nbsp;* 返信には参照したスプレッドシートの行番号（該当する場合）と検索方法を含める。</li>
+<li style="background-color:#EFF;">&nbsp;* 実行完了時（成功・エラー問わず）に指定メールアドレスにも**実行全体のログ**と**使用AIモデル・トークン数（Vision APIのみ）**を送信する。</li>
+<li style="background-color:#EEF;">&nbsp;* * 使用AIモデルについて:</li>
+<li style="background-color:#EFF;">&nbsp;* OpenAIのモデル名を "gpt-4o" に設定しています (画像認識用)。</li>
+<li style="background-color:#EEF;">&nbsp;* * 更新: キーワード検索で複数候補が見つかった場合、品目名リストと選択ボタンを送信するよう変更しました。</li>
+<li style="background-color:#EFF;">&nbsp;* * 更新: ポストバックイベント処理のデバッグのためログを強化しました。</li>
+<li style="background-color:#EEF;">&nbsp;* @param {Object} e - Webhookイベントオブジェクト。</li>
+<li style="background-color:#EFF;">&nbsp;*/</li>
+<li style="background-color:#EEF;">function doPost(e) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;if (e &amp;&amp; e.postData &amp;&amp; e.postData.contents) {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log("Webhook received. Raw postData: " + e.postData.contents);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;} else {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log("Webhook received, but postData or contents are missing.");</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;return ContentService.createTextOutput(JSON.stringify({ "status": "error", "message": "No postData received" })).setMimeType(ContentService.MimeType.JSON);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;"></li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;Logger.log("doPost関数が開始されました。");</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;try {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;const events = JSON.parse(e.postData.contents).events;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`受信イベント数: ${events.length}`);</li>
+<li style="background-color:#EEF;"></li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;for (const event of events) {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleLineEvent_(event);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;} catch (error) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`doPostでエラーが発生しました: ${error.message}\nスタックトレース: ${error.stack}\n受信データ: ${e.postData.contents}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;return ContentService.createTextOutput(JSON.stringify({ "status": "success" })).setMimeType(ContentService.MimeType.JSON);</li>
+<li style="background-color:#EEF;">}</li>
+<li style="background-color:#EFF;"></li>
+<li style="background-color:#EEF;">/**</li>
+<li style="background-color:#EFF;">&nbsp;* LINEイベントを処理する。</li>
+<li style="background-color:#EEF;">&nbsp;* @param {Object} event - LINE Webhookイベントオブジェクト。</li>
+<li style="background-color:#EFF;">&nbsp;*/</li>
+<li style="background-color:#EEF;">function handleLineEvent_(event) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;Logger.log(`処理中のイベントタイプ: ${event.type}, イベント内容: ${JSON.stringify(event)}`); </li>
+<li style="background-color:#EEF;"></li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;const cache = CacheService.getScriptCache(); </li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;let eventId = null;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;let eventTypeForCacheLog = event.type; </li>
+<li style="background-color:#EEF;"></li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;if (event.webhookEventId) {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;eventId = event.webhookEventId;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;eventTypeForCacheLog = `webhook (${event.type})`;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`Webhook Event ID (webhookEventId): ${eventId}`);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;} else if (event.deliveryContext &amp;&amp; event.deliveryContext.isRedelivery) {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`再送イベントを検出。UserID: ${event.source.userId}, Timestamp: ${event.timestamp}。処理をスキップします。`);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return; </li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;} else if (event.message &amp;&amp; event.message.id) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;eventId = event.message.id;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;eventTypeForCacheLog = `message (${event.message.type})`;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`Message Event ID (message.id): ${eventId}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;} else if (event.postback &amp;&amp; event.postback.data) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;// ポストバックイベントの場合、dataとtimestampとuserIdからユニークなIDを生成する</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;const postbackDigest = Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, event.postback.data).map(b =&gt; (b + 256).toString(16).slice(-2)).join('');</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;eventId = `postback-${event.source.userId}-${event.timestamp}-${postbackDigest}`;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;eventTypeForCacheLog = `postback (datahash: ${postbackDigest}, timestamp: ${event.timestamp})`;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`ポストバックイベントの生成イベントID: ${eventId}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;} else {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`イベントIDを特定できませんでした。イベントタイプ: ${event.type}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;"></li>
+<li style="background-color:#EEF;"></li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;// イベントIDが取得できた場合のみ重複チェックを行う</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;if (eventId) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;const processed = cache.get(eventId);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;if (processed) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`イベントID ${eventId} (${eventTypeForCacheLog}) は既に処理済みのためスキップします。キャッシュ値: ${processed}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return; // 既に処理済みの場合はここで終了</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;// 処理済みフラグをキャッシュに保存（有効期限10分）</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;const cacheValue = `processed_at_${new Date().toISOString()}_type_${eventTypeForCacheLog}`;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;cache.put(eventId, cacheValue, 600); // 600秒 = 10分</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`イベントID ${eventId} (${eventTypeForCacheLog}) をキャッシュに保存しました。Value: ${cacheValue}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;} else {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`イベントIDが取得できなかったため (${eventTypeForCacheLog})、重複チェックをスキップします。`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;"></li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;if (event.type === "message" &amp;&amp; event.message) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;const userId = event.source.userId;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;const message = event.message;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`メッセージイベント処理開始: UserID=${userId}, MessageType=${message.type}`);</li>
+<li style="background-color:#EEF;"></li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;if (message.type === "image") {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`画像メッセージ受信: messageId=${message.id}`);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;processImageWithYokohamaSheetRules_(userId, message.id); </li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;} else if (message.type === "text") {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`テキストメッセージ受信: ${message.text}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// テキストメッセージに対する応答が必要な場合はここに実装</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// sendLineMessage_(userId, { type: "text", text: "ゴミの画像を送信すると、AIが分別方法を判断します！" });</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;} else {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`未対応のメッセージタイプです: ${message.type}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;} else if (event.type === "postback") {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log("ポストバックイベントを handlePostbackEvent_ に渡します。");</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;handlePostbackEvent_(event);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;} else {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`メッセージイベントでもポストバックイベントでもないためスキップします。タイプ: ${event.type}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;">}</li>
+<li style="background-color:#EEF;"></li>
+<li style="background-color:#EFF;">/**</li>
+<li style="background-color:#EEF;">&nbsp;* ポストバックイベントを処理する。</li>
+<li style="background-color:#EFF;">&nbsp;* @param {Object} event - LINE Webhookポストバックイベントオブジェクト。</li>
+<li style="background-color:#EEF;">&nbsp;*/</li>
+<li style="background-color:#EFF;">function handlePostbackEvent_(event) {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;Logger.log(`handlePostbackEvent_ が呼び出されました。イベント: ${JSON.stringify(event)}`);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;const userId = event.source.userId;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;const postbackData = event.postback.data;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;Logger.log(`ポストバックデータ受信: UserID=${userId}, Data='${postbackData}'`);</li>
+<li style="background-color:#EEF;"></li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;// ポストバックデータをパース (例: "action=show_rule_details&amp;row_number=123")</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;const params = new URLSearchParams(postbackData);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;const action = params.get("action");</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;const rowNumberStr = params.get("row_number"); // 文字列として取得</li>
+<li style="background-color:#EFF;"></li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;if (action === "show_rule_details" &amp;&amp; rowNumberStr) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;const rowNumber = parseInt(rowNumberStr, 10); // 10進数としてパース</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;if (isNaN(rowNumber)) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`ポストバックエラー: row_number が数値ではありません: ${rowNumberStr}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sendLineMessage_(userId, { type: "text", text: "エラー：選択された情報が正しくありません。" });</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`アクション: show_rule_details, 行番号: ${rowNumber}`);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;const allRules = getYokohamaRulesFromSheet_(); // スプレッドシートから全ルールを取得</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;if (allRules) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 指定された行番号のルールを検索</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const selectedRule = allRules.find(rule =&gt; rule.rowNumber === rowNumber);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (selectedRule) {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`選択されたルール: ${JSON.stringify(selectedRule)}`);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// ルールの詳細情報をユーザーに送信</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;let detailMessage = `【横浜市ゴミ分別アドバイス】\n\n`;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detailMessage += `■ 品名 (ルール):\n${selectedRule.itemNameJP}\n\n`;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detailMessage += `■ ゴミの種類:\n${selectedRule.category}\n\n`; </li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detailMessage += `■ 出し方・注意点:\n${selectedRule.instruction || "特記事項なし"}\n\n`; </li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (selectedRule.smallAppliance &amp;&amp; selectedRule.smallAppliance !== "情報なし") {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detailMessage += `■ 小型家電回収:\n${selectedRule.smallAppliance}\n\n`; </li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detailMessage += `■ 収集頻度:\n横浜市の情報を確認してください\n`; // 収集頻度は固定文言</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detailMessage += `(参照ルール: スプレッドシート ${selectedRule.rowNumber}行目)\n`;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detailMessage += `\n--------------------\n?? これは横浜市のスプレッドシートルールに基づく情報です。最新かつ詳細な公式情報は横浜市のウェブサイト等で必ずご確認ください。`;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sendLineMessage_(userId, { type: "text", text: detailMessage });</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`指定された行番号 ${rowNumber} のルールが見つかりませんでした。`);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sendLineMessage_(userId, { type: "text", text: "選択されたルールの詳細情報が見つかりませんでした。" });</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;} else {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log("ポストバック処理中にルールシートの取得に失敗しました。");</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sendLineMessage_(userId, { type: "text", text: "申し訳ありません、ルールの詳細情報を取得できませんでした。" });</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;} else {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`未対応のポストバックアクション、またはデータ不足: ${postbackData}`);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;// 必要であればユーザーにエラーメッセージを送信</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;">}</li>
+<li style="background-color:#EEF;"></li>
+<li style="background-color:#EFF;"></li>
+<li style="background-color:#EEF;">/**</li>
+<li style="background-color:#EFF;">&nbsp;* Script PropertiesからOpenAI APIキーを取得する。</li>
+<li style="background-color:#EEF;">&nbsp;* @return {string} OpenAI APIキー。</li>
+<li style="background-color:#EFF;">&nbsp;* @throws {Error} APIキーが未設定の場合。</li>
+<li style="background-color:#EEF;">&nbsp;*/</li>
+<li style="background-color:#EFF;">function getOpenAiApiKey_() {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;const apiKey = PropertiesService.getScriptProperties().getProperty('OPENAI_API_KEY');</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;if (!apiKey) throw new Error("OpenAI APIキーが未設定です。");</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;return apiKey;</li>
+<li style="background-color:#EFF;">}</li>
+<li style="background-color:#EEF;"></li>
+<li style="background-color:#EFF;">/**</li>
+<li style="background-color:#EEF;">&nbsp;* LINEのContent APIから画像データをBlobとして取得する。</li>
+<li style="background-color:#EFF;">&nbsp;* @param {string} messageId - LINEメッセージID。</li>
+<li style="background-color:#EEF;">&nbsp;* @return {GoogleAppsScript.Base.Blob|null} 画像のBlobオブジェクト、または取得失敗時はnull。</li>
+<li style="background-color:#EFF;">&nbsp;* @throws {Error} LINEチャネルアクセストークンが未設定の場合。</li>
+<li style="background-color:#EEF;">&nbsp;*/</li>
+<li style="background-color:#EFF;">function getImageBlobFromLine_(messageId) {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;const lineChannelAccessToken = PropertiesService.getScriptProperties().getProperty('LINE_CHANNEL_ACCESS_TOKEN');</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;if (!lineChannelAccessToken) throw new Error("LINEチャネルアクセストークンが未設定です。");</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;const contentApiUrl = `https://api-data.line.me/v2/bot/message/${messageId}/content`;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;const options = {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;method: "get",</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;headers: { Authorization: "Bearer " + lineChannelAccessToken },</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;muteHttpExceptions: true // HTTPエラー時もレスポンス内容を取得するためtrue</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;};</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;const response = UrlFetchApp.fetch(contentApiUrl, options);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;if (response.getResponseCode() === 200) {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;return response.getBlob();</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;}</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;Logger.log(`LINE Content API画像取得失敗。Status: ${response.getResponseCode()}, Response: ${response.getContentText()}`);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;return null;</li>
+<li style="background-color:#EEF;">}</li>
+<li style="background-color:#EFF;"></li>
+<li style="background-color:#EEF;">/**</li>
+<li style="background-color:#EFF;">&nbsp;* Googleスプレッドシートから横浜市の分別ルールを取得する。</li>
+<li style="background-color:#EEF;">&nbsp;* スプレッドシートの1行目はヘッダー行としてスキップする。</li>
+<li style="background-color:#EFF;">&nbsp;* @return {Array&lt;Object&gt;|null} ルールオブジェクトの配列、または取得失敗時はnull。</li>
+<li style="background-color:#EEF;">&nbsp;* 各オブジェクトは { rowNumber: number, itemNameJP: string, smallAppliance: string, category: string, instruction: string, aliases: string[] } の形式。</li>
+<li style="background-color:#EFF;">&nbsp;*/</li>
+<li style="background-color:#EEF;">function getYokohamaRulesFromSheet_() { </li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;Logger.log("getYokohamaRulesFromSheet_ 開始: 横浜市分別ルール(Sheet版 V4 行番号有)をGoogleスプレッドシートから読み込みます。");</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;const spreadsheetId = PropertiesService.getScriptProperties().getProperty('YOKOHAMA_RULES_SHEET_ID'); </li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;const sheetName = PropertiesService.getScriptProperties().getProperty('YOKOHAMA_RULES_SHEET_NAME'); // シート名をプロパティから取得</li>
+<li style="background-color:#EEF;"></li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;if (!spreadsheetId) {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;Logger.log("getYokohamaRulesFromSheet_ エラー: スクリプトプロパティ 'YOKOHAMA_RULES_SHEET_ID' が未設定。"); </li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;return null;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;"></li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;try {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;let ss = SpreadsheetApp.openById(spreadsheetId);</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;let sheet = sheetName ? ss.getSheetByName(sheetName) : ss.getSheets()[0]; // シート名指定があればそれを使用、なければ最初のシート</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;if (!sheet) {</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log(`getYokohamaRulesFromSheet_ エラー: シート「${sheetName || '最初のシート'}」が見つかりません。`);</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return null;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;// データ範囲の取得と空チェック</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;const dataRange = sheet.getDataRange();</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;if (!dataRange || dataRange.getNumRows() === 0 || dataRange.getNumColumns() === 0) {</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log("getYokohamaRulesFromSheet_ エラー: getDataRange() で有効な範囲が取得できませんでした。");</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return null;</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;const values = dataRange.getValues(); </li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;const rules = [];</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;// ヘッダー行を除いてデータがなければ空配列を返す</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;if (values.length &lt; 2) { </li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logger.log("getYokohamaRulesFromSheet_: スプレッドシートにデータがありません（ヘッダー行を除く）。");</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return []; </li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;}</li>
+<li style="background-color:#EFF;"></li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;// ヘッダー行をスキップ (i=1から開始)</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;for (let i = 1; i &lt; values.length; i++) { </li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const row = values[i];</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const rowNumber = i + 1; // スプレッドシート上の実際の行番号 (1始まり)</li>
+<li style="background-color:#EEF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 各列のデータを取得し、前後の空白をトリム。存在しない場合は空文字。</li>
+<li style="background-color:#EFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const itemNameJP =</li>
+<li style="background-color:#EEF;"></li>
+</ol></code>
+
+            </article>
+            <aside>
+                <h3 class="sub-title">プロジェクトメンバー</h3>
+                <ul class="sub-menu">
+                <li><a href="https://mritsuki.github.io/xbp/doyolab/" target="_blank">ユン坊</a></li>
+                <li><a href="https://jyagaimo1.github.io/xbp/doyolab/itiran.html" target="_blank">もも</a></li>
+                <li><a href="https://suzytsuna.github.io/xbp/doyolab/" target="_blank">ツナ</a></li>
+                <li><a href="https://hirayamaru.github.io/xbp/doyolab/" target="_blank">kiichi</a></li>
+                <li><a href="https://ayana-7.github.io/xbp/doyolab/" target="_blank">ayana-7</a></li>
+                </ul>
+            </aside>
+        </div>
+
+        <footer>
+            <div class="wrapper">
+                <p>All rights reserved</p>
+            </div>
+        </footer>
+    </body>
+</html>
