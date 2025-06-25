@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>パタゴニア：地球を救うためのビジネス</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Earthy Harmony -->
+    <!-- Application Structure Plan: The SPA uses a thematic, single-page vertical scroll structure with a fixed navigation bar for easy access. The flow is designed to tell a story: 1) Hero section establishes the core mission. 2) "The Patagonia Way" introduces the company's foundational philosophy and values using interactive cards. 3) "The Challenge" uses a data visualization (donut chart) to starkly present the environmental problem in the apparel industry. 4) "Our Solution" is the core interactive section, featuring a clickable diagram of the circular model (Repair -> Resell -> Recycle) that reveals detailed information on demand. This structure was chosen to guide the user from the "why" (mission/values) and the "what" (the problem) to the "how" (their solution), making the complex information digestible and engaging. 5) "The Future Goal" concludes the narrative with a forward-looking statement. This user-centric flow prioritizes understanding and exploration over a rigid report structure. -->
+    <!-- Visualization & Content Choices: 1. Core Values (Goal: Inform): Presented as interactive cards with hover effects, using HTML/CSS for a clean, organized layout. This encourages focused reading on each value. 2. Apparel Waste (Goal: Impact): A Chart.js Donut chart visualizes the "70% incinerated" statistic. A donut chart is effective for showing a part-to-whole relationship clearly and quickly. 3. Circularity Strategy (Goal: Organize/Explain): An interactive diagram built with HTML/CSS (flexbox, borders) and JS. Clicking each stage (node) dynamically displays contextual information. This avoids overwhelming the user with text and promotes active discovery of the Worn Wear, ReCrafted, and recycling programs. This custom diagram is a direct replacement for non-allowed SVG/Mermaid. 4. All textual content is integrated within these sections with clear headings to provide context. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #FDFBF8;
+            color: #383838;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 640px) {
+            .chart-container {
+                height: 350px;
+                max-height: 400px;
+            }
+        }
+        .nav-link {
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .nav-link:hover {
+            color: #4A5C5A;
+        }
+        .active-link {
+            color: #2D3A3A;
+            border-bottom-color: #4A5C5A;
+        }
+        .value-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .circ-node {
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        .circ-node.active {
+            background-color: #4A5C5A;
+            color: #FFFFFF;
+            border-color: #4A5C5A;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md fixed top-0 left-0 right-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-xl font-bold text-gray-800">Patagonia</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#philosophy" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent">理念</a>
+                        <a href="#challenge" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent">課題</a>
+                        <a href="#solution" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent">解決策</a>
+                        <a href="#future" class="nav-link px-3 py-2 text-sm font-medium text-gray-600 border-b-2 border-transparent">未来</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="min-h-screen flex items-center justify-center bg-[#F4F1EC]">
+            <div class="text-center p-8">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
+                    私たちは、故郷である地球を救うために<br class="hidden md:block">ビジネスを営む。
+                </h1>
+                <p class="mt-6 text-lg text-gray-600 max-w-2xl mx-auto">
+                    パタゴニアの存在意義、そして私たちが共有する価値観の核心です。
+                </p>
+            </div>
+        </section>
+
+        <section id="philosophy" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">パタゴニアの理念</h2>
+                    <p class="mt-4 text-md text-gray-600 max-w-3xl mx-auto">
+                        私たちのすべての行動の基盤となるのは、製品の品質、環境への責任、そして既成概念にとらわれない独自の考え方です。
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="p-8 bg-[#FDFBF8] rounded-xl">
+                        <h3 class="text-xl font-bold mb-2">起源とミッション</h3>
+                        <p class="text-gray-600">
+                            登山道具作りから始まったパタゴニアは、地球を救うことをパーパスに掲げ、クライマーやサーファーといった自然を愛する人々のための製品を作り続けています。
+                        </p>
+                    </div>
+                    <div class="p-8 bg-[#FDFBF8] rounded-xl">
+                        <h3 class="text-xl font-bold mb-2">デザイン哲学</h3>
+                        <p class="text-gray-600">
+                            「完璧とは、取り去るべきものがなくなった状態」。私たちは素材を厳選し、多機能で長持ちする、本質的な製品だけを追求します。
+                        </p>
+                    </div>
+                    <div class="p-8 bg-[#FDFBF8] rounded-xl">
+                        <h3 class="text-xl font-bold mb-2">問題解決</h3>
+                        <p class="text-gray-600">
+                            有害性のない最高の素材を使い、最高のパフォーマンスと体験を提供する。それが私たちの製品開発におけるソリューションです。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-16">
+                    <h3 class="text-2xl font-bold text-center mb-10">私たちのコアバリュー</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 text-center">
+                        <div class="value-card p-6 bg-white border border-gray-200 rounded-lg">
+                            <span class="text-4xl">🏆</span>
+                            <h4 class="font-bold mt-4">最高の製品</h4>
+                        </div>
+                        <div class="value-card p-6 bg-white border border-gray-200 rounded-lg">
+                            <span class="text-4xl">🤝</span>
+                            <h4 class="font-bold mt-4">誠実さ</h4>
+                        </div>
+                        <div class="value-card p-6 bg-white border border-gray-200 rounded-lg">
+                            <span class="text-4xl">🌍</span>
+                            <h4 class="font-bold mt-4">環境主義</h4>
+                        </div>
+                        <div class="value-card p-6 bg-white border border-gray-200 rounded-lg">
+                            <span class="text-4xl">⚖️</span>
+                            <h4 class="font-bold mt-4">公正さと公平さ</h4>
+                        </div>
+                        <div class="value-card p-6 bg-white border border-gray-200 rounded-lg">
+                            <span class="text-4xl">🚀</span>
+                            <h4 class="font-bold mt-4">既成概念への挑戦</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="challenge" class="py-20 md:py-32 bg-[#F4F1EC]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">アパレル産業が直面する危機</h2>
+                    <p class="mt-4 text-md text-gray-600 max-w-3xl mx-auto">
+                        衣料品産業は気候変動の大きな原因の一つです。特に日本では大量の衣類が消費されずに廃棄されています。この現実から私たちは目を背けません。
+                    </p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+                    <div class="w-full md:w-1/2">
+                        <div class="chart-container">
+                            <canvas id="wasteChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <h3 class="text-2xl font-bold text-gray-800">年間7割以上が焼却処分</h3>
+                        <p class="mt-4 text-gray-600">
+                            日本で供給される衣類のうち、実に7割以上が一度も着られることなく、あるいは短期間で焼却処分されています。これは、気候変動を加速させるだけでなく、貴重な資源の膨大な無駄遣いです。
+                        </p>
+                        <p class="mt-4 text-gray-600">
+                           この「作って、使って、捨てる」という一方通行の経済モデルは限界に達しており、業界全体での変革が急務です。パタゴニアは、この問題の解決にビジネスの力で挑みます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800">私たちの解決策：循環型モデル</h2>
+                    <p class="mt-4 text-md text-gray-600 max-w-3xl mx-auto">
+                        廃棄物を生み出さないために、私たちは製品の寿命を可能な限り延ばす「サーキュラリティ戦略」を推進しています。以下の図の各ステージをクリックして、私たちの取り組みをご覧ください。
+                    </p>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-10 items-start">
+                    <div class="w-full lg:w-2/5">
+                         <div class="flex flex-col items-center gap-4">
+                             <div id="node-product" class="circ-node w-48 text-center p-4 border-2 border-gray-300 rounded-lg bg-gray-100">製品</div>
+                             <div class="h-8 w-px bg-gray-300"></div>
+                             <div id="node-repair" class="circ-node w-48 text-center p-4 border-2 border-gray-300 rounded-lg">ケア＆修理</div>
+                             <div class="h-8 w-px bg-gray-300"></div>
+                             <div id="node-resell" class="circ-node w-48 text-center p-4 border-2 border-gray-300 rounded-lg">買取＆再販</div>
+                             <div class="h-8 w-px bg-gray-300"></div>
+                             <div id="node-recycle" class="circ-node w-48 text-center p-4 border-2 border-gray-300 rounded-lg">リサイクル</div>
+                         </div>
+                    </div>
+                    <div class="w-full lg:w-3/5 mt-8 lg:mt-0 p-8 bg-[#FDFBF8] rounded-xl min-h-[300px]">
+                        <div id="info-product" class="info-panel">
+                            <h3 class="text-2xl font-bold mb-4">最高の製品を作ることから</h3>
+                            <p class="text-gray-600">
+                                すべての始まりは、長持ちし、修理しやすく、多用途に使える、最高の製品を作ることです。耐久性の高い製品は、それだけで廃棄物を減らし、環境への負荷を低減します。私たちの循環型モデルは、高品質な製品設計がなければ成り立ちません。
+                            </p>
+                        </div>
+                        <div id="info-repair" class="info-panel hidden">
+                            <h3 class="text-2xl font-bold mb-4">ケアと修理 (Worn Wear)</h3>
+                            <p class="text-gray-600">
+                                「Worn Wear」は、製品の修理とメンテナンスを奨励する私たちの中心的プログラムです。世界各地の修理センターや移動修理トラックで、ウェアの寿命を延ばすお手伝いをします。たった9ヶ月長く着るだけで、水、CO2、廃棄物の排出量を20-30%削減できます。
+                            </p>
+                        </div>
+                        <div id="info-resell" class="info-panel hidden">
+                            <h3 class="text-2xl font-bold mb-4">買取と再販 (Preloved Gear)</h3>
+                            <p class="text-gray-600">
+                                着なくなったパタゴニア製品を買い取り、クリーニングと修理を施して「Preloved Gear（一度愛されたギア）」として再び販売します。これにより、製品に第二の人生を与え、新たな資源の消費を抑制します。前の持ち主の物語が、次の持ち主へと受け継がれていきます。
+                            </p>
+                        </div>
+                        <div id="info-recycle" class="info-panel hidden">
+                            <h3 class="text-2xl font-bold mb-4">リサイクル</h3>
+                            <p class="text-gray-600">
+                                修理も再販もできなくなった製品は、最後の手段としてリサイクルします。1993年からリサイクル・ポリエステルを導入するなど、私たちはリサイクル素材の活用をリードしてきました。製品を新たな原料として捉え直し、廃棄物をなくすことを目指します。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="future" class="py-20 md:py-32 bg-[#F4F1EC]">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800">2030年に向けて</h2>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">
+                    私たちの目標は、2030年までに製品の寿命をさらに延ばし、新規生産量を抑制することで、アパレル業界の環境インパクトを根本から変えることです。リセールビジネスの推進はその重要な一歩です。地球を救うための私たちの挑戦に、終わりはありません。
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+            <p>Patagonia Interactive Report</p>
+            <p class="text-sm text-gray-400 mt-2">This is a conceptual web application created for illustrative purposes based on publicly available information.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('wasteChart').getContext('2d');
+            const wasteChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['焼却・埋立', 'リユース・リサイクル'],
+                    datasets: [{
+                        data: [70, 30],
+                        backgroundColor: [
+                            '#8A716A',
+                            '#4A5C5A'
+                        ],
+                        borderColor: '#F4F1EC',
+                        borderWidth: 4,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#383838',
+                                font: {
+                                    size: 14,
+                                    family: "'Inter', 'Noto Sans JP', sans-serif"
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const sections = document.querySelectorAll('main section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const header = document.getElementById('header');
+            const headerHeight = header.offsetHeight;
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - headerHeight - 20) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active-link');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active-link');
+                    }
+                });
+            });
+
+            const nodes = document.querySelectorAll('.circ-node');
+            const infoPanels = document.querySelectorAll('.info-panel');
+
+            nodes.forEach(node => {
+                node.addEventListener('click', () => {
+                    const targetId = node.id.replace('node-', 'info-');
+                    
+                    nodes.forEach(n => n.classList.remove('active'));
+                    node.classList.add('active');
+                    
+                    infoPanels.forEach(panel => {
+                        if(panel.id === targetId) {
+                            panel.classList.remove('hidden');
+                        } else {
+                            panel.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+            
+            document.getElementById('node-product').classList.add('active');
+        });
+    </script>
+
+</body>
+</html>
