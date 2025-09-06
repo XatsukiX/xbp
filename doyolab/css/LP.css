@@ -1647,4 +1647,29 @@ pre {white-space: pre-wrap;word-wrap: break-word;overflow-wrap: break-word;}
 
 	}/*追加指定ここまで*/
 
+	.story{
+		text-align: center;
+	}
+
+	.story h1{
+		font-size: 60px;
+		background-color: skyblue;
+	}
+
+	.story p {
+		font-size: 20px;
+	}
+
+	.storyRs{
+		text-align: center;
+	}
+
+	.storyRs h1{
+		font-size: 60px;
+		background-color: skyblue;
+	}
+
+	.storyRs p {
+		font-size: 20px;
+	}
 
