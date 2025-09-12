@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ja" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>防災ポケットガイド</title>
+    <!-- App-like experience meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#F8FAFC">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --background-light: #F8FAFC; /* Slate 50 */
+            --card-light: #FFFFFF;
+            --border-light: #E2E8F0; /* Slate 200 */
+            --text-primary: #1E293B; /* Slate 800 */
+            --text-secondary: #475569; /* Slate 600 */
+            --text-muted: #94A3B8; /* Slate 400 */
+            --accent-yellow: #F59E0B; /* Amber 500 */
+        }
+        html {
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            overscroll-behavior-y: contain; /* Prevents pull-to-refresh */
+        }
+        .card {
+            background-color: var(--card-light);
+            border: 1px solid var(--border-light);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        .card-title { color: var(--text-primary); }
+        .card-content { color: var(--text-secondary); }
+        .checklist-item.checked {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+        .button-primary {
+            display: flex;
+            width: 100%;
+            background-color: #3B82F6; /* Blue 500 */
+            color: white;
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out;
+            border: 1px solid #2563EB;
+        }
+        .button-primary:hover { background-color: #2563EB; } /* Blue 600 */
+        .button-primary:active { transform: scale(0.97); }
+        .button-primary:disabled {
+            background-color: #e2e8f0; /* slate 200 */
+            color: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            border-color: #cbd5e1; /* slate 300 */
+        }
+        #alert-overlay { animation: flash 1s infinite; }
+        @keyframes flash {
+            0%, 100% { background-color: #ef4444; } /* Red */
+            50% { background-color: #ffffff; } /* White */
+        }
+        .tab-panel {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 3px var(--accent-yellow), 0 0 6px var(--accent-yellow);
+                filter: drop-shadow(0 0 2px var(--accent-yellow));
+            }
+            50% {
+                text-shadow: 0 0 6px var(--accent-yellow), 0 0 12px var(--accent-yellow);
+                filter: drop-shadow(0 0 4px var(--accent-yellow));
+            }
+        }
+        .glow-effect {
+            animation: glow 3s ease-in-out infinite;
+        }
+        /* Ensure chat panel takes full height */
+        #tab-content, .tab-panel {
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="main-container h-full overflow-hidden" style="color: var(--text-primary);">
+
+    <div id="alert-overlay" class="hidden fixed inset-0 z-50 flex flex-col items-center justify-center text-center p-4">
+        <p class="text-3xl font-bold text-black mb-8 animate-pulse">救助アラート作動中</p>
+        <button id="stop-alert-btn" class="bg-white text-red-600 font-bold py-4 px-8 rounded-full text-2xl shadow-2xl border-4 border-red-600 flex items-center justify-center">
+            <i data-lucide="stop-circle" class="mr-2"></i>停止
+        </button>
+    </div>
+
+    <div id="app-container" class="flex flex-col h-full w-full max-w-2xl mx-auto">
+        <!-- Header -->
+        <header class="text-center pt-6 pb-4 px-4">
+            <h1 class="text-2xl font-bold flex items-center justify-center gap-2" style="color: var(--text-primary);">
+                <i data-lucide="shield-alert" style="color: var(--accent-yellow);"></i>
+                <span>防災ポケットガイド</span>
+            </h1>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow overflow-y-auto px-4 pb-4">
+            <!-- Tab Content -->
+            <div id="tab-content">
+                <!-- Safety Confirmation Panel -->
+                <div id="tab-panel-safety" class="tab-panel">
+                    <div class="card rounded-xl p-5">
+                        <h2 class="text-xl font-semibold card-title flex items-center gap-2">
+                            <i data-lucide="user-check"></i>
+                            安否確認メッセージ
+                        </h2>
+                        <p class="card-content mt-4">現在地の情報を含んだ安否確認メッセージを作成し、家族や知人に知らせることができます。</p>
+                        <button id="create-message-btn" onclick="createSafetyMessage()" class="button-primary mt-6">
+                            <i data-lucide="map-pin"></i>
+                            メッセージを作成
+                        </button>
+                        <p id="geo-status" class="text-center text-sm mt-3"></p>
+                        <div id="message-area" class="mt-4 hidden">
+                            <p class="text-sm text-gray-400 mb-2">作成されたメッセージ:</p>
+                            <textarea id="safety-message" readonly class="w-full bg-slate-100 border border-slate-300 rounded-md p-3 text-slate-800 h-28"></textarea>
+                            <button id="copy-message-btn" onclick="copyMessage()" class="button-primary bg-emerald-600 hover:bg-emerald-700 mt-4 border-emerald-700">
+                                <i data-lucide="copy"></i>
+                                メッセージをコピー
+                            </button>
+                            <p id="copy-status" class="text-center text-emerald-500 mt-2 text-sm"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rescue Alert Panel -->
+                <div id="tab-panel-alert" class="tab-panel hidden">
+                     <div class="card rounded-xl p-5">
+                        <h2 class="text-xl font-semibold card-title flex items-center gap-2">
+                            <i data-lucide="siren"></i>
+                            救助アラート
+                        </h2>
+                        <p class="card-content mt-4">閉じ込められた際など、自分の居場所を知らせるための機能です。大きな音と画面の点滅で救助隊に知らせます。</p>
+                        <button id="start-alert-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors mt-6">
+                            <i data-lucide="play-circle"></i>
+                            アラートを開始
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Evacuation Map Panel -->
+                <div id="tab-panel-map" class="tab-panel hidden">
+                    <div class="card rounded-xl p-5">
+                        <h2 class="text-xl font-semibold card-title flex items-center gap-2">
+                            <i data-lucide="map"></i>
+                            避難場所マップ
+                        </h2>
+                        <p class="card-content mt-4">現在地周辺の避難場所をマップで確認します。</p>
+                        <button onclick="openMap()" class="button-primary mt-6">
+                            <i data-lucide="external-link"></i>
+                            マップを開く
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stockpile Checklist Panel -->
+                <div id="tab-panel-checklist" class="tab-panel hidden">
+                    <div class="card rounded-xl p-5">
+                        <div class="flex justify-between items-center">
+                            <h2 class="text-xl font-semibold card-title flex items-center gap-2">
+                                <i data-lucide="list-checks"></i>
+                                備蓄品チェックリスト
+                            </h2>
+                            <span id="stockpile-rate" class="text-lg font-bold" style="color: var(--accent-yellow);">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 rounded-full h-2.5 mt-3">
+                            <div id="progress-bar" class="h-2.5 rounded-full transition-all duration-500" style="width: 0%; background-color: var(--accent-yellow);"></div>
+                        </div>
+                        <div id="checklist" class="card-content mt-4 space-y-3">
+                            <!-- Checklist items will be generated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Panel -->
+                <div id="tab-panel-chat" class="tab-panel hidden h-full flex flex-col">
+                    <div class="card rounded-xl p-5 flex-grow flex flex-col overflow-hidden">
+                        <h2 class="text-xl font-semibold card-title flex items-center gap-2">
+                            <i data-lucide="messages-square"></i>
+                            みんなの掲示板
+                        </h2>
+                        <p class="card-content mt-2 mb-4 text-sm">不安な気持ちを共有したり、情報を交換しましょう。心ない言葉は控え、お互いを思いやりましょう。</p>
+                        <div id="chat-messages" class="flex-grow overflow-y-auto bg-slate-100 rounded-lg p-3 flex flex-col gap-y-2">
+                            <!-- Messages will be injected here -->
+                        </div>
+                        <div class="mt-4 flex gap-2">
+                            <input type="text" id="chat-input" placeholder="メッセージを入力..." class="flex-grow border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-amber-400 focus:border-amber-400 outline-none">
+                            <button id="send-chat-btn" class="bg-amber-500 hover:bg-amber-600 text-white font-bold p-3 rounded-lg flex items-center justify-center">
+                                <i data-lucide="send" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <!-- Bottom Tab Navigation -->
+        <nav class="flex justify-around bg-white/80 backdrop-blur-sm border-t border-slate-200">
+            <button class="tab-btn active flex-1 flex flex-col items-center justify-center py-2 text-center font-semibold transition-all" data-tab="safety">
+                <i data-lucide="user-check" class="w-6 h-6"></i>
+                <span class="mt-1 text-xs">安否確認</span>
+            </button>
+             <button class="tab-btn flex-1 flex flex-col items-center justify-center py-2 text-center font-semibold transition-all" data-tab="chat">
+                <i data-lucide="messages-square" class="w-6 h-6"></i>
+                <span class="mt-1 text-xs">掲示板</span>
+            </button>
+            <button class="tab-btn flex-1 flex flex-col items-center justify-center py-2 text-center font-semibold transition-all" data-tab="alert">
+                <i data-lucide="siren" class="w-6 h-6"></i>
+                <span class="mt-1 text-xs">救助アラート</span>
+            </button>
+            <button class="tab-btn flex-1 flex flex-col items-center justify-center py-2 text-center font-semibold transition-all" data-tab="map">
+                <i data-lucide="map" class="w-6 h-6"></i>
+                <span class="mt-1 text-xs">避難マップ</span>
+            </button>
+            <button class="tab-btn flex-1 flex flex-col items-center justify-center py-2 text-center font-semibold transition-all" data-tab="checklist">
+                <i data-lucide="list-checks" class="w-6 h-6"></i>
+                <span class="mt-1 text-xs">備蓄リスト</span>
+            </button>
+        </nav>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, limit } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        lucide.createIcons();
+        const STORAGE_KEY = 'bousaiChecklistState';
+
+        // --- Safety Confirmation ---
+        const createMessageBtn = document.getElementById('create-message-btn');
+        const messageArea = document.getElementById('message-area');
+        const safetyMessageTextarea = document.getElementById('safety-message');
+        const copyStatus = document.getElementById('copy-status');
+        const geoStatus = document.getElementById('geo-status');
+
+        window.createSafetyMessage = function() {
+            if (!navigator.geolocation) {
+                geoStatus.textContent = 'お使いのブラウザは位置情報取得に対応していません。';
+                geoStatus.className = 'text-center text-red-500 mt-2 text-sm';
+                return;
+            }
+
+            geoStatus.textContent = '位置情報を取得中...';
+            geoStatus.className = 'text-center text-amber-500 mt-2 text-sm';
+            messageArea.classList.add('hidden');
+            createMessageBtn.disabled = true;
+            createMessageBtn.innerHTML = '<i data-lucide="loader-2" class="animate-spin"></i> 取得中...';
+            lucide.createIcons();
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    const mapLink = `https://maps.google.com/?q=${latitude},${longitude}`;
+                    const message = `私は無事です。\n現在の場所はこちらです：\n${mapLink}`;
+                    
+                    safetyMessageTextarea.value = message;
+                    messageArea.classList.remove('hidden');
+                    geoStatus.textContent = 'メッセージを作成しました。';
+                    geoStatus.className = 'text-center text-green-500 mt-2 text-sm';
+                    resetCreateButton();
+                },
+                (error) => {
+                    console.error(`Geolocation error (code: ${error.code}): ${error.message}`);
+                    let errorMessage;
+                    switch (error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = '位置情報の利用が許可されていません。ブラウザの設定を確認してください。';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = '位置情報を取得できませんでした。電波状況の良い場所でお試しください。';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = '位置情報の取得がタイムアウトしました。もう一度お試しください。';
+                            break;
+                        default:
+                            errorMessage = '原因不明のエラーで位置情報を取得できませんでした。';
+                            break;
+                    }
+                    geoStatus.textContent = errorMessage;
+                    geoStatus.className = 'text-center text-red-500 mt-2 text-sm';
+                    
+                    safetyMessageTextarea.value = `私は無事です。\n(位置情報が取得できなかったため、地図リンクはありません)`;
+                    messageArea.classList.remove('hidden');
+                    resetCreateButton();
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                }
+            );
+        }
+        
+        function resetCreateButton() {
+            createMessageBtn.disabled = false;
+            createMessageBtn.innerHTML = '<i data-lucide="map-pin"></i> メッセージを再作成';
+            lucide.createIcons();
+        }
+
+        window.copyMessage = function() {
+            safetyMessageTextarea.select();
+            try {
+                navigator.clipboard.writeText(safetyMessageTextarea.value).then(() => {
+                    copyStatus.textContent = 'コピーしました！';
+                    setTimeout(() => { copyStatus.textContent = ''; }, 3000);
+                }).catch(err => {
+                    console.error('Clipboard API error: ', err);
+                    document.execCommand('copy');
+                    copyStatus.textContent = 'コピーしました！ (fallback)';
+                    setTimeout(() => { copyStatus.textContent = ''; }, 3000);
+                });
+            } catch (err) {
+                console.error('Clipboard copy failed: ', err);
+                document.execCommand('copy');
+                copyStatus.textContent = 'コピーしました！ (fallback)';
+                setTimeout(() => { copyStatus.textContent = ''; }, 3000);
+            }
+        }
+
+        window.openMap = function() {
+            window.open('https://www.google.com/maps/search/?api=1&query=避難所', '_blank');
+        }
+
+        let checklistItems = [
+            { id: 'water', text: '飲料水（1人1日3L、最低3日分）', checked: false },
+            { id: 'food', text: '非常食（最低3日分、アルファ米、缶詰など）', checked: false },
+            { id: 'snacks', text: '栄養補助食品・お菓子', checked: false },
+            { id: 'radio', text: '携帯ラジオ（手回し充電式が便利）', checked: false },
+            { id: 'flashlight', text: '懐中電灯・ヘッドライト', checked: false },
+            { id: 'battery', text: '予備電池・モバイルバッテリー', checked: false },
+            { id: 'cash', text: '現金（公衆電話用に小銭も）', checked: false },
+            { id: 'valuables', text: '貴重品（身分証、保険証のコピー）', checked: false },
+            { id: 'first_aid', text: '救急セット（絆創膏、消毒液、常備薬）', checked: false },
+            { id: 'toilet', text: '携帯トイレ・簡易トイレ', checked: false },
+            { id: 'wet_tissues', text: 'ウェットティッシュ・体拭きシート', checked: false },
+            { id: 'mask', text: 'マスク・アルコール消毒液', checked: false },
+            { id: 'gloves', text: '軍手・革手袋', checked: false },
+            { id: 'whistle', text: 'ホイッスル（救助要請用）', checked: false },
+            { id: 'blanket', text: 'アルミブランケット・寝袋', checked: false },
+            { id: 'plastic_bags', text: 'ポリ袋（大小複数）', checked: false },
+        ];
+
+        const checklistContainer = document.getElementById('checklist');
+        const stockpileRateText = document.getElementById('stockpile-rate');
+        const progressBar = document.getElementById('progress-bar');
+
+        function updateStockpileRate() {
+            const totalItems = checklistItems.length;
+            if (totalItems === 0) {
+                stockpileRateText.textContent = '0%';
+                progressBar.style.width = '0%';
+                return;
+            }
+            const checkedItems = checklistItems.filter(item => item.checked).length;
+            const rate = Math.round((checkedItems / totalItems) * 100);
+            
+            stockpileRateText.textContent = `${rate}%`;
+            progressBar.style.width = `${rate}%`;
+        }
+
+        function loadChecklistState() {
+            const savedStateJSON = localStorage.getItem(STORAGE_KEY);
+            if (savedStateJSON) {
+                const savedState = JSON.parse(savedStateJSON);
+                checklistItems.forEach(item => {
+                    const savedItem = savedState.find(s => s.id === item.id);
+                    if (savedItem) {
+                        item.checked = savedItem.checked;
+                    }
+                });
+            }
+        }
+
+        function saveChecklistState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(checklistItems));
+        }
+
+        function renderChecklist() {
+            checklistContainer.innerHTML = '';
+            checklistItems.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `checklist-item flex items-center p-3 bg-slate-100 rounded-lg cursor-pointer transition-colors ${item.checked ? 'checked' : ''}`;
+                itemDiv.onclick = () => toggleCheck(index);
+
+                const icon = document.createElement('i');
+                icon.setAttribute('data-lucide', item.checked ? 'check-square' : 'square');
+                
+                const textSpan = document.createElement('span');
+                textSpan.className = 'ml-3';
+                textSpan.textContent = item.text;
+                
+                itemDiv.appendChild(icon);
+                itemDiv.appendChild(textSpan);
+                checklistContainer.appendChild(itemDiv);
+            });
+            lucide.createIcons();
+            updateStockpileRate();
+        }
+
+        function toggleCheck(index) {
+            checklistItems[index].checked = !checklistItems[index].checked;
+            saveChecklistState();
+            renderChecklist();
+        }
+        
+        const startAlertBtn = document.getElementById('start-alert-btn');
+        const stopAlertBtn = document.getElementById('stop-alert-btn');
+        const alertOverlay = document.getElementById('alert-overlay');
+        const appContainer = document.getElementById('app-container');
+        let audioCtx;
+        let oscillator;
+    
+        function startAlert() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            
+            oscillator = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(960, audioCtx.currentTime);
+            oscillator.loop = true;
+            gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+            oscillator.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            oscillator.start();
+
+            alertOverlay.classList.remove('hidden');
+            appContainer.classList.add('hidden');
+        }
+
+        function stopAlert() {
+            if (oscillator) {
+                oscillator.stop();
+                oscillator.disconnect();
+                oscillator = null;
+            }
+            alertOverlay.classList.add('hidden');
+            appContainer.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panels = document.querySelectorAll('.tab-panel');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('active');
+                    t.style.color = 'var(--text-muted)';
+                    const icon = t.querySelector('svg');
+                    if (icon) icon.classList.remove('glow-effect');
+                });
+                panels.forEach(p => p.classList.add('hidden'));
+
+                tab.classList.add('active');
+                tab.style.color = 'var(--accent-yellow)';
+                const activeIcon = tab.querySelector('svg');
+                if (activeIcon) activeIcon.classList.add('glow-effect');
+                
+                const targetPanelId = 'tab-panel-' + tab.dataset.tab;
+                const targetPanel = document.getElementById(targetPanelId);
+                if (targetPanel) {
+                    targetPanel.classList.remove('hidden');
+                }
+            });
+        });
+
+        // --- Firebase Chat ---
+        let db, auth, userId;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        async function initFirebase() {
+            try {
+                const firebaseConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
+                 if (!firebaseConfigStr || firebaseConfigStr === '{}') {
+                    throw new Error("Firebase config not found");
+                }
+                const firebaseConfig = JSON.parse(firebaseConfigStr);
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        initChat();
+                    }
+                });
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                const chatMessages = document.getElementById('chat-messages');
+                if(chatMessages) chatMessages.innerHTML = `<p class="text-center text-red-500 p-4">掲示板の読み込みに失敗しました。接続を確認して再読み込みしてください。</p>`;
+            }
+        }
+        
+        function renderMessage(data) {
+            const messagesContainer = document.getElementById('chat-messages');
+            if (!messagesContainer) return;
+            const wrapperDiv = document.createElement('div');
+            wrapperDiv.className = 'w-full flex';
+            
+            const msgDiv = document.createElement('div');
+            msgDiv.textContent = data.text;
+            msgDiv.className = 'p-3 rounded-xl max-w-[85%] break-words shadow-sm';
+
+            const isMyMessage = data.userId === userId;
+            if(isMyMessage) {
+                wrapperDiv.classList.add('justify-end');
+                msgDiv.classList.add('bg-amber-200');
+            } else {
+                wrapperDiv.classList.add('justify-start');
+                msgDiv.classList.add('bg-white');
+            }
+            wrapperDiv.appendChild(msgDiv);
+            messagesContainer.appendChild(wrapperDiv);
+        }
+
+        function initChat() {
+            const sendBtn = document.getElementById('send-chat-btn');
+            const chatInput = document.getElementById('chat-input');
+            const messagesContainer = document.getElementById('chat-messages');
+            if (!sendBtn || !chatInput || !messagesContainer) return;
+
+            const chatCollectionPath = `/artifacts/${appId}/public/data/bousai_chat`;
+            const q = query(collection(db, chatCollectionPath), orderBy("timestamp", "asc"), limit(100));
+
+            onSnapshot(q, (querySnapshot) => {
+                messagesContainer.innerHTML = '';
+                querySnapshot.forEach((doc) => {
+                    renderMessage(doc.data());
+                });
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, (error) => {
+                console.error("Error getting chat messages: ", error);
+                messagesContainer.innerHTML = '<p class="text-center text-red-500">メッセージの取得に失敗しました。</p>';
+            });
+
+            const sendMessage = async () => {
+                const messageText = chatInput.value.trim();
+                if (messageText && userId) {
+                    chatInput.value = '';
+                    try {
+                        await addDoc(collection(db, chatCollectionPath), {
+                            text: messageText,
+                            userId: userId,
+                            timestamp: serverTimestamp()
+                        });
+                    } catch (e) {
+                        console.error("Error sending message: ", e);
+                        chatInput.value = messageText; // Restore on error
+                    }
+                }
+            };
+
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChecklistState();
+            renderChecklist();
+            startAlertBtn.addEventListener('click', startAlert);
+            stopAlertBtn.addEventListener('click', stopAlert);
+            
+            // Set initial tab styles
+            tabs.forEach(t => {
+                if (t.classList.contains('active')) {
+                    t.style.color = 'var(--accent-yellow)';
+                    const icon = t.querySelector('svg');
+                    if (icon) icon.classList.add('glow-effect');
+                } else {
+                    t.style.color = 'var(--text-muted)';
+                }
+            });
+            
+            initFirebase();
+        });
+    </script>
+</body>
+</html>
+
