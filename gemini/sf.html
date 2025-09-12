@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>学園祭デジタルスタンプラリー</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'M PLUS Rounded 1c', sans-serif;
+            touch-action: manipulation;
+        }
+        /* 画面切り替えアニメーション */
+        .page {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* スタンプ獲得アニメーション */
+        .stamp-animation {
+            animation: stampBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes stampBounce {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        /* 間違いアニメーション */
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+        @keyframes shake {
+            10%, 90% { transform: translateX(-1px); }
+            20%, 80% { transform: translateX(2px); }
+            30%, 50%, 70% { transform: translateX(-4px); }
+            40%, 60% { transform: translateX(4px); }
+        }
+        /* コンフェッティ */
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 20px;
+            top: -50px;
+            opacity: 0;
+            animation: confetti-fall 5s linear infinite;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(0) rotateZ(0deg); opacity: 1; }
+            100% { transform: translateY(120vh) rotateZ(720deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- アプリコンテナ -->
+    <div class="w-full max-w-md mx-auto h-screen bg-white flex flex-col shadow-lg">
+        <!-- 画面表示エリア -->
+        <main id="page-container" class="flex-grow relative overflow-y-auto p-4">
+
+            <!-- スタート画面 -->
+            <div id="start-page" class="page w-full text-center flex items-center justify-center h-full">
+                 <div class="bg-white p-6 rounded-2xl">
+                    <h1 class="text-3xl font-extrabold text-blue-600 mb-2">学園祭</h1>
+                    <h2 class="text-4xl font-extrabold text-yellow-500 mb-6 tracking-wider">デジタルスタンプラリー</h2>
+                    <img src="https://placehold.co/300x200/60A5FA/FFFFFF?text=%E3%82%B9%E3%82%BF%E3%83%B3%E3%83%97%E3%83%A9%E3%83%AA%E3%83%BC" alt="スタンプラリーのイメージ画像" class="mx-auto rounded-lg mb-6 shadow-md">
+                    <p class="text-gray-600 mb-6">校内にあるチェックポイントを巡って<br>「合言葉」を集めよう！</p>
+                    <p class="text-gray-600 font-bold mb-8">全部集めると素敵な景品をプレゼント！</p>
+                    <button id="start-button" class="w-full bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-4 px-8 rounded-full shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        ラリースタート！
+                    </button>
+                </div>
+            </div>
+
+            <!-- スキャン画面 -->
+            <div id="scan-page" class="page hidden">
+                <h1 class="text-2xl font-bold text-center mb-4 text-blue-600">スタンプ獲得</h1>
+                <div id="scan-grid" class="space-y-3">
+                    <!-- JSで生成 -->
+                </div>
+            </div>
+
+            <!-- コレクション画面 -->
+            <div id="collection-page" class="page hidden">
+                <h1 class="text-2xl font-bold text-center mb-4 text-blue-600">ゲットしたスタンプ</h1>
+                <div id="collection-grid" class="grid grid-cols-2 gap-4">
+                    <!-- JSで生成 -->
+                </div>
+                <p id="no-stamps-message" class="text-center text-gray-500 mt-16 hidden">まだスタンプがありません。<br>スキャン画面から獲得しよう！</p>
+            </div>
+
+            <!-- マップ画面 -->
+            <div id="map-page" class="page hidden">
+                 <h1 class="text-2xl font-bold text-center mb-4 text-blue-600">校内マップ</h1>
+                 <div class="relative w-full aspect-square bg-gray-100 rounded-lg overflow-hidden shadow-inner">
+                     <img src="https://placehold.co/600x600/F3F4F6/9CA3AF?text=School+Map" alt="校内マップ" class="w-full h-full object-cover">
+                     <!-- JSでピンを生成 -->
+                     <div id="map-pins"></div>
+                 </div>
+            </div>
+
+            <!-- メニュー画面 -->
+            <div id="menu-page" class="page hidden">
+                <h1 class="text-2xl font-bold text-center mb-4 text-blue-600">出し物一覧</h1>
+                <div id="menu-list" class="space-y-3">
+                    <!-- JSで生成 -->
+                </div>
+            </div>
+            
+            <!-- コンプリート画面 -->
+            <div id="complete-page" class="page hidden flex items-center justify-center h-full">
+                 <div class="text-center p-4">
+                    <div id="confetti-container" class="absolute inset-0 pointer-events-none"></div>
+                    <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-yellow-500 mb-4 animate-pulse">COMPLETE!</h1>
+                    <h2 class="text-2xl font-bold text-gray-700 mb-6">全スタンプ達成おめでとう！</h2>
+                    <svg class="w-24 h-24 text-yellow-400 mx-auto mb-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V4a2 2 0 00-2-2H6zm4 14a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                    <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg">
+                        <p class="font-bold">この画面を景品交換所のスタッフに見せて、素敵な景品をゲットしよう！</p>
+                    </div>
+                     <button id="reset-button" class="mt-8 text-sm text-gray-500 hover:text-red-500 underline mx-auto block">
+                        最初からやり直す
+                    </button>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- タブバー -->
+        <nav id="tab-bar" class="w-full bg-white border-t border-gray-200 flex justify-around hidden">
+            <button data-page="scan-page" class="tab-button flex-1 py-2 px-1 text-center text-gray-500 hover:text-blue-600 transition-colors">
+                <svg class="w-7 h-7 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                <span class="text-xs">スキャン</span>
+            </button>
+            <button data-page="collection-page" class="tab-button flex-1 py-2 px-1 text-center text-gray-500 hover:text-blue-600 transition-colors">
+                <svg class="w-7 h-7 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                <span class="text-xs">コレクション</span>
+            </button>
+            <button data-page="map-page" class="tab-button flex-1 py-2 px-1 text-center text-gray-500 hover:text-blue-600 transition-colors">
+                <svg class="w-7 h-7 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span class="text-xs">マップ</span>
+            </button>
+            <button data-page="menu-page" class="tab-button flex-1 py-2 px-1 text-center text-gray-500 hover:text-blue-600 transition-colors">
+                <svg class="w-7 h-7 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <span class="text-xs">メニュー</span>
+            </button>
+        </nav>
+    </div>
+
+
+    <!-- 合言葉入力モーダル -->
+    <div id="password-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-sm text-center">
+            <h3 id="modal-title" class="text-xl font-bold mb-4"></h3>
+            <p class="text-gray-600 mb-4">その場所にある「合言葉」を入力してね。</p>
+            <input type="text" id="password-input" class="w-full border-2 border-gray-300 rounded-lg p-3 text-center text-lg tracking-widest focus:border-blue-500 focus:ring-blue-500">
+            <p id="error-message" class="text-red-500 text-sm h-6 mt-1"></p>
+            <div class="flex gap-4 mt-4">
+                <button id="modal-close-button" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-3 px-4 rounded-lg transition-colors">もどる</button>
+                <button id="modal-submit-button" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg transition-colors">送信</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 設定データ ---
+        const LOCATIONS_CONFIG = [
+            { id: 1, name: "正門", secret: "はじまり", pos: { top: '80%', left: '50%' } },
+            { id: 2, name: "体育館", secret: "たいりょく", pos: { top: '15%', left: '15%' } },
+            { id: 3, name: "美術室", secret: "おえかき", pos: { top: '30%', left: '75%' } },
+            { id: 4, name: "音楽室", secret: "めろでぃ", pos: { top: '55%', left: '80%' } },
+            { id: 5, name: "中庭", secret: "いこいのば", pos: { top: '50%', left: '45%' } },
+        ];
+        
+        const MENU_ITEMS = [
+            { class: "3年A組", name: "お化け屋敷", desc: "恐怖の体験があなたを待つ..." },
+            { class: "2年B組", name: "タピオカドリンク", desc: "もちもち食感がたまらない！" },
+            { class: "茶道部", name: "お茶会", desc: "和の心でおもてなしします。" },
+            { class: "吹奏楽部", name: "ミニコンサート", desc: "体育館で13時から開演！" },
+            { class: "美術部", name: "作品展示", desc: "部員たちの力作をご覧ください。" },
+        ];
+
+        // --- DOM要素 ---
+        const pageContainer = document.getElementById('page-container');
+        const pages = {
+            start: document.getElementById('start-page'),
+            scan: document.getElementById('scan-page'),
+            collection: document.getElementById('collection-page'),
+            map: document.getElementById('map-page'),
+            menu: document.getElementById('menu-page'),
+            complete: document.getElementById('complete-page'),
+        };
+        const startButton = document.getElementById('start-button');
+        const resetButton = document.getElementById('reset-button');
+        const tabBar = document.getElementById('tab-bar');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const passwordModal = document.getElementById('password-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const passwordInput = document.getElementById('password-input');
+        const errorMessage = document.getElementById('error-message');
+        const modalCloseButton = document.getElementById('modal-close-button');
+        const modalSubmitButton = document.getElementById('modal-submit-button');
+        
+        // --- 状態変数 ---
+        let locations = [];
+        let currentCheckingLocationId = null;
+        let hasStarted = false;
+
+        // --- アプリ初期化 ---
+        function initializeApp() {
+            loadProgress();
+            if (!hasStarted) {
+                showPage('start-page');
+            } else {
+                tabBar.classList.remove('hidden');
+                if (isAllStamped()) {
+                    showPage('complete-page');
+                } else {
+                    showPage('scan-page');
+                    updateAllPages();
+                }
+            }
+        }
+
+        // --- 画面切り替え ---
+        function showPage(pageId) {
+            Object.values(pages).forEach(page => {
+                if(page) page.classList.add('hidden');
+            });
+            const targetPage = document.getElementById(pageId) || pages.scan; // fallback
+             if(targetPage){
+                targetPage.classList.remove('hidden');
+             }
+
+            // タブのアクティブ状態更新
+            tabButtons.forEach(btn => {
+                if (btn.dataset.page === pageId) {
+                    btn.classList.add('text-blue-600');
+                    btn.classList.remove('text-gray-500');
+                } else {
+                    btn.classList.add('text-gray-500');
+                    btn.classList.remove('text-blue-600');
+                }
+            });
+
+             if (pageId === 'complete-page') {
+                playConfetti();
+                tabBar.classList.add('hidden');
+             }
+        }
+
+        // --- 全画面の描画更新 ---
+        function updateAllPages() {
+            renderScanPage();
+            renderCollectionPage();
+            renderMapPage();
+            renderMenuPage();
+        }
+
+        // --- 各画面の描画 ---
+        function renderScanPage() {
+            const scanGrid = document.getElementById('scan-grid');
+            scanGrid.innerHTML = '';
+            locations.forEach(location => {
+                const isStamped = location.stamped;
+                const element = document.createElement('div');
+                element.className = `p-4 rounded-xl shadow-md flex items-center justify-between ${isStamped ? 'bg-green-100' : 'bg-white'}`;
+                element.innerHTML = `
+                    <div>
+                        <p class="font-bold text-lg text-gray-700">${location.name}</p>
+                        <p class="text-sm ${isStamped ? 'text-green-600' : 'text-gray-500'}">${isStamped ? 'スタンプ獲得済み！' : '未獲得'}</p>
+                    </div>
+                    <button data-id="${location.id}" class="scan-button ${isStamped ? 'bg-gray-300' : 'bg-blue-500 hover:bg-blue-600'} text-white font-bold py-2 px-4 rounded-lg transition-colors" ${isStamped ? 'disabled' : ''}>
+                        ${isStamped ? 'OK' : '獲得'}
+                    </button>
+                `;
+                scanGrid.appendChild(element);
+            });
+            document.querySelectorAll('.scan-button:not([disabled])').forEach(btn => {
+                btn.addEventListener('click', (e) => openPasswordModal(parseInt(e.currentTarget.dataset.id)));
+            });
+        }
+
+        function renderCollectionPage() {
+            const collectionGrid = document.getElementById('collection-grid');
+            const noStampsMessage = document.getElementById('no-stamps-message');
+            collectionGrid.innerHTML = '';
+            const stampedLocations = locations.filter(loc => loc.stamped);
+
+            if (stampedLocations.length === 0) {
+                noStampsMessage.classList.remove('hidden');
+            } else {
+                noStampsMessage.classList.add('hidden');
+                stampedLocations.forEach(location => {
+                    const card = document.createElement('div');
+                    card.className = 'p-4 rounded-2xl shadow-lg text-center bg-gradient-to-br from-yellow-300 to-orange-400 text-white';
+                    card.innerHTML = `
+                        <div class="h-16 w-16 mx-auto mb-2 flex items-center justify-center rounded-full bg-white bg-opacity-30">
+                            <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        </div>
+                        <p class="font-bold">${location.name}</p>
+                    `;
+                    collectionGrid.appendChild(card);
+                });
+            }
+        }
+
+        function renderMapPage() {
+            const mapPins = document.getElementById('map-pins');
+            mapPins.innerHTML = '';
+            locations.forEach(location => {
+                const pin = document.createElement('div');
+                pin.className = 'absolute transform -translate-x-1/2 -translate-y-full';
+                pin.style.top = location.pos.top;
+                pin.style.left = location.pos.left;
+                pin.innerHTML = `
+                    <div class="relative group">
+                        <span class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 w-max bg-gray-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity">${location.name}</span>
+                        <svg class="w-8 h-8 ${location.stamped ? 'text-yellow-400' : 'text-red-500'} drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 20l-4.95-5.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                    </div>
+                `;
+                mapPins.appendChild(pin);
+            });
+        }
+        
+        function renderMenuPage() {
+            const menuList = document.getElementById('menu-list');
+            menuList.innerHTML = '';
+            MENU_ITEMS.forEach(item => {
+                const element = document.createElement('div');
+                element.className = 'p-4 rounded-xl shadow-md bg-white';
+                element.innerHTML = `
+                    <p class="font-bold text-lg text-blue-600">${item.class}</p>
+                    <p class="font-semibold text-gray-800">${item.name}</p>
+                    <p class="text-sm text-gray-500">${item.desc}</p>
+                `;
+                menuList.appendChild(element);
+            });
+        }
+        
+        // --- モーダル制御 ---
+        function openPasswordModal(locationId) {
+            currentCheckingLocationId = locationId;
+            const location = locations.find(loc => loc.id === locationId);
+            modalTitle.textContent = `${location.name} の合言葉`;
+            passwordInput.value = '';
+            errorMessage.textContent = '';
+            passwordModal.classList.remove('hidden');
+            passwordInput.focus();
+        }
+
+        function closePasswordModal() {
+            passwordModal.classList.add('hidden');
+        }
+
+        // --- 合言葉チェック ---
+        function checkPassword() {
+            const input = passwordInput.value.trim();
+            const location = locations.find(loc => loc.id === currentCheckingLocationId);
+
+            if (input === location.secret) {
+                location.stamped = true;
+                saveProgress();
+                updateAllPages();
+                closePasswordModal();
+                if (isAllStamped()) {
+                    setTimeout(() => showPage('complete-page'), 300);
+                }
+            } else {
+                errorMessage.textContent = '合言葉が違うみたい…';
+                passwordModal.querySelector('div > div').classList.add('shake');
+                setTimeout(() => passwordModal.querySelector('div > div').classList.remove('shake'), 500);
+            }
+        }
+        
+        // --- 状態管理 ---
+        function isAllStamped() {
+            return locations.every(loc => loc.stamped);
+        }
+        
+        function saveProgress() {
+            localStorage.setItem('stampRallyProgress', JSON.stringify({locations, hasStarted: true}));
+        }
+
+        function loadProgress() {
+            const progress = localStorage.getItem('stampRallyProgress');
+            if (progress) {
+                try {
+                    const data = JSON.parse(progress);
+                    locations = data.locations || [];
+                    hasStarted = data.hasStarted || false;
+                } catch {
+                    resetData();
+                }
+            } else {
+                 resetData();
+            }
+        }
+        
+        function resetData() {
+            locations = LOCATIONS_CONFIG.map(loc => ({ ...loc, stamped: false }));
+            hasStarted = false;
+        }
+
+        function handleReset() {
+            if (confirm('本当に最初からやり直しますか？スタンプの情報はすべてリセットされます。')) {
+                localStorage.removeItem('stampRallyProgress');
+                window.location.reload();
+            }
+        }
+        
+        // --- エフェクト ---
+        function playConfetti() {
+            const container = document.getElementById('confetti-container');
+            if(!container) return;
+            container.innerHTML = '';
+            const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4'];
+            for (let i = 0; i < 50; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.left = `${Math.random() * 100}%`;
+                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.animationDelay = `${Math.random() * 5}s`;
+                piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                container.appendChild(piece);
+            }
+        }
+        
+        // --- イベントリスナー ---
+        startButton.addEventListener('click', () => {
+            hasStarted = true;
+            saveProgress();
+            tabBar.classList.remove('hidden');
+            showPage('scan-page');
+            updateAllPages();
+        });
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                showPage(button.dataset.page);
+            });
+        });
+
+        resetButton.addEventListener('click', handleReset);
+        modalCloseButton.addEventListener('click', closePasswordModal);
+        modalSubmitButton.addEventListener('click', checkPassword);
+        passwordInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        // --- アプリケーション開始 ---
+        initializeApp();
+    </script>
+</body>
+</html>
+

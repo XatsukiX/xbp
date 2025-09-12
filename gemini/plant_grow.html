@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デジタル観葉植物育成</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Yomogi', cursive;
+            touch-action: manipulation;
+        }
+        .plant-container svg {
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+    </style>
+</head>
+<body class="bg-[#F0EFEA] text-[#5D5753] flex items-center justify-center min-h-screen">
+    <div class="w-full max-w-sm mx-auto p-6 text-center">
+        
+        <header class="mb-6">
+            <h1 class="text-3xl font-bold text-[#6A8A82]">小さな相棒</h1>
+            <p class="mt-2 text-sm">あなたのそばで、ゆっくり育ちます。</p>
+        </header>
+
+        <main>
+            <!-- 植物が表示されるコンテナ -->
+            <div id="plant-container" class="relative w-64 h-64 mx-auto mb-6 bg-white/50 rounded-full shadow-inner flex items-center justify-center">
+                <svg id="plant-svg" width="200" height="200" viewBox="0 0 200 200">
+                    <!-- 植木鉢 -->
+                    <path d="M60 170 C 60 185, 140 185, 140 170 L 130 140 L 70 140 Z" fill="#D2B48C"/>
+                    <rect x="65" y="130" width="70" height="10" fill="#E6CBA8" rx="5"/>
+                    <!-- 植物の各成長段階はここに描画されます -->
+                </svg>
+            </div>
+            
+            <!-- ユーザーへのメッセージ -->
+            <div id="message-area" class="h-10 mb-4 flex items-center justify-center">
+                <p class="text-lg"></p>
+            </div>
+
+            <!-- 操作ボタン -->
+            <button id="water-button" class="w-full bg-[#82B4A7] text-white py-4 px-6 rounded-xl shadow-lg hover:bg-[#6A8A82] active:shadow-inner active:translate-y-1 transition-all duration-150 ease-in-out disabled:bg-gray-400 disabled:cursor-not-allowed disabled:shadow-none disabled:active:translate-y-0">
+                お水をあげる
+            </button>
+        </main>
+
+    </div>
+
+    <script type="module">
+        // --- グローバル変数と定数 ---
+        const waterButton = document.getElementById('water-button');
+        const messageArea = document.getElementById('message-area').querySelector('p');
+        const plantSvg = document.getElementById('plant-svg');
+
+        // ローカルストレージで使用するキー
+        const STORAGE_KEY = 'littleBuddyPlantData';
+
+        // 植物の成長段階の定義（SVGパス）
+        const plantStages = [
+            // Stage 0: 種
+            `<path d="M100 135 m -5, 0 a 5,5 0 1,0 10,0 a 5,5 0 1,0 -10,0" fill="#8B4513"/>`,
+            // Stage 1: 芽
+            `<path d="M100 135 Q 105 120 100 115 T 100 135" fill="#90EE90"/>
+             <path d="M100 135 Q 95 120 100 115 T 100 135" fill="#90EE90"/>`,
+            // Stage 2: 小さな葉
+            `<path d="M100 135 C 100 110, 120 120, 110 100" fill="#6B8E23" />
+             <path d="M100 135 C 100 110, 80 120, 90 100" fill="#6B8E23" />`,
+            // Stage 3: 成長した葉
+            `<path d="M100 135 C 100 100, 130 110, 120 80" fill="#556B2F" />
+             <path d="M100 135 C 100 100, 70 110, 80 80" fill="#556B2F" />
+             <path d="M100 135 C 100 110, 120 120, 110 100" fill="#6B8E23" />`,
+            // Stage 4: さらに成長
+            `<path d="M100 135 C 100 90, 140 100, 130 60" fill="#2E4D2E" />
+             <path d="M100 135 C 100 90, 60 100, 70 60" fill="#2E4D2E" />
+             <path d="M100 135 C 100 100, 130 110, 120 80" fill="#556B2F" />
+             <path d="M100 135 C 100 100, 70 110, 80 80" fill="#556B2F" />`,
+            // Stage 5: 花が咲く
+            `<path d="M100 135 C 100 90, 140 100, 130 60" fill="#2E4D2E" />
+             <path d="M100 135 C 100 90, 60 100, 70 60" fill="#2E4D2E" />
+             <path d="M100 135 C 100 100, 130 110, 120 80" fill="#556B2F" />
+             <path d="M100 135 C 100 100, 70 110, 80 80" fill="#556B2F" />
+             <circle cx="100" cy="50" r="10" fill="#FFC0CB"/>
+             <circle cx="100" cy="50" r="5" fill="#FFFF00"/>`
+        ];
+        const MAX_STAGE = plantStages.length - 1;
+
+        let plantData = {
+            growthStage: 0,
+            lastWatered: null
+        };
+        
+        // --- 関数定義 ---
+
+        /**
+         * 植物のデータをローカルストレージから読み込む
+         */
+        function loadPlantData() {
+            const savedData = localStorage.getItem(STORAGE_KEY);
+            if (savedData) {
+                const parsedData = JSON.parse(savedData);
+                // lastWateredが文字列で保存されている場合、Dateオブジェクトに変換
+                if (parsedData.lastWatered) {
+                    parsedData.lastWatered = new Date(parsedData.lastWatered);
+                }
+                plantData = parsedData;
+            } else {
+                // データがない場合は初期データを作成
+                plantData = { growthStage: 0, lastWatered: null };
+            }
+        }
+
+        /**
+         * 植物のデータをローカルストレージに保存する
+         */
+        function savePlantData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(plantData));
+        }
+
+        /**
+         * 植物の見た目を現在の成長段階に合わせて更新する
+         * @param {number} stage - 現在の成長段階
+         */
+        function renderPlant(stage) {
+            const currentStage = Math.min(stage, MAX_STAGE);
+            // 既存の植物のパスを削除
+            const existingPaths = plantSvg.querySelectorAll('path[data-plant-part], circle[data-plant-part]');
+            existingPaths.forEach(p => p.remove());
+
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(plantStages[currentStage], "image/svg+xml");
+            const newElements = doc.documentElement.children;
+
+            Array.from(newElements).forEach(el => {
+                el.setAttribute('data-plant-part', 'true');
+                plantSvg.appendChild(el.cloneNode(true));
+            });
+            plantSvg.style.transform = `scale(${1 + currentStage * 0.1}) rotate(${ (currentStage % 2) * 5 - 2.5}deg)`;
+        }
+
+        /**
+         * ユーザーへのメッセージを表示する
+         * @param {string} text - 表示するメッセージ
+         * @param {string} color - メッセージの色 (Tailwindクラス)
+         */
+        function showMessage(text, color = 'text-[#5D5753]') {
+            messageArea.textContent = text;
+            messageArea.className = `text-lg ${color}`;
+        }
+
+        /**
+         * 水やりボタンの状態を更新する
+         */
+        function updateWaterButtonState() {
+            if (!plantData.lastWatered) {
+                waterButton.disabled = false;
+                showMessage("はじめまして！お水をどうぞ。");
+                return;
+            }
+
+            const now = new Date();
+            const lastWateredDate = plantData.lastWatered;
+            const diffHours = (now - lastWateredDate) / (1000 * 60 * 60);
+
+            if (diffHours >= 24) {
+                waterButton.disabled = false;
+                showMessage("のどが渇いたかな？");
+            } else {
+                waterButton.disabled = true;
+                const nextWateringTime = new Date(lastWateredDate.getTime() + 24 * 60 * 60 * 1000);
+                const hoursLeft = ((nextWateringTime - now) / (1000 * 60 * 60)).toFixed(0);
+                showMessage(`また明日お水をあげてね。`);
+            }
+        }
+
+        /**
+         * 水やり処理
+         */
+        function waterPlant() {
+            if (waterButton.disabled) return;
+            
+            waterButton.disabled = true; // 連打防止
+            
+            const now = new Date();
+            if (plantData.lastWatered) {
+                 const diffHours = (now - plantData.lastWatered) / (1000 * 60 * 60);
+                 if (diffHours < 24) {
+                     showMessage("今日はもうお水をあげました。");
+                     updateWaterButtonState();
+                     return;
+                 }
+            }
+            
+            const oldStage = plantData.growthStage;
+            const newStage = Math.min(oldStage + 1, MAX_STAGE);
+            
+            // ローカルのplantDataオブジェクトを更新
+            plantData.growthStage = newStage;
+            plantData.lastWatered = new Date();
+
+            // ローカルストレージに保存
+            savePlantData();
+            
+            showMessage("おいしい！ありがとう！", "text-blue-500");
+            
+            // UIを即時更新
+            renderPlant(newStage);
+            updateWaterButtonState(); // 水やり後にボタンの状態を再度更新
+
+            if(newStage === MAX_STAGE && oldStage < MAX_STAGE) {
+                setTimeout(() => showMessage("きれいな花が咲いた！", "text-pink-500"), 1000);
+            }
+        }
+
+        /**
+         * アプリケーションの初期化処理
+         */
+        function initializeApp() {
+            loadPlantData();
+            renderPlant(plantData.growthStage);
+            updateWaterButtonState();
+        }
+
+
+        // --- イベントリスナー ---
+        waterButton.addEventListener('click', waterPlant);
+
+        // --- アプリケーションの開始 ---
+        initializeApp();
+
+    </script>
+</body>
+</html>

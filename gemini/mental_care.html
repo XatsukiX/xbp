@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心のケアアプリ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', 'Inter', sans-serif;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 85vh; /* 高さを画面の85%に設定 */
+            max-height: 700px;
+        }
+        .tab-content {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        #breathing-circle {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(145deg, #38bdf8, #6366f1);
+            border-radius: 50%;
+            transition: transform 4s ease-in-out;
+            will-change: transform;
+        }
+        .breathing-grow { transform: scale(1.5); }
+        .breathing-shrink { transform: scale(1); }
+        
+        /* スクロールバースタイル */
+        .tab-content::-webkit-scrollbar, #chat-window::-webkit-scrollbar, #diary-entries::-webkit-scrollbar { width: 6px; }
+        .tab-content::-webkit-scrollbar-track, #chat-window::-webkit-scrollbar-track, #diary-entries::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        #chat-window::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.6); border-radius: 10px; }
+        #diary-entries::-webkit-scrollbar-thumb { background: rgba(234, 179, 8, 0.6); border-radius: 10px; }
+        .tab-content::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.6); border-radius: 10px; }
+
+        .tab-btn.active { background-color: #0ea5e9; color: white; }
+        .sound-select-btn {
+            color: white;
+            font-weight: bold;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 flex items-center justify-center min-h-screen p-4">
+
+    <div class="w-full max-w-md mx-auto">
+        <div class="card rounded-2xl shadow-2xl">
+
+            <!-- ヘッダー -->
+            <div class="p-6 border-b border-white/10">
+                <h1 class="text-2xl font-bold text-center text-white">心の休憩室</h1>
+                <p class="text-center text-gray-400 mt-1 text-sm">ここは、あなたのための安全な場所です。</p>
+            </div>
+            
+            <!-- タブコンテンツ -->
+            <div class="tab-content p-6">
+                <!-- チャットタブ -->
+                <div id="chat-tab">
+                    <div class="space-y-6">
+                        <h2 class="text-xl font-semibold text-sky-300 text-center">感情を言葉にしよう</h2>
+                        <div id="chat-window" class="h-48 bg-gray-800/50 p-4 rounded-lg overflow-y-auto flex flex-col space-y-2">
+                            <div class="p-2 rounded-lg bg-sky-800/70 self-start max-w-xs"><p class="text-sm">こんにちは。どんなことでも話してくださいね。</p></div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <input type="text" id="chat-input" placeholder="メッセージを入力..." class="flex-grow bg-gray-700 text-white placeholder-gray-400 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-sky-500">
+                            <button id="send-btn" class="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">送信</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 日記タブ -->
+                <div id="diary-tab" class="hidden">
+                    <div class="space-y-6">
+                        <h2 class="text-xl font-semibold text-yellow-300 text-center">ミニ日記</h2>
+                        <textarea id="diary-input" rows="4" placeholder="ここに気持ちを書いてみよう..." class="w-full bg-gray-700 text-white placeholder-gray-400 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500"></textarea>
+                        <button id="save-diary-btn" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">日記を保存する</button>
+                        <div id="diary-entries" class="mt-4 max-h-48 overflow-y-auto space-y-2"></div>
+                    </div>
+                </div>
+
+                <!-- 言葉タブ -->
+                <div id="quote-tab" class="hidden">
+                    <div class="space-y-8 flex flex-col items-center justify-center h-full">
+                        <h2 class="text-xl font-semibold text-pink-300 text-center">今日あなたに贈る言葉</h2>
+                        <div class="p-6 rounded-lg bg-gray-800/50 w-full text-center min-h-[150px] flex items-center justify-center">
+                            <p id="quote-text" class="text-lg leading-relaxed"></p>
+                        </div>
+                        <button id="new-quote-btn" class="w-full bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">新しい言葉をもらう</button>
+                    </div>
+                </div>
+
+                <!-- リラックスタブ -->
+                <div id="relax-tab" class="hidden">
+                     <div class="space-y-8">
+                        <div>
+                            <h2 class="text-xl font-semibold text-indigo-300 mb-4 text-center">リラックスサウンド</h2>
+                            <div class="grid grid-cols-2 gap-4">
+                                <button class="sound-select-btn bg-indigo-500 hover:bg-indigo-600" data-sound="rain">雨の音</button>
+                                <button class="sound-select-btn bg-teal-500 hover:bg-teal-600" data-sound="forest">森の音</button>
+                                <button class="sound-select-btn bg-amber-500 hover:bg-amber-600" data-sound="fire">焚き火</button>
+                                <button class="sound-select-btn bg-cyan-500 hover:bg-cyan-600" data-sound="wave">波の音</button>
+                            </div>
+                            <button id="sound-stop-btn" class="w-full mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 hidden">停止する</button>
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-semibold text-emerald-300 mb-4 text-center">深呼吸の時間</h2>
+                            <div class="flex flex-col items-center">
+                                <div id="breathing-circle" class="flex items-center justify-center mb-4 shadow-lg">
+                                    <p id="breathing-text" class="text-white text-xl font-bold">START</p>
+                                </div>
+                                <button id="breathing-btn" class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">深呼吸をはじめる</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- タブナビゲーション -->
+            <div class="grid grid-cols-4 gap-2 p-2 bg-gray-800/50 rounded-b-2xl">
+                <button data-tab-target="chat-tab" class="tab-btn active flex items-center justify-center gap-2 p-3 rounded-lg text-sm font-semibold transition-colors duration-300"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>チャット</button>
+                <button data-tab-target="diary-tab" class="tab-btn flex items-center justify-center gap-2 p-3 rounded-lg text-sm font-semibold transition-colors duration-300 text-gray-400 hover:bg-gray-700"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>日記</button>
+                <button data-tab-target="quote-tab" class="tab-btn flex items-center justify-center gap-2 p-3 rounded-lg text-sm font-semibold transition-colors duration-300 text-gray-400 hover:bg-gray-700"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 1-1 1H3zM14 21c3 0 7-1 7-8V5c0-1.25-.75-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c.25 0 .25.25.25.5v3.5c0 1.25-.75 2-2 2h-1z"/></svg>言葉</button>
+                <button data-tab-target="relax-tab" class="tab-btn flex items-center justify-center gap-2 p-3 rounded-lg text-sm font-semibold transition-colors duration-300 text-gray-400 hover:bg-gray-700"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"></path><path d="M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z"></path><path d="M12 12a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"></path></svg>リラックス</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- タブ機能 ---
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content > div');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.tabTarget;
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active', 'text-white');
+                        btn.classList.add('text-gray-400', 'hover:bg-gray-700');
+                    });
+                    button.classList.add('active', 'text-white');
+                    button.classList.remove('text-gray-400', 'hover:bg-gray-700');
+                    tabContents.forEach(content => {
+                        content.classList.toggle('hidden', content.id !== targetId);
+                    });
+                });
+            });
+
+            // --- チャット機能 ---
+            const chatWindow = document.getElementById('chat-window');
+            const chatInput = document.getElementById('chat-input');
+            const sendBtn = document.getElementById('send-btn');
+            let chatHistory = [{ role: "model", parts: [{ text: "こんにちは。どんなことでも話してくださいね。" }] }];
+            const systemPrompt = "あなたは、ユーザーの心のケアをするための、優しくて共感的な聞き手です。ユーザーの話を肯定的に受け止め、安心感を与えるような短い相槌や、話を促すような質問を返してください。専門的なアドバイスはせず、ただ寄り添うことに徹してください。あなたの返答は常に日本語で、短く、1〜2文にしてください。";
+
+            function addMessage(message, sender) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('p-2', 'rounded-lg', 'max-w-xs', 'text-sm', sender === 'user' ? 'bg-indigo-600/70' : 'bg-sky-800/70', sender === 'user' ? 'self-end' : 'self-start');
+                messageElement.textContent = message;
+                chatWindow.appendChild(messageElement);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+            
+            function showTypingIndicator() {
+                const typingElement = document.createElement('div');
+                typingElement.id = 'typing-indicator';
+                typingElement.classList.add('p-2', 'rounded-lg', 'bg-sky-800/70', 'self-start', 'max-w-xs', 'text-sm');
+                typingElement.innerHTML = `<p class="animate-pulse">考え中...</p>`;
+                chatWindow.appendChild(typingElement);
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+
+            function removeTypingIndicator() {
+                const typingElement = document.getElementById('typing-indicator');
+                if (typingElement) typingElement.remove();
+            }
+            
+            async function getAIResponse() {
+                showTypingIndicator();
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                const payload = { contents: chatHistory, systemInstruction: { parts: [{ text: systemPrompt }] } };
+
+                try {
+                    const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (!response.ok) throw new Error(`API error: ${response.status}`);
+                    const result = await response.json();
+                    const botMessage = result.candidates?.[0]?.content?.parts?.[0]?.text || "ごめんなさい、うまく聞き取れませんでした。";
+                    removeTypingIndicator();
+                    addMessage(botMessage, 'bot');
+                    chatHistory.push({ role: "model", parts: [{ text: botMessage }] });
+                } catch (error) {
+                    console.error("Error fetching AI response:", error);
+                    removeTypingIndicator();
+                    addMessage("申し訳ありません、エラーが発生しました。", 'bot');
+                }
+            }
+
+            async function handleSendMessage() {
+                const userMessage = chatInput.value.trim();
+                if (userMessage === '') return;
+                addMessage(userMessage, 'user');
+                chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
+                chatInput.value = '';
+                await getAIResponse();
+            }
+            sendBtn.addEventListener('click', handleSendMessage);
+            chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSendMessage(); });
+
+            // --- 日記機能 ---
+            const diaryInput = document.getElementById('diary-input');
+            const saveDiaryBtn = document.getElementById('save-diary-btn');
+            const diaryEntriesContainer = document.getElementById('diary-entries');
+
+            function loadDiaryEntries() {
+                diaryEntriesContainer.innerHTML = '';
+                const entries = JSON.parse(localStorage.getItem('diaryEntries') || '[]');
+                entries.reverse().forEach(entry => {
+                    const entryElement = document.createElement('div');
+                    entryElement.classList.add('bg-gray-800/50', 'p-3', 'rounded-lg');
+                    const dateElement = document.createElement('p');
+                    dateElement.classList.add('text-xs', 'text-gray-400', 'mb-1');
+                    dateElement.textContent = new Date(entry.date).toLocaleString('ja-JP');
+                    const textElement = document.createElement('p');
+                    textElement.classList.add('text-sm');
+                    textElement.textContent = entry.text;
+                    entryElement.append(dateElement, textElement);
+                    diaryEntriesContainer.appendChild(entryElement);
+                });
+            }
+            saveDiaryBtn.addEventListener('click', () => {
+                const text = diaryInput.value.trim();
+                if (text === '') return;
+                const entries = JSON.parse(localStorage.getItem('diaryEntries') || '[]');
+                entries.push({ date: new Date().toISOString(), text: text });
+                localStorage.setItem('diaryEntries', JSON.stringify(entries));
+                diaryInput.value = '';
+                loadDiaryEntries();
+            });
+            loadDiaryEntries();
+
+            // --- 言葉のお守り機能 ---
+            const quoteTextElement = document.getElementById('quote-text');
+            const newQuoteBtn = document.getElementById('new-quote-btn');
+            const quotes = ["焦らなくても大丈夫。あなたのペースで進もう。", "小さな一歩が、大きな変化につながるよ。", "よく頑張ってるね。たまには自分を褒めてあげよう。", "どんなあなたも、とても素敵だよ。", "雨が降るから、虹が見えるんだ。", "大丈夫、すべてはうまくいく途中だから。", "あなたの存在が、誰かの光になっているかも。", "辛い時は、心に傘をさしてあげよう。", "一休み、一休み。頑張りすぎないことも大切。", "あなたの優しさは、巡り巡ってあなたに返ってくるよ。"];
+
+            function showNewQuote() {
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                quoteTextElement.textContent = quotes[randomIndex];
+            }
+            newQuoteBtn.addEventListener('click', showNewQuote);
+            showNewQuote();
+
+            // --- サウンド機能 ---
+            const soundSelectBtns = document.querySelectorAll('.sound-select-btn');
+            const soundStopBtn = document.getElementById('sound-stop-btn');
+            let activeSound = null;
+
+            const sounds = {
+                rain: () => {
+                    const noise = new Tone.Noise("pink").start();
+                    const filter = new Tone.AutoFilter({ frequency: "8n", baseFrequency: 200, octaves: 3 }).toDestination();
+                    noise.connect(filter);
+                    return [noise, filter];
+                },
+                forest: () => {
+                    const wind = new Tone.Noise("white").start();
+                    const windFilter = new Tone.AutoFilter({ frequency: "2n", baseFrequency: 100, octaves: 4 }).toDestination();
+                    wind.connect(windFilter);
+                    const bird = new Tone.FMSynth({ modulationIndex: 10, harmonicity: 3, envelope: { attack: 0.01, decay: 0.2 } }).toDestination();
+                    const birdLoop = new Tone.Loop(time => {
+                        bird.triggerAttackRelease(`C${Math.floor(Math.random()*2)+4}`, "8n", time);
+                    }, `${Math.random()*3+2}n`).start(0);
+                    return [wind, windFilter, bird, birdLoop];
+                },
+                fire: () => {
+                    const fireNoise = new Tone.Noise("brown").start();
+                    const fireFilter = new Tone.Filter(600, "lowpass").toDestination();
+                    fireNoise.connect(fireFilter);
+                    const crackle = new Tone.MetalSynth({ frequency: 200, envelope: { attack: 0.001, decay: 0.1, release: 0.01 }, harmonicity: 5.1, modulationIndex: 32, resonance: 4000, octaves: 1.5 }).toDestination();
+                    const crackleLoop = new Tone.Loop(time => {
+                         crackle.triggerAttackRelease("C6", "32n", time);
+                    }, "4n").start(0);
+                    return [fireNoise, fireFilter, crackle, crackleLoop];
+                },
+                wave: () => {
+                    const waveNoise = new Tone.Noise("pink").start();
+                    const waveFilter = new Tone.AutoFilter({ frequency: "0.2Hz", baseFrequency: 400, octaves: 6 }).toDestination();
+                    waveNoise.connect(waveFilter);
+                    return [waveNoise, waveFilter];
+                }
+            };
+            
+            async function playSound(soundName) {
+                await Tone.start();
+                stopSound();
+                if (sounds[soundName]) {
+                    activeSound = sounds[soundName]();
+                    Tone.Transport.start();
+                    soundStopBtn.classList.remove('hidden');
+                }
+            }
+
+            function stopSound() {
+                if (activeSound) {
+                    Tone.Transport.stop();
+                    Tone.Transport.cancel();
+                    activeSound.forEach(node => node.dispose());
+                    activeSound = null;
+                }
+                soundStopBtn.classList.add('hidden');
+            }
+
+            soundSelectBtns.forEach(btn => {
+                btn.addEventListener('click', () => playSound(btn.dataset.sound));
+            });
+            soundStopBtn.addEventListener('click', stopSound);
+
+            // --- 深呼吸エクササイズ機能 ---
+            const breathingBtn = document.getElementById('breathing-btn');
+            const breathingCircle = document.getElementById('breathing-circle');
+            const breathingText = document.getElementById('breathing-text');
+            let breathingInterval;
+            let isBreathing = false;
+            const breathingCycle = [{ text: '息を吸って…', duration: 4000, action: 'grow' }, { text: '止めて…', duration: 4000, action: 'hold' }, { text: 'ゆっくり吐いて…', duration: 6000, action: 'shrink' }];
+            let currentStep = 0;
+
+            function runBreathingCycle() {
+                const step = breathingCycle[currentStep];
+                breathingText.textContent = step.text;
+                if (step.action === 'grow') breathingCircle.classList.add('breathing-grow');
+                else if (step.action === 'shrink') breathingCircle.classList.remove('breathing-grow');
+                currentStep = (currentStep + 1) % breathingCycle.length;
+                breathingInterval = setTimeout(runBreathingCycle, step.duration);
+            }
+
+            breathingBtn.addEventListener('click', () => {
+                isBreathing = !isBreathing;
+                if (isBreathing) {
+                    breathingBtn.textContent = '終了する';
+                    breathingBtn.classList.replace('bg-emerald-500', 'bg-red-500');
+                    breathingBtn.classList.replace('hover:bg-emerald-600', 'hover:bg-red-600');
+                    runBreathingCycle();
+                } else {
+                    clearInterval(breathingInterval);
+                    breathingBtn.textContent = '深呼吸をはじめる';
+                    breathingText.textContent = 'STOP';
+                    breathingCircle.classList.remove('breathing-grow');
+                    breathingBtn.classList.replace('bg-red-500', 'bg-emerald-500');
+                     breathingBtn.classList.replace('hover:bg-red-600', 'hover:bg-emerald-600');
+                    currentStep = 0;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
