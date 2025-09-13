@@ -1,144 +1,231 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>About_me</title>
-  <link rel="stylesheet" href="./css/about_me.css">
-  <link rel="shortcut icon" href="./images/xbp.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>私のデザインストーリー | Web Designer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes rainbow-bg {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #212529;
+            background: linear-gradient(-45deg, #fff0f5, #e6e6fa, #f0f8ff, #f0fff0, #fffacd);
+            background-size: 400% 400%;
+            animation: rainbow-bg 30s ease infinite;
+        }
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: rainbow-bg 15s ease infinite;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid #dee2e6;
+        }
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+        }
+        .timeline-marker {
+            position: absolute;
+            left: -0.7rem;
+            top: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: #344e41;
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
+<body class="leading-relaxed">
 
-<body>
-  <header>
-    <div class="logo">
-      <h1>About Me</h1>
-      <!-- <a href="../index.html"><img src="../images/logo.png" alt="aaaaaaaaaaaaaa"></a> -->
-    </div>
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-display text-2xl font-bold text-gray-800">The Genius Won't Stop</div>
+        </nav>
+    </header>
 
-    <nav>
-      <ul>
-        <li><a href="../index.html">HOME</a></li>
-        <li><a href="../blog/index.html">Blog</a></li>
-        <li><a href="../blog/wφrld.html">Wφrld</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main>
-
-    <div class="name">
-      <div class="a">
-        <img src="./images/genius.jpg" alt="" class="icon">
-        <h1>あつき</h1>
-      </div>
-      
-      <br>
-      <p>
-        神奈川大学経営学部所属、通りすがりの天才大学生。
-        アルバイトは<strong>Fablabみなとみらい</strong>と言うとあるモノづくり工房で働いています。<br>
-        3年時からのゼミでは<a href="https://www.kanagawa-u.ac.jp/professor/details/details_101814.html" target="_blank">道用先生</a>のもとで日々学んでいます。
-        モノづくりが好きで自室を工房に魔改造しています！旅をしながら働きたい
-      </p>
-      <p>
-        高校の頃、軽音楽部に所属していたこともあり、ギターが趣味です。
-        デジタルファブリケーションを用いたモノ作りが好きなのでいつか自作のエフェクターやアンプを作るのが夢です。
-        家で使っている3DプリンターはSovolやBambulabを使用しています。
-      </p>
-
-    </div>
-
-    <br>
-
-    <div class="policy">
-        <h1>活動理念</h1>
-        <h2 style="margin: 15px;">ジーニアスは止まらない</h2>
-        <p>
-          僕は小さいころから勉強も、運動もそこまでできたわけではありません。
-          そんな自分が嫌いで嫌いで仕方なくて毎日自分を責め続けて泣いてしまう日もありました。
-          そんな僕を気にかけて支えてくれた言葉は恩師でした。
-          なにもできない、得意なこともない小僧を入学から卒業した後もサポートし続けてくれているんです。
-          おかげさまで給費生ではいることができて親にも無理をさせずに大学に通うことができているし、高校のころからずっと入りたかった先生のゼミにも入ることができました。
-          恩師にいわれたジーニアスという言葉は今も印象に残っています。これからも成長し続けられる自分になりたい。<br>
-          この2点から<strong style="color: red;">ジーニアスは止まらない</strong>を活動理念としてこれからも成長していきたいです！
-        </p>
-    </div>
-
-    <br>
-
-    <div class="history">
-      <h1>経歴</h1>
-      <h2>2023年</h2>
-      <div class="line">
-        <ul>
-          <li>神奈川大学経営学部入学</li>
-          <li>神奈川大学みなとみらい祭実行委員所属</li>
-          <li>経営学部 エクスビジネスプログラム所属（3期生）</li>
-        </ul>
-      </div>
-      
-      <h2>2024年</h2>
-      <div class="line">
-        <ul>
-          <li>Fablabみなとみらいにて勤務開始</li>
-          <li>Fablabみなとみらい展にて特別ワークショップを開催</li>
-        </ul>
-      </div>
-
-      <h2>2025年</h2>
-      <div class="line">
-        <ul>
-          <li>エクスビジネスプログラムのビジネスプランコンテストにて優秀賞受賞</li>
-          <li>経営学部道用ゼミ所属（16期生）</li>
-        </ul>
-      </div>
-    </div>
-
-
-  </main>
-
-  <footer class="footer-3">
-    <div class="footer-3__container">
-        <div class="footer-3__head">
-            <a href="./index.html">
-                <img src="./images/logo.PNG" alt="" class="footer-3__logo">
+    <!-- Hero Section -->
+    <section class="hero-bg h-screen flex items-center justify-center text-white text-center">
+        <div class="fade-in">
+            <h1 class="font-display text-5xl md:text-7xl font-bold mb-4">ジーニアスは止まらない</h1>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto"></p>
+            <a href="#introduction" class="mt-8 inline-block animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
             </a>
         </div>
-        <nav>
-            <p class="footer-3__title">SNS</p>
-            <ul class="footer-3__list">
-                <li><a href="https://www.instagram.com/suic_502/" class="footer-3__link">Instagram</a></li>
-                <li><a href="https://x.com/suic_502" class="footer-3__link">Twitter</a></li>
-                <li><a href="https://note.com/suic_502" class="footer-3__link">Note</a></li>
-                <li><a href="https://www.youtube.com/@XBP-se5jf" class="footer-3__link">You Tube</a></li>
-            </ul>
-        </nav>
-        <nav>
-            <p class="footer-3__title">XBP</p>
-            <ul class="footer-3__list">
-                <li><a href="./de12/index.html" class="footer-3__link">デザイン演習Ⅰ・Ⅱ</a></li>
-                <li><a href="./de34/index.html" class="footer-3__link">デザイン演習Ⅲ・Ⅳ</a></li>
-                <li><a href="./de56/index.html" class="footer-3__link">デザイン演習Ⅴ・Ⅵ</a></li>
-                <li><a href="./digi_fab/index.html" class="footer-3__link">デジタルファブリケーション</a></li>
-            </ul>
-        </nav>
-        <nav>
-            <p class="footer-3__title">ゼミ活動</p>
-            <ul class="footer-3__list">
-                <li><a href="./doyolab/kamakura.html" class="footer-3__link">鎌倉共創プロジェクト</a></li>
-                <li><a href="./doyolab/EXPO.html" class="footer-3__link">横浜サーキュラープロジェクト</a></li>
-                <li><a href="#" class="footer-3__link">日々の活動</a></li>
-            </ul>
-        </nav>
-        <nav>
-            <p class="footer-3__title">その他</p>
-            <ul class="footer-3__list">
-                <li><a href="./products/index.html" class="footer-3__link">作品一覧</a></li>
-                <li><a href="./note/index.html" class="footer-3__link">デジファブノート</a></li>
-                <li><a href="./project_build/index.html" class="footer-3__link">PROJECT BUILD</a></li>
-            </ul>
-        </nav>
-    </div>
-</footer>
-</body>
+    </section>
 
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-20">
+
+        <!-- Introduction -->
+        <section id="introduction" class="max-w-4xl mx-auto mb-24">
+            <div class="fade-in flex flex-col md:flex-row items-center gap-12">
+                <!-- Photo -->
+                <div class="w-48 md:w-1/3 flex-shrink-0">
+                    <img src="./images/genius.jpg" alt="あなたの顔写真" class="rounded-full shadow-lg w-full h-auto">
+                </div>
+                <!-- Text -->
+                <div class="md:w-2/3 text-center md:text-left">
+                    <h2 class="font-display text-4xl font-bold mb-6">はじめに</h2>
+                    <p class="text-gray-700 text-lg">
+                        こんにちは！あつきといいます！
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Journey Timeline -->
+        <section id="journey" class="max-w-3xl mx-auto">
+            <h2 class="font-display text-4xl font-bold text-center mb-16 fade-in">天才の道のり</h2>
+            
+            <div class="timeline">
+                <!-- Chapter 1 -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-marker"></div>
+                    <h3 class="font-display text-2xl font-bold mb-2">第一章</h3>
+                    <p class="text-sm text-gray-500 mb-4">2015年 </p>
+                    <p class="text-gray-700">
+                       
+                    </p>
+                </div>
+                
+                <!-- Chapter 2 -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-marker"></div>
+                    <h3 class="font-display text-2xl font-bold mb-2">第二章</h3>
+                    <p class="text-sm text-gray-500 mb-4">2018年 </p>
+                    <p class="text-gray-700">
+                      
+                    </p>
+                </div>
+
+                <!-- Chapter 3 -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-marker"></div>
+                    <h3 class="font-display text-2xl font-bold mb-2">第三章</h3>
+                    <p class="text-sm text-gray-500 mb-4"></p>
+                    <p class="text-gray-700">
+
+                    </p>
+                </div>
+
+                <!-- Chapter 4 -->
+                <div class="timeline-item fade-in">
+                    <div class="timeline-marker"></div>
+                    <h3 class="font-display text-2xl font-bold mb-2">第四章</h3>
+                    <p class="text-sm text-gray-500 mb-4"></p>
+                    <p class="text-gray-700">
+
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Section -->
+        <section id="skills" class="py-24">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="font-display text-4xl font-bold mb-12 fade-in">できること</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 fade-in">
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2 text-[#344e41]">SNS<br>マーケティング</h3>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2 text-[#344e41]">Web<br>マーケティング</h3>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2 text-[#344e41]">プロモーション<br>企画</h3>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2 text-[#344e41]">マーケティング<br>リサーチ</h3>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2 text-[#344e41]">コンセプト<br>設計・企画</h3>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2 text-[#344e41]">コピー<br>ライティング</h3>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2 text-[#344e41]">タスク<br>ToDo</h3>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2 text-[#344e41]">データ分析<br>問題解決</h3>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold mb-2 text-[#344e41]">ロジカル<br>シンキング</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-24">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 ATSUKI. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple fade-in animation on scroll
+        const faders = document.querySelectorAll('.fade-in');
+
+        const appearOptions = {
+            threshold: 0.2, // 20% of the element is visible
+            rootMargin: "0px 0px -50px 0px" // trigger a little earlier
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('visible');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+        
+        // Add visible class to hero section on load
+        window.addEventListener('load', () => {
+            const heroContent = document.querySelector('.hero-bg .fade-in');
+            if(heroContent) {
+                heroContent.classList.add('visible');
+            }
+        });
+    </script>
+</body>
 </html>
+
+
+
+
+
