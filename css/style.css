@@ -54,8 +54,8 @@ body {
 	margin: 0;padding:0;
 	font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", Meiryo, "メイリオ", "Osaka", "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;	/*フォント種類（ゴシック）*/
 	-webkit-text-size-adjust: none;
-	background: #fff;	/*背景色*/
-	color: #555;		/*文字色*/
+	background: #555;	/*背景色*/
+	color: #fff;		/*文字色*/
 	line-height: 2;		/*行間*/
 	overflow-x: hidden;
 }
@@ -552,6 +552,7 @@ div.padding0 {
     display: flex;
     gap: 2rem;	/*メニューブロック同士の間の余白。2文字分。*/
 	margin-bottom: 1rem;	/*メニューブロックの下に１文字分の余白を空ける。*/
+	text-align: left;
 }
 
 	/*画面700px以上の追加指定*/
@@ -687,4 +688,129 @@ ul.cp_list li::after {
   border-right: 2px solid #fff;
   border-bottom: 2px solid #fff;
   transform: rotate(-45deg);
+}
+
+/*2カラムブロック（※900px未満では１カラム）
+---------------------------------------------------------------------------*/
+/*２カラムを囲むブロック*/
+.list-half-parts .list-parts {
+	display: flex;			/*flexボックスを使う指定*/
+	flex-direction: column;	/*子要素を縦並びにする*/
+	margin-bottom: 2rem;	/*ボックスの下に2文字分のスペースを空ける*/
+}
+
+/*ブロック内のh4見出し*/
+.list-half-parts .list-parts h4 {
+	font-size: 1.4rem;	/*文字サイズを1.4倍*/
+}
+
+/*画像ブロック共通*/
+.list-half-parts .image-l-parts img, .list-half-parts .image-r-parts img {
+	border-radius: 50px;	/*角を丸くする指定。*/
+	box-shadow: 10px 10px rgba(0,0,0,0.1);	/*ボックスの影。右へ、下へ、0,0,0は黒の事で0.1は色が10%出た状態。*/
+}
+
+	/*画面幅900px以上の追加指定*/
+	@media screen and (min-width:900px) {
+
+		/*２カラムを囲むブロック*/
+		.list-half-parts .list-parts {
+			flex-direction: row;			/*子要素を横並びにする*/
+			justify-content: space-between;	/*並びかたの種類の指定*/
+			align-items: center;			/*垂直揃えの指定。天地中央に配置されるように。*/
+		}
+		
+		/*画像ブロック共通*/
+		.list-half-parts .image-l-parts, .list-half-parts .image-r-parts {
+			width: 50%;			/*画像の幅*/
+		}
+		
+		/*画像を右に配置する場合*/
+		.list-half-parts .image-r-parts {
+			margin-left: 2rem;	/*画像の左側に空けるスペース*/
+		}
+		
+		/*画像を左に配置する場合*/
+		.list-half-parts .image-l-parts {
+			order: -1;
+			margin-right: 2rem;	/*画像の右側に空けるスペース*/
+		}
+
+		/*テキストブロック*/
+		.list-half-parts .text-parts {
+			flex: 1;
+		}
+
+	}/*追加指定ここまで*/
+
+	/*h2タグ
+---------------------------------------------------------------------------*/
+#contents h2.titleset5-parts {
+	font-size: 2rem;		/*文字サイズ。2倍。*/
+	text-align: center;
+	position: relative;
+	letter-spacing: 0.1em;	/*文字間隔を少し広くする*/
+	padding-top: 1rem;		/*ここを調整すると、見出しテキストとボーダーの間の余白を調整できます。お好みで。*/
+}
+
+/*小文字（kazari title）*/
+#contents h2.titleset5-parts span {
+	display: block;
+	font-weight: normal;
+	font-size: 0.5em;		/*文字サイズ。見出しの50%*/
+	opacity: 0.5;			/*透明度。色を50%だけ出す。*/
+}
+
+/*見出し上のボーダー*/
+#contents h2.titleset5-parts::before {
+	content: "";
+	position: absolute;
+	height: 3px;	/*ボーダーの高さ*/
+	width: 50px;	/*ボーダーの幅。変更する際は、下のleftの行も変更します。*/
+	left: calc(50% - 25px);	/*左からの配置場所。ここの25px部分は、上のwidthの半分。*/
+	top: 0px;
+	background: #ccc;	/*線の色*/
+}
+
+
+/*h3タグ
+---------------------------------------------------------------------------*/
+#contents h3.titleset5-parts {
+	font-size: 1.6rem;		/*文字サイズ。1.6倍。*/
+	letter-spacing: 0.1em;	/*文字間隔を少し広くする*/
+	padding-left: 1rem;		/*左に空ける余白*/
+	padding-right: 1rem;	/*右に空ける余白*/
+}
+
+/*小文字（kazari title）*/
+#contents h3.titleset5-parts span {
+	display: block;
+	font-weight: normal;
+	font-size: 0.5em;		/*文字サイズ。見出しの50%*/
+	opacity: 0.5;			/*透明度。色を50%だけ出す。*/
+}
+
+/*btn3-parts
+---------------------------------------------------------------------------*/
+a.btn3-parts {
+	text-decoration: none;display: inline-block;
+	background: linear-gradient(#ff9727, #ff7827);/*背景グラデーション*/
+	color: #fff;	/*文字色*/
+	padding: 1rem 2rem;	/*ボタン内の余白。上下、左右へ。*/
+	font-size: 1.3rem;	/*文字サイズを130%*/
+	border-radius: 5px;	/*角を少しだけ丸くする*/
+	box-shadow: 3px 3px 8px rgba(194,79,10,0.3);	/*ボタンの影。右へ、下へ、ぼかす量、194,79,10は暗いオレンジ系のrgb値で0.3は色が30%出た状態*/
+}
+
+/*アイコン*/
+a.btn3-parts i {
+	padding-left: 1em;	/*アイコンとテキストの間の余白*/
+}
+
+/*マウスオン時に少しずらす*/
+a.btn3-parts:hover,a.btn4-parts:hover {
+	box-shadow: none;	/*ボックスの影を消す*/
+	position: relative;
+	left: 1px;
+	top: 1px;
 }
