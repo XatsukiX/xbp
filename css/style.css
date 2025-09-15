@@ -814,3 +814,37 @@ a.btn3-parts:hover,a.btn4-parts:hover {
 	left: 1px;
 	top: 1px;
 }
+
+/*テーブル
+---------------------------------------------------------------------------*/
+/*テーブル１行目に入った見出し部分（※caption）*/
+.ta2-parts caption {
+	font-weight: bold;		/*太字に*/
+	padding: 0.2rem 1rem;	/*ボックス内の余白*/
+	margin-bottom: 15px;	/*下に空けるスペース*/
+	border-radius: 5px;		/*角を丸くする指定*/
+	background: #555;		/*背景色*/
+	color: #fff;			/*文字色*/
+}
+
+/*テーブルブロック設定*/
+.ta2-parts {
+	table-layout: fixed;
+	width: 100%;
+	margin-bottom: 2rem;		/*テーブルの下に空けるスペース。２文字分。*/
+	background: #fff;		/*テーブル全体の背景色*/
+	color: #555;			/*テーブル全体の文字色*/
+}
+
+/*th（左側）、td（右側）の共通設定*/
+.ta2-parts th, .ta2-parts td {
+	padding: 1rem;		/*ボックス内の余白*/
+	word-break: break-all;	/*英語などのテキストを改行で自動的に折り返す設定。これがないと、テーブルを突き抜けて表示される場合があります。*/
+	border: 1px solid #999;	/*テーブルの枠線の幅、線種、色。*/
+}
+
+/*th（左側）のみの設定*/
+.ta2-parts th {		/*幅*/
+	text-align: left;	/*左よせにする*/
+	background: #eee;	/*背景色*/
+}
