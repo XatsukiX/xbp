@@ -1,0 +1,182 @@
+        /* * ==============================================
+         * 基本設定とレイアウト
+         * ==============================================
+        */
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif; /* 標準的な日本語フォント */
+            background-color: #f4f2ea; /* クリーム色の背景 */
+            background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            color: #2d3748; /* 基本の文字色 */
+            margin: 0;
+            padding: 1rem;
+        }
+
+        /* 手書き風フォントの指定（Google Fontsの代替） */
+        .font-handwriting {
+            /* * 注: オフライン環境では指定したWebフォントは表示されません。
+             * 代わりに手書きに近いフォントを指定していますが、見た目が変わる場合があります。
+            */
+            font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+            font-weight: bold;
+        }
+
+        /* 全体を囲むコンテナ */
+        .container {
+            max-width: 56rem; /* 896px */
+            margin: 3rem auto;
+        }
+
+        /* カルテ風のメインコンテンツエリア */
+        .karte {
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 2px solid #a0aec0;
+            position: relative;
+            padding: 1.5rem;
+        }
+
+        /*
+         * ==============================================
+         * クリップボードのデザイン
+         * ==============================================
+        */
+        .clipboard-clip {
+            width: 150px;
+            height: 40px;
+            background: linear-gradient(to bottom, #d0d0d0, #b0b0b0);
+            border: 2px solid #888;
+            border-bottom: none;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100%);
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        .clipboard-clip::before {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #777;
+            border-radius: 50%;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: inset 0 0 3px rgba(0,0,0,0.5);
+        }
+
+        /*
+         * ==============================================
+         * カルテ内の各パーツ
+         * ==============================================
+        */
+        /* ヘッダー */
+        .karte-header {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .karte-header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 0.25rem 0;
+        }
+        .karte-header p {
+            font-size: 0.875rem;
+            color: #718096;
+            margin: 0;
+        }
+
+        /* セクション */
+        .karte-section {
+            margin-bottom: 1.5rem;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        .karte-section:last-child .section-title {
+            border-bottom: none;
+        }
+
+        /* 対象情報 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem 1.5rem;
+        }
+        .info-item {
+            font-size: 0.9rem;
+        }
+        .info-item label {
+            color: #718096;
+            font-weight: 600;
+            display: block;
+        }
+        .info-item p {
+            font-size: 1.125rem;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 0.25rem;
+            margin: 0.25rem 0 0 0;
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* コンテンツブロック */
+        .content-block {
+            border: 1px solid #edf2f7;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .content-block h3, .content-block h4 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin: 0 0 0.75rem 0;
+        }
+        .content-block ul {
+            padding-left: 1.25rem;
+            margin: 0;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        .content-block li {
+            margin-bottom: 0.5rem;
+        }
+        .content-block p {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* 色付きのブロック */
+        .bg-gray { background-color: #f7fafc; }
+        .bg-blue { background-color: #ebf8ff; }
+        .bg-green { background-color: #f0fff4; }
+
+        /* フッター */
+        .karte-footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #a0aec0;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid #edf2f7;
+        }
+        
+        /* スマートフォン用の調整 */
+        @media (max-width: 768px) {
+            .karte {
+                padding: 1rem;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
