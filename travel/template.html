@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>旅の記録</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/record.css">
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-back">
+                <i class="fas fa-chevron-left mr-2"></i>
+                <span>一覧に戻る</span>
+            </a>
+            <div class="nav-actions">
+                <button id="favoriteBtn" onclick="toggleFavorite()" class="action-btn">
+                    <i class="fas fa-heart text-xl"></i>
+                </button>
+                <button onclick="sharePage()" class="action-btn share-btn-hover">
+                    <i class="fas fa-share-alt text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="hero-container">
+            <div class="hero-badge">国内旅行</div>
+            <h1 class="hero-title">場所</h1>
+            <p class="hero-meta">
+                <i class="far fa-calendar-alt mr-2"></i> yyyy年mm月dd日
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        
+        <!-- Left Column -->
+        <div class="content-column">
+            <section class="content-card">
+                <h2 class="section-title">
+                    <i class="fas fa-info-circle"></i> 旅の概要
+                </h2>
+                <p class="description-text">
+                    説明
+            </section>
+
+            <section class="content-card">
+                <h2 class="section-title">
+                    <i class="fas fa-camera"></i> フォトギャラリー
+                </h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item h-48">
+                        <img src="https://images.unsplash.com/photo-1548062005-e50d0639138c?q=80&w=600" alt="Snow" class="gallery-img">
+                    </div>
+                    <div class="gallery-item h-48">
+                        <img src="https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?q=80&w=600" alt="Landscape" class="gallery-img">
+                    </div>
+                    <div class="gallery-item wide h-64">
+                        <img src="https://images.unsplash.com/photo-1517154599427-074573038a3a?q=80&w=1000" alt="Resort" class="gallery-img">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Column (Sidebar) -->
+        <aside class="sidebar-column">
+            <div class="content-card">
+                <h3 class="font-bold text-lg mb-4 border-b pb-2">旅のデータ</h3>
+                <ul class="data-list">
+                    <li class="data-item">
+                        <span class="data-label">天気</span>
+                        <span class="font-bold"></span>
+                    </li>
+                    <li class="data-item">
+                        <span class="data-label">気温</span>
+                        <span class="font-bold"></span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="content-card">
+                <h3 class="font-bold text-lg mb-4 border-b pb-2">お気に入りスポット</h3>
+                <div class="spot-list">
+                    <div class="spot-item">
+                        <p class="spot-name">場所</p>
+                        <p class="spot-desc">説明</p>
+                    </div>
+                    <div class="spot-item">
+                        <p class="spot-name">場所</p>
+                        <p class="spot-desc">説明</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="page-footer">
+        <p class="text-gray-500 text-sm font-medium">© 2025 My Travel Archive</p>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast"></div>
+
+    <script>
+        let isFavorite = false;
+
+        function toggleFavorite() {
+            isFavorite = !isFavorite;
+            const btn = document.getElementById('favoriteBtn');
+            if (isFavorite) {
+                btn.classList.add('active');
+                showToast('お気に入りに追加しました');
+            } else {
+                btn.classList.remove('active');
+                showToast('お気に入りを解除しました');
+            }
+        }
+
+        async function sharePage() {
+            const shareData = {
+                title: '北海道 富良野 旅の記録',
+                text: '冬の富良野の素晴らしい景色を見てください！',
+                url: window.location.href
+            };
+
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                } catch (err) {
+                    copyToClipboard(shareData.url);
+                }
+            } else {
+                copyToClipboard(shareData.url);
+            }
+        }
+
+        function copyToClipboard(text) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast('リンクをクリップボードにコピーしました');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'show';
+            setTimeout(() => { toast.className = toast.className.replace('show', ''); }, 3000);
+        }
+    </script>
+
+</body>
+</html>

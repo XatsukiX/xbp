@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Travel Log Index</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <!-- --- HTML: Structure --- -->
+    <header class="page-header">
+        <div class="container header-flex">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-map-marked-alt text-blue-600 text-2xl"></i>
+                <h1 class="text-xl font-bold tracking-tight text-gray-900">Travel Log</h1>
+            </div>
+            <div class="flex items-center space-x-2">
+                <h1><a href="../index.html">HOME</a></h1>
+            </div>
+            <div class="text-sm text-gray-500">
+                <span id="currentDate"></span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        
+        <!-- Stats Dashboard -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon bg-blue-100">
+                    <i class="fas fa-plane text-blue-600"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">総旅行回数</p>
+                    <p class="text-2xl font-bold" id="totalTrips">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-green-100">
+                    <i class="fas fa-globe-asia text-green-600"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">訪問地域</p>
+                    <p class="text-2xl font-bold" id="totalRegions">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-orange-100">
+                    <i class="fas fa-camera text-orange-600"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">最新の旅</p>
+                    <p class="text-lg font-bold truncate" id="latestTrip">---</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters & Search -->
+        <section class="controls-flex">
+            <div class="flex items-center space-x-4">
+                <select id="yearFilter" onchange="filterTrips()" class="bg-white border border-gray-300 text-sm rounded-lg p-2.5 outline-none">
+                    <option value="all">すべての年</option>
+                    <option value="2026">2026年</option>
+                </select>
+                <div class="search-box">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <i class="fas fa-search text-gray-400"></i>
+                    </div>
+                    <input type="text" id="searchInput" onkeyup="filterTrips()" class="input-field" placeholder="場所を検索...">
+                </div>
+            </div>
+            <p class="text-sm text-gray-500" id="resultCount">0 件の記録を表示中</p>
+        </section>
+
+        <!-- Travel Cards Grid -->
+        <div id="tripsGrid" class="trips-grid">
+            <!-- JavaScript will inject cards here -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-20">
+            <i class="fas fa-search text-gray-300 text-6xl mb-4"></i>
+            <p class="text-xl text-gray-500">条件に合う旅行記が見つかりません</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 My Travel Archive</p>
+    </footer>
+
+    <!-- --- JS: Logic --- -->
+    <script>
+        let trips = [
+            {
+                id: 1,
+                destination: '北海道 富良野',
+                date: '2026-02-09',
+                category: '国内',
+                image: 'https://www.princehotels.co.jp/image/2019_k_course_wide.jpg',
+                favorite: true,
+                url: 'rec_hokkaido.html'
+            }
+        ];
+
+        function init() {
+            renderTrips(trips);
+            updateStats();
+            document.getElementById('currentDate').textContent = new Date().toLocaleDateString('ja-JP');
+        }
+
+        function renderTrips(data) {
+            const grid = document.getElementById('tripsGrid');
+            const emptyState = document.getElementById('emptyState');
+            const resultCount = document.getElementById('resultCount');
+            
+            grid.innerHTML = '';
+            
+            if (data.length === 0) {
+                grid.style.display = 'none';
+                emptyState.classList.remove('hidden');
+            } else {
+                grid.style.display = 'grid';
+                emptyState.classList.add('hidden');
+                
+                data.forEach(trip => {
+                    const dateObj = new Date(trip.date);
+                    const formattedDate = dateObj.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' });
+                    
+                    const card = `
+                        <a href="${trip.url || '#'}" class="trip-card">
+                            <div class="card-image-wrapper">
+                                <img src="${trip.image}" alt="${trip.destination}" class="card-image" onerror="this.src='https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=800'">
+                                <div class="category-badge">${trip.category}</div>
+                                <div class="favorite-btn ${trip.favorite ? 'bg-red-500 text-white' : 'bg-white/80 text-gray-400'}">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-date">
+                                    <i class="far fa-calendar-alt mr-1"></i>
+                                    <span>${formattedDate}</span>
+                                </div>
+                                <h3 class="card-title">
+                                    ${trip.destination}
+                                    <i class="fas fa-chevron-right chevron-icon"></i>
+                                </h3>
+                            </div>
+                        </a>
+                    `;
+                    grid.innerHTML += card;
+                });
+            }
+            resultCount.textContent = `${data.length} 件の記録を表示中`;
+        }
+
+        function updateStats() {
+            document.getElementById('totalTrips').textContent = trips.length;
+            const uniqueRegions = new Set(trips.map(t => t.destination.split(' ')[0]));
+            document.getElementById('totalRegions').textContent = uniqueRegions.size;
+            
+            if (trips.length > 0) {
+                const sorted = [...trips].sort((a, b) => new Date(b.date) - new Date(a.date));
+                document.getElementById('latestTrip').textContent = sorted[0].destination;
+            }
+        }
+
+        function filterTrips() {
+            const year = document.getElementById('yearFilter').value;
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            const filtered = trips.filter(trip => {
+                const tripYear = new Date(trip.date).getFullYear().toString();
+                const matchesYear = year === 'all' || tripYear === year;
+                const matchesSearch = trip.destination.toLowerCase().includes(searchTerm);
+                return matchesYear && matchesSearch;
+            });
+            
+            renderTrips(filtered);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
