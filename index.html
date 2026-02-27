@@ -1,276 +1,741 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>XBP</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="./css/style.css">
-<link rel="Shortcut icon" href="./images/xbp.ico">
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATSUKI — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Serif+JP:wght@300;400;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --bg:       #f5f0e8;
+      --ink:      #1c1410;
+      --mid:      #5a4a3a;
+      --line:     #d0c8b8;
+      --accent1:  #e84830;  /* red */
+      --accent2:  #1c1410;
+      --display:  'Bebas Neue', sans-serif;
+      --serif:    'Noto Serif JP', serif;
+      --mono:     'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--serif);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+      opacity: .025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.2rem, 4vw, 3.5rem);
+      background: rgba(245,240,232,.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      animation: hdr .6s ease both;
+    }
+
+    @keyframes hdr {
+      from { transform: translateY(-56px); }
+      to   { transform: translateY(0); }
+    }
+
+    .logo-mark {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      letter-spacing: .06em;
+      color: var(--ink);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+
+    .logo-mark .dot {
+      display: block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent1);
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--mid);
+      transition: color .2s;
+    }
+
+    nav a:hover { color: var(--accent1); }
+
+    .nav-contact {
+      border: 1px solid var(--ink);
+      padding: .3rem .9rem;
+      color: var(--ink) !important;
+      transition: background .2s, color .2s !important;
+    }
+
+    .nav-contact:hover {
+      background: var(--ink) !important;
+      color: var(--bg) !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding-top: 56px;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Big diagonal background letter */
+    .hero-bg-letter {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-12deg);
+      font-family: var(--display);
+      font-size: clamp(18rem, 40vw, 36rem);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(28,20,16,.07);
+      user-select: none;
+      pointer-events: none;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      padding: clamp(2rem, 6vw, 5rem) clamp(1.2rem, 4vw, 3.5rem) clamp(2rem, 5vw, 4rem);
+    }
+
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent1);
+      margin-bottom: 1.2rem;
+      animation: up .7s .1s ease both;
+    }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-name {
+      font-family: var(--display);
+      font-size: clamp(5rem, 18vw, 18rem);
+      line-height: .9;
+      letter-spacing: .02em;
+      color: var(--ink);
+      animation: up .7s .2s ease both;
+    }
+
+    .hero-name span {
+      display: block;
+      color: var(--accent1);
+    }
+
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 3rem;
+      border-top: 1px solid var(--line);
+      padding-top: 1.5rem;
+      animation: up .7s .4s ease both;
+    }
+
+    .hero-tagline {
+      font-size: clamp(.85rem, 1.4vw, 1.05rem);
+      color: var(--mid);
+      max-width: 36ch;
+      line-height: 1.9;
+    }
+
+    .hero-tagline strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .hero-scroll-hint {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .hero-scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--mid), transparent);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity: .3; }
+      50%      { opacity: 1; }
+    }
+
+    /* ── PHILOSOPHY ── */
+    .philosophy {
+      background: var(--ink);
+      color: var(--bg);
+      padding: clamp(5rem, 10vw, 9rem) clamp(1.2rem, 4vw, 3.5rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .philosophy::before {
+      content: 'PHILOSOPHY';
+      position: absolute;
+      top: 50%; left: 0;
+      transform: translateY(-50%);
+      font-family: var(--display);
+      font-size: clamp(6rem, 15vw, 14rem);
+      color: rgba(245,240,232,.04);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 4rem 6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .philosophy-label {
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent1);
+      writing-mode: vertical-lr;
+      text-orientation: mixed;
+      align-self: start;
+      padding-top: .4rem;
+    }
+
+    .philosophy-quote {
+      font-family: var(--serif);
+      font-size: clamp(1.3rem, 3vw, 2.2rem);
+      font-weight: 300;
+      line-height: 1.6;
+      letter-spacing: .02em;
+    }
+
+    .philosophy-quote em {
+      font-style: normal;
+      color: var(--accent1);
+      border-bottom: 1px solid var(--accent1);
+    }
+
+    .philosophy-dream {
+      grid-column: 2;
+      border-left: 1px solid rgba(245,240,232,.15);
+      padding-left: 2rem;
+    }
+
+    .philosophy-dream h3 {
+      font-family: var(--display);
+      font-size: 1.8rem;
+      letter-spacing: .06em;
+      margin-bottom: 1.2rem;
+      color: rgba(245,240,232,.5);
+    }
+
+    .dream-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .dream-list li {
+      display: flex;
+      gap: 1rem;
+      font-size: .95rem;
+      color: rgba(245,240,232,.75);
+      line-height: 1.8;
+    }
+
+    .dream-list li::before {
+      content: '→';
+      color: var(--accent1);
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+
+    /* ── SECTIONS COMMON ── */
+    .section-wrap {
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.2rem, 4vw, 3.5rem);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-head h2 {
+      font-family: var(--display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      letter-spacing: .04em;
+      line-height: 1;
+    }
+
+    .section-head .sub {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    /* ── XBP ── */
+    .xbp-about {
+      background: rgba(232,72,48,.05);
+      border: 1px solid rgba(232,72,48,.15);
+      border-radius: 2px;
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      font-size: .95rem;
+      line-height: 1.9;
+      color: var(--mid);
+    }
+
+    .xbp-about strong { color: var(--ink); }
+
+    .xbp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .xbp-card {
+      background: var(--bg);
+      padding: 1.8rem;
+      text-decoration: none;
+      color: var(--ink);
+      transition: background .2s;
+      display: block;
+      position: relative;
+    }
+
+    .xbp-card::after {
+      content: '↗';
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      color: var(--accent1);
+      opacity: 0;
+      transition: opacity .2s, transform .2s;
+      transform: translate(-4px, 4px);
+    }
+
+    .xbp-card:hover { background: #ede8de; }
+    .xbp-card:hover::after { opacity: 1; transform: translate(0,0); }
+
+    .xbp-card .num {
+      font-family: var(--display);
+      font-size: 2.5rem;
+      color: var(--accent1);
+      line-height: 1;
+      margin-bottom: .6rem;
+    }
+
+    .xbp-card h3 {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: .4rem;
+    }
+
+    .xbp-card p {
+      font-family: var(--mono);
+      font-size: .65rem;
+      letter-spacing: .08em;
+      color: var(--mid);
+    }
+
+    /* ── DOYOLAB ── */
+    .doyolab { background: #f0ebe0; }
+
+    .doyolab-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .doyolab-card {
+      border: 1px solid var(--line);
+      padding: 2rem;
+      text-decoration: none;
+      color: var(--ink);
+      display: block;
+      background: var(--bg);
+      transition: box-shadow .2s, transform .2s;
+      position: relative;
+    }
+
+    .doyolab-card:hover {
+      box-shadow: 6px 6px 0 var(--ink);
+      transform: translate(-3px, -3px);
+    }
+
+    .doyolab-card .tag {
+      font-family: var(--mono);
+      font-size: .58rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: var(--bg);
+      padding: .2rem .6rem;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .doyolab-card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      line-height: 1.4;
+      margin-bottom: .6rem;
+    }
+
+    .doyolab-card p {
+      font-size: .875rem;
+      color: var(--mid);
+      line-height: 1.7;
+    }
+
+    /* ── VISION BANNER ── */
+    .vision-banner {
+      background: var(--accent1);
+      color: #fff;
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.2rem, 4vw, 3.5rem);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .vision-banner::before {
+      content: 'MENS MAKEUP';
+      position: absolute;
+      right: -2rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--display);
+      font-size: clamp(4rem, 12vw, 10rem);
+      color: rgba(255,255,255,.12);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .vision-banner h2 {
+      font-family: var(--display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      letter-spacing: .04em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .vision-banner p {
+      max-width: 50ch;
+      font-size: 1rem;
+      line-height: 1.8;
+      opacity: .9;
+      position: relative;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: var(--bg);
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(245,240,232,.1);
+      margin-bottom: 2rem;
+    }
+
+    .footer-brand .logo-mark { color: var(--bg); margin-bottom: .8rem; }
+
+    .footer-brand p {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: rgba(245,240,232,.4);
+      line-height: 1.8;
+    }
+
+    .footer-col h4 {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent1);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li + li { margin-top: .6rem; }
+
+    .footer-col ul li a {
+      text-decoration: none;
+      color: rgba(245,240,232,.5);
+      font-size: .82rem;
+      transition: color .2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--bg); }
+
+    .footer-tools { }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: .62rem;
+      letter-spacing: .1em;
+      color: rgba(245,240,232,.3);
+    }
+
+    .footer-email {
+      color: rgba(245,240,232,.5) !important;
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .footer-email:hover { color: var(--bg) !important; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav a:not(.nav-contact) { display: none; }
+      .philosophy-grid { grid-template-columns: 1fr; }
+      .philosophy-label { writing-mode: horizontal-tb; }
+      .philosophy-dream { grid-column: 1; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
 <body>
 
-<div id="container">
-
-<header>
-
-<h1 id="logo"><a href="index.html"><img src="images/logo.PNG" alt="あなたのサイト名"></a></h1>
-
-<!--開閉メニュー-->
-<div id="menubar">
-
-<nav>
-<ul>
-<li><a href="index.html">ホーム</a></li>
-<li><a href="">XBP</a>
-	<ul>
-	<li><a href="./de12/">デザイン演習Ⅰ・Ⅱ</a></li>
-	<li><a href="./de34/">デザイン演習Ⅲ・Ⅳ</a></li>
-	<li><a href="./de56/">デザイン演習ⅴ・Ⅵ</a></li>
-	<li><a href="digi_fab/">デジタルファブリケーション</a></li>
-	<li><a href="./digi_gra/">デジタルグラフィックス</a></li>
-	</ul>
-</li>
-<li><a href="./doyolab/">DOYOLAB</a>
-	<ul>
-		<li><a href="./doyolab/kamakuraPJ/">鎌倉共創プロジェクト</a></li>
-		<li><a href="./doyolab/circularPJ/">横浜サーキュラープロジェクト</a></li>
-		<li><a href="./doyolab/community_loops/">Community Loops</a></li>
-	</ul>
-</li>
-<li><a href="">記録</a>
-	<ul>
-		<li><a href="./note/">デジファブノート</a></li>
-		<li><a href="./manage/">経営学アーカイブ</a></li>
-		<li><a href="./products/">作品一覧</a></li>
-		<li><a href="./blog/">ブログ</a></li>
-	</ul>
-</li>
-<li><a href="./gallery/">Galley</a></li>
-<li><a href="index.html">Make Works</a></li>
-<!-- 追加する場合はAbout Meを一番最後に -->
-<li><a href="./about_me.html">About me</a></li>
-</ul>
-</nav>
-
-</div>
-<!--/#menubar（開閉メニュー）-->
-
-<div id="header-box">
-
-</div>
-
-</header>
-
-<!--スライドショー-->
-<aside id="mainimg-parts">
-<div class="slide-parts slide1-parts"></div>
-<div class="slide-parts slide2-parts"></div>
-<div class="slide-parts slide3-parts"></div>
-</aside>
-
-<div class="scroll-container-parts">
-<p>SCROLL</p>
-<div class="scroll-line-parts"><span></span></div>
-</div>
-
-<div id="contents">
-
-<main>
-
-<section>
-
-<div style="text-align: center;">
-	<a href="./knowledge/"><img src="./knowledge/images/logo.png" alt="瀬戸あつきの救済カルテ" style="height: 200px;"></a>
-</div>
-
-<br>
-
-<div class="list-half-parts">
-
-
-
-<div class="list-parts">
-
-<div class="text-parts">
-<h2>My Philosophy</h2>
-<p>
-	人の数だけその人の世界がある。その広さは海のように計り知れない。<br>
-	自分の知らないこと。その人は持ってるかもしれない。ならその世海を通りすがるだけじゃなくてその目で確かめたい。<br>
-	<strong>いくつのも世海をめぐり、その瞳は何を見る？</strong>
-</p>
-</div>
-<!--/.text-parts-->
-
-<div class="image-l-parts">
-<figure><img src="./images/world.jpg" alt=""></figure>
-</div>
-<!--/.image-l-parts-->
-
-</div>
-<!--/.list-parts-->
-
-<div class="list-parts">
-
-<div class="text-parts">
-<h4>My Dream</h4>
-<p>
-	オレには夢がなかった。けどSNS事業を始めて、収益化してやりたいことが増えてって<br>
-	今では夢ができた。<br>
-	それは
-	<ul>
-		<li>過去の自分のように外見のコンプレックスで悩んでいる人を<br>助けられるようになりたい</li>
-		<li>メンズメイクを普及させて、メンズメイクに対する偏見を無くしたい</li>
-		<li>事業をもっと拡大させたい。</li>
-	</ul><br>
-	このサイトはその自信の夢を叶えるための救済カルテです。
-</p>
-</div>
-<!--/.text-parts-->
-
-<div class="image-r-parts">
-<figure><img src="./images/dream.jpg" alt=""></figure>
-</div>
-<!--/.image-r-parts-->
-
-</div>
-<!--/.list-parts-->
-
-</div>
-<!--/.list-half-parts-->
-
-    <!-- <table class="ta2-parts">
-    <caption>自己紹介</caption>
-    <tr>
-        <th>名前</th>
-		<td></td>
-		<th>性別</th>
-		<td></td>
-		<th>生年月日</th>
-		<td>2004/05/13</td>
-		<th>血液型</th>
-		<td>B型</td>
-    </tr>
-	<tr>
-		<th>所属</th>
-		<td>神奈川大学</td>
-		<th>学部</th>
-		<td>経営学部</td>
-		<th>学科</th>
-		<td>国際経営学科</td>
-	</tr>
-</table> -->
-
-<section>
-
-<h2 class="titleset5-parts">X-Business programとは？<span>What is X-Business program</span></h2>
-<p style="text-align: center;">
-	神奈川大学経営学部のエクスビジネスプログラムは、2021年にスタートした<br>
-	デザイン、ビジネス、テクノロジーの境界を越境できる"高度デザイン人材"の育成を目指した<br>
-	分野横断型のプログラムである。
-
-	<br>
-	<br>
-
-	社会に存在する多様な課題を発見する能力 <br>
-	課題解決のためのアイディアを具現化できる能力<br>
-	記２つの能力を統合したクリエイティブに課題解決できる能力
-
-	<br>
-	<br>
-
-	これらの能力を育み、高めていく。
-</p>
-
-<section>
-
-<p class="c"><a href="https://doyolab.net/xbp/intro/" class="btn3-parts" target="_blank">More<i class="fas fa-arrow-circle-right"></i></a></p>
-
-</section>
-
-
-</section>
-
-</section>
-
-</main>
-
-</div>
-<!--/#contents-->
-
-<footer id="footer1-parts">
-
-<div class="footer1-1-parts">
-
-<ul class="sns1-parts">
-<li><a href="https://x.com/suic_502"><i class="fa-brands fa-x-twitter"></i></a></li>
-<li><a href="https://lin.ee/MHynXzV"><i class="fab fa-line"></i></a></li>
-<li><a href="https://www.instagram.com/suic_502/"><i class="fab fa-instagram"></i></a></li>
-</ul>
-
-<p>r202301989ko@jindai.jp</p>
-
-<small>Copyright© ATSUKI All Rights Reserved.</small>
-
-</div>
-<!--/.footer1-1-parts-->
-
-<div class="footer1-2-parts">
-
-<h4>外部サイト</h4>
-<ul>
-<li><a href="https://kuxbp.github.io/xbp/xbp2023/" target="_blank">XBP3期生</a></li>
-<li><a href="https://kuxbp.github.io/xbp/doyolab/16g/" target="_blank">Doyolab16期生</a></li>
-<li><a href="#" target="_blank">XBPインスタグラム</a></li>
-<li><a href="#" target="_blank">道用ゼミインスタグラム</a></li>
-</ul>
-
-<h4>XBP tools</h4>
-<ul>
-	<li><a href="https://doyolab.net/appli/digitalfieldnote_chiangmai/" target="_blank">デジタルフィールドノート</a></li>
-	<li><a href="" target="_blank">CSVファイル統合ツール</a></li>
-	<li><a href="https://doyolab.net/xbp/design_tool/" target="_blank">デザインツール</a></li>
-	<li><a href="http://doyolab-txt-coocnt-env.eba-fvq5uhqi.ap-northeast-1.elasticbeanstalk.com/" target="_blank">共起ネットワーク</a></li>
-</ul>
-
-<ul>
-<li><a href="https://kuxbp.github.io/xbp/data_analysis/template.html" target="_blank">クロス集計</a></li>
-<li><a href="http://doyolab-factor-analysis-env.eba-qcfnyhx7.ap-northeast-1.elasticbeanstalk.com/" target="_blank">因子分析</a></li>
-<li><a href="http://doyolab-corepon-env.eba-wm9wapty.ap-northeast-1.elasticbeanstalk.com/" target="_blank">コレスポンデンス分析</a></li>
-<li><a href="http://doyolab-cluster-env.eba-j8ziryhp.ap-northeast-1.elasticbeanstalk.com/" target="_blank">クラスター分析</a></li>
-</ul>
-
-<ul>
-<li><a href="https://qiita.com/doyodoyo/private/dd5e781e683c0b8dce38" target="_blank">動画結合</a></li>
-<li><a href="https://github.com/doyodoyo/image_resize/archive/refs/heads/main.zip" target="_blank">画像サイズ縮小</a></li>
-</ul>
-
-</div>
-<!--/.footer1-2-parts-->
-
-</footer>
-
-
-
-</div>
-<!--/#container-->
-
-<!--ページの上部へ戻るボタン-->
-<div class="pagetop"><a href="#"><i class="fas fa-angle-double-up"></i></a></div>
-
-<!--開閉ボタン（ハンバーガーアイコン）-->
-<div id="menubar_hdr">
-<span></span><span></span><span></span>
-</div>
-
-<!--jQueryの読み込み-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<!--パララックス（inview）-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/protonet-jquery.inview/1.1.2/jquery.inview.min.js"></script>
-
-<!--このテンプレート専用のスクリプト-->
-<script src="js/main.js"></script>
-
-</body>
-</html>
+  <!-- ══ HEADER ══ -->
+  <header>
+    <a href="#" class="logo-mark">
+      <span class="dot"></span>
+      ATSUKI
+    </a>
+    <nav>
+      <a href="#xbp">XBP</a>
+      <a href="#doyolab">DOYOLAB</a>
+      <a href="./about_me.html">About me</a>
+      <a href="mailto:r202301989ko@jindai.jp" class="nav-contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="hero-bg-letter" aria-hidden="true">ATSUKI</div>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Designer × Entrepreneur × Maker</p>
+      <h1 class="hero-name">
+        ATSUKI
+        <span>PORTFOLIO</span>
+      </h1>
+      <div class="hero-bottom">
+        <p class="hero-tagline">
+          人の数だけその人の世界がある。<br>
+          <strong>いくつものの世海をめぐり、その瞳は何を見る？</strong><br>
+          デザイン・ビジネス・テクノロジーの境界を超えて。
+        </p>
+        <div class="hero-scroll-hint">Scroll</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PHILOSOPHY ══ -->
+  <section class="philosophy">
+    <div class="philosophy-grid">
+      <span class="philosophy-label">My Philosophy</span>
+      <blockquote class="philosophy-quote">
+        「自分の知らないこと、その人は持ってるかもしれない。<br>
+        ならその<em>世海</em>を通りすがるだけじゃなくて<br>
+        その目で確かめたい。」
+      </blockquote>
+
+
+    </div>
+  </section>
+
+  <!-- ══ XBP ══ -->
+  <section class="section-wrap" id="xbp">
+    <div class="section-head">
+      <h2>XBP</h2>
+      <span class="sub">X-Business Program / 神奈川大学</span>
+    </div>
+    <div class="xbp-about">
+      <strong>X-Business Programとは</strong> — 2021年スタート。デザイン・ビジネス・テクノロジーの境界を越境できる
+      "高度デザイン人材"の育成を目指した分野横断型プログラム。
+      課題発見・具現化・クリエイティブな課題解決の3つの能力を育む。
+    </div>
+    <div class="xbp-grid">
+      <a href="./de12/" class="xbp-card">
+        <div class="num">Ⅰ·Ⅱ</div>
+        <h3>デザイン演習 Ⅰ・Ⅱ</h3>
+        <p>Design Exercise</p>
+      </a>
+      <a href="./de34/" class="xbp-card">
+        <div class="num">Ⅲ·Ⅳ</div>
+        <h3>デザイン演習 Ⅲ・Ⅳ</h3>
+        <p>Design Exercise</p>
+      </a>
+      <a href="./de56/" class="xbp-card">
+        <div class="num">Ⅴ·Ⅵ</div>
+        <h3>デザイン演習 Ⅴ・Ⅵ</h3>
+        <p>Design Exercise</p>
+      </a>
+      <a href="./digi_fab/" class="xbp-card">
+        <div class="num">FAB</div>
+        <h3>デジタルファブリケーション</h3>
+        <p>Digital Fabrication</p>
+      </a>
+      <a href="./digi_gra/" class="xbp-card">
+        <div class="num">GRA</div>
+        <h3>デジタルグラフィックス</h3>
+        <p>Digital Graphics</p>
+      </a>
+      <a href="./doyolab/" class="xbp-card">
+        <div class="num">SEMINAR</div>
+        <h3>道用ゼミ</h3>
+        <p>DoyoLab</p>
+      </a>
+      <a href="https://ku-xbp.jp/" target="_blank" class="xbp-card">
+        <div class="num">XBP</div>
+        <h3>エクスビジネスプログラム</h3>
+        <p>X-BUSINESS-PROGRSM</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ DOYOLAB ══ -->
+  <section class="section-wrap doyolab" id="doyolab">
+    <div class="section-head">
+      <h2>Archive</h2>
+      <span class="sub">記録</span>
+    </div>
+    <div class="doyolab-cards">
+      <a href="./note/" class="doyolab-card">
+        <span class="tag">Wφrld 01</span>
+        <h3>デジファブノート</h3>
+        <p>モノを作る神秘の記録</p>
+      </a>
+      <a href="./products/" class="doyolab-card">
+        <span class="tag">Wφrld 02</span>
+        <h3>作品一覧</h3>
+        <p>今まで作った神秘の記録。</p>
+      </a>
+      <a href="./gallery/" class="doyolab-card">
+        <span class="tag">Wφrld 03</span>
+        <h3>Galley</h3>
+        <p>世海で撮った写真の記録</p>
+      </a>
+      <a href="./travel/" class="doyolab-card">
+        <span class="tag">Wφrld 04</span>
+        <h3>Travel log</h3>
+        <p>今までいった世海の記録。</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══ -->
+  <footer id="contact">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo-mark"><span class="dot"></span>ATSUKI</a>
+        <p>
+          Designer &amp; Entrepreneur<br>
+          Kanagawa University XBP<br>
+          Tokyo / Yokohama, Japan
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>外部サイト / External</h4>
+        <ul>
+          <li><a href="https://kuxbp.github.io/xbp/xbp2023/index.html/" target="_blank">XBP3期生</a></li>
+          <li><a href="https://kuxbp.github.io/xbp/doyolab/16g/index.html" target="_blank">道用ゼミ16期生</a></li>
+          <li><a href="https://www.instagram.com/suic_502/" target="_blank">Instagram</a></li>
+          <li><a href="">Polarys</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-tools">
+        <h4>XBP Tools</h4>
+        <ul>
+          <li><a href="https://doyolab.net/appli/digitalfieldnote_chiangmai/" target="_blank">デジタルフィールドノート</a></li>
+          <li><a href="https://doyolab.net/xbp/design_tool/" target="_blank">デザインツール</a></li>
+          <li><a href="https://kuxbp.github.io/xbp/data_analysis/template.html" target="_blank">クロス集計</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 ATSUKI. All Rights Reserved.</span>
+      <a href="/cdn-cgi/l/email-protection#63115153515053525a5b5a080c23090a0d07020a4d0913
