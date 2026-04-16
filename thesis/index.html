@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>卒業論文 | Instagramにおける「非専門家」による成約プロセスの研究</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Noto+Sans+JP:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --white:#ffffff; --off-white:#f7f9fc;
+      --sky:#7ec8e3; --sky-light:#d0eef8; --sky-dark:#4aa8cc;
+      --pink:#f4a7b9; --pink-light:#fde8ee; --pink-dark:#e07090;
+      --gray-100:#f0f2f5; --gray-300:#c8cdd6; --gray-500:#7a8296; --gray-800:#2c3145;
+      --text:#1e2235;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Noto Sans JP',sans-serif;font-weight:300;color:var(--text);background:var(--white);line-height:1.8;overflow-x:hidden;}
+ 
+    /* HEADER */
+    header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--gray-100);}
+    .header-inner{max-width:1100px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;}
+    .logo{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--gray-800);text-decoration:none;letter-spacing:.03em;}
+    .logo span{color:var(--sky-dark);}
+    nav{display:flex;gap:1.5rem;align-items:center;}
+    nav a{font-size:.82rem;font-weight:400;letter-spacing:.05em;color:var(--gray-500);text-decoration:none;position:relative;transition:color .2s;}
+    nav a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;border-radius:2px;background:var(--sky);transition:width .25s;}
+    nav a:hover{color:var(--sky-dark);}
+    nav a:hover::after{width:100%;}
+    .nav-progress{border:1.5px solid var(--pink)!important;color:var(--pink-dark)!important;padding:.34rem 1rem;border-radius:100px;font-weight:500!important;transition:background .2s,transform .15s!important;}
+    .nav-progress::after{display:none!important;}
+    .nav-progress:hover{background:var(--pink-light)!important;transform:translateY(-1px);}
+    .nav-cta{background:linear-gradient(135deg,var(--sky-dark),var(--sky));color:white!important;padding:.36rem 1.1rem;border-radius:100px;font-weight:500!important;transition:opacity .2s,transform .15s!important;box-shadow:0 2px 10px rgba(74,168,204,.3);}
+    .nav-cta::after{display:none!important;}
+    .nav-cta:hover{opacity:.9;transform:translateY(-1px);}
+    @media(max-width:700px){.hide-sp{display:none;}}
+ 
+    /* HERO */
+    .hero{position:relative;min-height:96vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--white);}
+    .blob1{position:absolute;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,var(--sky-light) 0%,transparent 68%);top:-200px;right:-160px;animation:blob 9s ease-in-out infinite;}
+    .blob2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,var(--pink-light) 0%,transparent 68%);bottom:-120px;left:-100px;animation:blob 11s ease-in-out infinite reverse;}
+    @keyframes blob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-22px) scale(1.04)}}
+    .hero-content{position:relative;z-index:1;text-align:center;max-width:840px;padding:0 2rem;animation:fadeUp .9s ease both;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+    .hero-label{display:inline-block;font-size:.75rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--sky-dark);border:1px solid var(--sky);border-radius:100px;padding:.28rem 1rem;margin-bottom:1.6rem;}
+    .hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(1.5rem,3.6vw,2.7rem);font-weight:600;line-height:1.55;color:var(--gray-800);letter-spacing:.02em;margin-bottom:.7rem;}
+    .hero h1 em{font-style:italic;background:linear-gradient(120deg,var(--sky-dark),var(--pink-dark));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .hero-sub{font-family:'Noto Serif JP',serif;font-size:clamp(.88rem,1.8vw,1.08rem);color:var(--gray-500);margin-bottom:1.8rem;font-weight:300;letter-spacing:.03em;}
+    .hero-question{background:linear-gradient(135deg,rgba(126,200,227,.1),rgba(244,167,185,.1));border:1px solid rgba(126,200,227,.35);border-radius:14px;padding:1.4rem 2rem;max-width:700px;margin:0 auto 2rem;font-size:.9rem;color:var(--gray-800);line-height:2;text-align:left;}
+    .hero-question .q-label{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sky-dark);font-weight:500;margin-bottom:.4rem;display:block;}
+    .hero-question .hypothesis{margin-top:.9rem;padding-top:.9rem;border-top:1px solid rgba(126,200,227,.3);font-size:.84rem;color:var(--gray-500);}
+    .hero-meta{display:flex;justify-content:center;gap:2.4rem;flex-wrap:wrap;margin-top:1.8rem;}
+    .hero-meta-item .label{font-size:.7rem;letter-spacing:.1em;color:var(--gray-300);text-transform:uppercase;display:block;margin-bottom:.15rem;}
+    .hero-meta-item .value{font-size:.86rem;color:var(--gray-500);}
+ 
+    /* SECTION COMMONS */
+    section{padding:5.5rem 2rem;}
+    .container{max-width:1100px;margin:0 auto;}
+    .section-tag{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:500;color:var(--pink-dark);margin-bottom:.5rem;}
+    .section-title{font-family:'Noto Serif JP',serif;font-size:clamp(1.4rem,2.6vw,2rem);font-weight:600;color:var(--gray-800);margin-bottom:.85rem;line-height:1.5;}
+    .section-lead{color:var(--gray-500);max-width:580px;font-size:.92rem;line-height:2;}
+ 
+    /* ABSTRACT */
+    #abstract{background:var(--off-white);}
+    .abstract-grid{display:grid;grid-template-columns:220px 1fr;gap:3.5rem;align-items:start;}
+    @media(max-width:720px){.abstract-grid{grid-template-columns:1fr;gap:2rem;}}
+    .kw-list{display:flex;flex-wrap:wrap;gap:.42rem;margin-top:1.5rem;}
+    .kw{font-size:.74rem;padding:.26rem .76rem;border-radius:100px;font-weight:400;letter-spacing:.04em;}
+    .kw.sky{background:var(--sky-light);color:var(--sky-dark);}
+    .kw.pink{background:var(--pink-light);color:var(--pink-dark);}
+    .abstract-body{background:white;border-radius:16px;padding:2.2rem;box-shadow:0 4px 24px rgba(0,0,0,.05);border-left:4px solid var(--sky);font-size:.92rem;color:var(--gray-800);line-height:2.1;}
+    .abstract-body p+p{margin-top:1em;}
+    .abstract-body strong{color:var(--sky-dark);font-weight:500;}
+ 
+    /* TOC */
+    #toc{background:var(--white);}
+    .toc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.2rem;margin-top:2.5rem;}
+    .toc-chapter{border:1px solid var(--gray-100);border-radius:14px;padding:1.6rem;transition:transform .22s,box-shadow .22s;position:relative;overflow:hidden;background:white;}
+    .toc-chapter::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+    .toc-chapter:nth-child(odd)::before{background:linear-gradient(90deg,var(--sky),var(--sky-light));}
+    .toc-chapter:nth-child(even)::before{background:linear-gradient(90deg,var(--pink),var(--pink-light));}
+    .toc-chapter:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(0,0,0,.08);}
+    .toc-ch-num{font-family:'DM Serif Display',serif;font-size:2.4rem;opacity:.07;position:absolute;top:.6rem;right:1.2rem;line-height:1;color:var(--gray-800);}
+    .toc-ch-label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sky-dark);margin-bottom:.4rem;font-weight:500;}
+    .toc-chapter h3{font-family:'Noto Serif JP',serif;font-size:.97rem;font-weight:600;color:var(--gray-800);margin-bottom:.8rem;line-height:1.6;}
+    .toc-section-list{list-style:none;}
+    .toc-section-list li{font-size:.82rem;color:var(--gray-500);padding:.22rem 0;border-bottom:1px dashed var(--gray-100);display:flex;gap:.5rem;}
+    .toc-section-list li:last-child{border-bottom:none;}
+    .toc-section-list .sec-num{color:var(--sky);font-weight:500;flex-shrink:0;}
+ 
+    /* LOGS (PROGRESS LIST) */
+    #logs{background:var(--white);padding-top:0;}
+    .log-list{margin-top:2rem;display:grid;gap:1rem;}
+    .log-item{display:flex;align-items:center;justify-content:space-between;background:white;border:1px solid var(--gray-100);border-radius:16px;padding:1.4rem 2rem;transition:background .2s, border-color .2s;text-decoration:none;color:inherit;}
+    .log-item:hover{background:var(--off-white);border-color:var(--sky-light);}
+    .log-info{display:flex;align-items:center;gap:1.5rem;}
+    .log-date{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--gray-300);min-width:80px;}
+    .log-title{font-weight:500;color:var(--gray-800);font-size:.92rem;}
+    .log-tag{font-size:.65rem;padding:.2rem .6rem;border-radius:4px;background:var(--gray-100);color:var(--gray-500);text-transform:uppercase;letter-spacing:.05em;}
+    .log-tag.update{background:var(--sky-light);color:var(--sky-dark);}
+    .log-arrow{color:var(--gray-300);transition:transform .2s;font-size:1.2rem;}
+    .log-item:hover .log-arrow{transform:translateX(4px);color:var(--sky);}
+    @media(max-width:600px){
+      .log-item{flex-direction:column;align-items:flex-start;gap:.8rem;}
+      .log-info{flex-direction:column;align-items:flex-start;gap:.4rem;}
+      .log-date{min-width:auto;font-size:.9rem;}
+      .log-arrow{display:none;}
+    }
+
+    /* APPROACH */
+    #approach{background:var(--off-white);}
+    .approach-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.3rem;margin-top:2.4rem;}
+    @media(max-width:640px){.approach-grid{grid-template-columns:1fr;}}
+    .approach-card{background:white;border-radius:14px;padding:1.7rem;box-shadow:0 2px 12px rgba(0,0,0,.04);border:1px solid var(--gray-100);display:flex;gap:1.1rem;align-items:flex-start;}
+    .a-icon{width:44px;height:44px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.25rem;}
+    .a-icon.sky{background:var(--sky-light);}
+    .a-icon.pink{background:var(--pink-light);}
+    .approach-card h3{font-family:'Noto Serif JP',serif;font-size:.96rem;font-weight:600;color:var(--gray-800);margin-bottom:.35rem;}
+    .approach-card p{font-size:.84rem;color:var(--gray-500);line-height:1.9;}
+ 
+    /* HYPOTHESIS */
+    #hypothesis{background:var(--gray-800);}
+    #hypothesis .section-tag{color:var(--sky-light);}
+    #hypothesis .section-title{color:white;}
+    #hypothesis .section-lead{color:var(--gray-300);}
+    .hyp-box{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:2.4rem 2.8rem;margin-top:2.5rem;max-width:820px;}
+    .hyp-box .q-text{font-family:'Noto Serif JP',serif;font-size:clamp(.95rem,1.9vw,1.15rem);color:white;line-height:1.95;margin-bottom:1.5rem;}
+    .hyp-box .q-text em{background:linear-gradient(120deg,var(--sky),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:normal;font-weight:600;}
+    .hyp-arrow{color:var(--sky);font-size:1.3rem;margin-bottom:.9rem;}
+    .hyp-body{background:rgba(126,200,227,.1);border:1px solid rgba(126,200,227,.22);border-radius:10px;padding:1.2rem 1.6rem;font-size:.88rem;color:var(--gray-300);line-height:2;}
+    .hyp-body strong{color:var(--sky);font-weight:500;}
+ 
+    /* REFS */
+    #refs{background:var(--off-white);}
+    .ref-list{margin-top:2rem;display:flex;flex-direction:column;gap:1rem;}
+    .ref-item{background:white;border-radius:12px;padding:1.4rem 1.8rem;border:1px solid var(--gray-100);display:flex;gap:1.2rem;align-items:flex-start;}
+    .ref-badge{width:38px;height:38px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1rem;}
+    .ref-badge.sky{background:var(--sky-light);}
+    .ref-badge.pink{background:var(--pink-light);}
+    .ref-item p{font-size:.88rem;color:var(--gray-800);line-height:1.85;}
+    .ref-item a{color:var(--sky-dark);font-size:.78rem;text-decoration:none;word-break:break-all;}
+    .ref-item a:hover{text-decoration:underline;}
+ 
+    /* PROGRESS BANNER */
+    .progress-wrap{max-width:1100px;margin:0 auto;padding:5.5rem 2rem 1.5rem;}
+    .progress-banner{background:linear-gradient(135deg,var(--sky-light) 0%,var(--pink-light) 100%);border-radius:20px;padding:3rem;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap;}
+    .pb-tag{font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;font-weight:500;color:var(--pink-dark);margin-bottom:.5rem;}
+    .progress-banner h2{font-family:'Noto Serif JP',serif;font-size:clamp(1.25rem,2.4vw,1.75rem);font-weight:600;color:var(--gray-800);line-height:1.5;margin-bottom:.6rem;}
+    .progress-banner p{font-size:.87rem;color:var(--gray-500);max-width:420px;line-height:1.9;}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.7rem;border-radius:100px;font-size:.87rem;font-weight:500;text-decoration:none;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;}
+    .btn-primary{background:var(--sky-dark);color:white;box-shadow:0 4px 14px rgba(74,168,204,.35);}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(74,168,204,.42);}
+ 
+    /* FOOTER */
+    footer{background:var(--gray-800);padding:2.6rem 2rem;}
+    .footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+    .footer-logo{font-family:'DM Serif Display',serif;color:white;font-size:1.1rem;}
+    .footer-logo span{color:var(--sky);}
+    .footer-sub{font-size:.76rem;color:var(--gray-500);margin-top:.3rem;}
+    .footer-links{display:flex;gap:1.4rem;}
+    .footer-links a{font-size:.76rem;color:var(--gray-500);text-decoration:none;transition:color .2s;}
+    .footer-links a:hover{color:var(--sky);}
+    .footer-copy{max-width:1100px;margin:.2rem auto 0;padding:1.1rem 2rem 0;border-top:1px solid rgba(255,255,255,.07);text-align:center;}
+    .footer-copy p{font-size:.72rem;color:var(--gray-500);}
+ 
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
+  </style>
+</head>
+<body>
+ 
+<!-- ====== HEADER ====== -->
+<header>
+  <div class="header-inner">
+    <a href="../index.html" class="logo">Home</a>
+    <nav>
+      <a href="#abstract" class="hide-sp">概要</a>
+      <a href="#toc" class="hide-sp">目次</a>
+      <a href="#logs" class="hide-sp">📋 研究ログ</a>
+      <a href="#refs" class="nav-cta">参考文献</a>
+    </nav>
+  </div>
+</header>
+ 
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+  <div class="hero-content">
+    <span class="hero-label">卒業論文</span>
+    <h1>Instagramにおける<br><em>「非専門家」による成約プロセス<br></em>の研究</h1>
+    <p class="hero-sub">〜理論と実務から紐解く信頼構築と成約率のメカニズム〜</p>
+    <div class="hero-question">
+      <span class="q-label">Research Question</span>
+      なぜ情報過多のSNSにおいて、ユーザーは権威ある企業や専門家ではなく、あえて<strong>「元未経験の個人」</strong>からの購買を選択したのか？
+      <div class="hypothesis">ユーザーは正しさや正論よりも<strong>自分に近い人の成功体験</strong>や<strong>コミュニケーション</strong>から信頼が発生し、そこから購買意欲が刺激されて購入するのではないか？</div>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="label">対象 SNS</span><span class="value">Instagram</span></div>
+      <div class="hero-meta-item"><span class="label">分野</span><span class="value">SNSマーケティング・消費者行動</span></div>
+      <div class="hero-meta-item"><span class="label">提出年度</span><span class="value">2026年</span></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ====== ABSTRACT ====== -->
+<section id="abstract">
+  <div class="container">
+    <div class="abstract-grid">
+      <div class="reveal">
+        <p class="section-tag">Abstract</p>
+        <h2 class="section-title">研究概要</h2>
+        <div class="kw-list">
+          <span class="kw sky">Instagram</span>
+          <span class="kw pink">信頼構築</span>
+          <span class="kw sky">成約率（CVR）</span>
+          <span class="kw pink">非専門家</span>
+          <span class="kw sky">コピーライティング</span>
+          <span class="kw pink">ストーリーフォーミュラ</span>
+          <span class="kw sky">GIBB の法則</span>
+          <span class="kw pink">フリー戦略</span>
+        </div>
+      </div>
+      <div class="abstract-body reveal">
+        <p><strong>【背景】</strong>情報過多のSNS環境においては、企業・専門家アカウントが多数存在するにもかかわらず、「元未経験の個人」による発信が購買行動に直結するケースが増加している。従来の権威性とは異なる信頼メカニズムが作動していると考えられる。</p>
+        <p><strong>【目的】</strong>本論文は Instagramにおける「非専門家」アカウントの成約プロセスを解明することを目的とする。信頼構築と成約率（CVR）の因果関係、および読者の心理的障壁を突破する戦略的コンテンツ設計を明らかにする。</p>
+        <p><strong>【方法】</strong>企業・競合アカウントの投稿と自身の投稿を比較分析し、タイトルの付け方・構成・コミュニケーション手法の違いを定量・定性両面から検証する。GIBB の法則、ストーリーフォーミュラ、フリー戦略を理論的枠組みとして用いる。</p>
+        <p><strong>【期待される知見】</strong>ユーザーは「正しさ」より「近さ」に信頼を見出し、共感ベースのコンテンツが購買意欲を促進するというメカニズムの解明と、実践的なコンテンツ設計指針の提示を目指す。</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ====== TOC ====== -->
+<section id="toc">
+  <div class="container">
+    <p class="section-tag">Table of Contents</p>
+    <h2 class="section-title">目次</h2>
+    <p class="section-lead">全5章で構成。背景・理論・実証・結論の順で論じる。</p>
+    <div class="toc-grid">
+      <div class="toc-chapter reveal">
+        <span class="toc-ch-num">1</span>
+        <p class="toc-ch-label">Chapter 01</p>
+        <h3>論文の背景と目的</h3>
+        <ul class="toc-section-list">
+          <li><span class="sec-num">1-1</span>本論文の背景</li>
+          <li><span class="sec-num">1-2</span>本論文の目的</li>
+        </ul>
+      </div>
+      <div class="toc-chapter reveal">
+        <span class="toc-ch-num">2</span>
+        <p class="toc-ch-label">Chapter 02</p>
+        <h3>SNSにおける信頼と成約率の因果関係</h3>
+        <ul class="toc-section-list">
+          <li><span class="sec-num">2-1</span>信頼と成約率（CVR）の相関関係</li>
+          <li><span class="sec-num">2-2</span>SNSにおける「信頼」の定義</li>
+          <li><span class="sec-num">2-3</span>相互コミュニケーションによる信頼の深化</li>
+        </ul>
+      </div>
+      <div class="toc-chapter reveal">
+        <span class="toc-ch-num">3</span>
+        <p class="toc-ch-label">Chapter 03</p>
+        <h3>読者の心理的障壁を突破する戦略的技術</h3>
+        <ul class="toc-section-list">
+          <li><span class="sec-num">3-1</span>GIBB の法則を用いた認知戦略</li>
+          <li><span class="sec-num">3-2</span>物語を活用した教育と共感の設計</li>
+        </ul>
+      </div>
+      <div class="toc-chapter reveal">
+        <span class="toc-ch-num">4</span>
+        <p class="toc-ch-label">Chapter 04</p>
+        <h3>自己アカウントにおける実践検証</h3>
+        <ul class="toc-section-list">
+          <li><span class="sec-num">4-1</span>分析対象と調査方法の概要</li>
+          <li><span class="sec-num">4-2</span>インサイトデータの比較検証</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== PROGRESS BANNER & LIST ====== -->
+<div class="progress-wrap">
+  <div class="progress-banner reveal">
+    <div>
+      <p class="pb-tag">Latest Update</p>
+      <h2>最新の進捗状況</h2>
+      <p>現在は第4章のデータ分析を進行中です。アンケート結果の集計が完了し、信頼度と成約率の相関が見え始めています。</p>
+    </div>
+    <a href="progress_03.html" class="btn btn-primary">📋 最新のログを見る →</a>
+  </div>
+</div>
+
+<section id="logs">
+  <div class="container">
+    <p class="section-tag">Progress Logs</p>
+    <h2 class="section-title">執筆記録・アーカイブ</h2>
+    <div class="log-list">
+
+      <!-- ログ 01 -->
+      <a href="progress_01.html" class="log-item reveal">
+        <div class="log-info">
+          <span class="log-date">04.20</span>
+          <span class="log-tag">Planning</span>
+          <span class="log-title">卒業論文のテーマと目次案の作成</span>
+        </div>
+        <span class="log-arrow">→</span>
+      </a>
+
+      <!-- <a href="" class="log-item reveal">
+        <div class="log-info">
+          <span class="log-date">mm.dd</span>
+          <span class="log-tag">フェーズ</span>
+          <span class="log-title">やったこと</span>
+        </div>
+        <span class="log-arrow">→</span>
+      </a> -->
+
+    </div>
+  </div>
+</section>
+ 
+<!-- ====== APPROACH ====== -->
+<section id="approach">
+  <div class="container">
+    <p class="section-tag">Approach</p>
+    <h2 class="section-title">アプローチ方法</h2>
+    <p class="section-lead">企業・競合との比較分析を軸に、成約差異を論理的に解明する。</p>
+    <div class="approach-grid">
+      <div class="approach-card reveal">
+        <div class="a-icon sky">📊</div>
+        <div><h3>投稿の比較分析</h3><p>企業・競合アカウントの投稿と自分の投稿を収集し、構成・CTA設計を定量的に比較する。</p></div>
+      </div>
+      <div class="approach-card reveal">
+        <div class="a-icon pink">✍️</div>
+        <div><h3>コピーライティング検証</h3><p>同テーマで異なる書き方をした投稿のインサイト（保存率・リーチ）を比較する。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ====== HYPOTHESIS ====== -->
+<section id="hypothesis">
+  <div class="container">
+    <p class="section-tag">Hypothesis</p>
+    <h2 class="section-title">リサーチクエスチョンと仮説</h2>
+    <div class="hyp-box reveal">
+      <p class="q-text">なぜユーザーは、権威ある専門家ではなく<br/>あえて<em>「元未経験の個人」</em>からの購買を選択したのか？</p>
+      <div class="hyp-arrow">↓</div>
+      <div class="hyp-body">
+        ユーザーは<strong>正しさや正論</strong>よりも、<strong>自分に近い人の成功体験</strong>や<strong>双方向コミュニケーション</strong>から信頼が発生し、そこから購買意欲が刺激されるのではないか。
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ====== REFS ====== -->
+<section id="refs">
+  <div class="container">
+    <p class="section-tag">References</p>
+    <h2 class="section-title">参考文献</h2>
+    <div class="ref-list">
+      <div class="ref-item reveal">
+        <div class="ref-badge sky">📘</div>
+        <div>
+          <p><strong>デイビッド・コルブの3つの学習タイプ</strong></p>
+          <a href="https://ynagashima.com/4study-type/" target="_blank">https://ynagashima.com/4study-type/</a>
+        </div>
+      </div>
+      <div class="ref-item reveal">
+        <div class="ref-badge pink">📗</div>
+        <div>
+          <p><strong>マクスウェル・サックハイムの3つの Not</strong></p>
+          <a href="https://live5.jp/190102mark/" target="_blank">https://live5.jp/190102mark/</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ====== FOOTER ====== -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Thesis<span>.</span></div>
+      <p class="footer-sub">Instagramにおける「非専門家」による成約プロセスの研究｜2026年度 卒業論文</p>
+    </div>
+    <div class="footer-links">
+      <a href="#abstract">概要</a>
+      <a href="#toc">目次</a>
+      <a href="#logs">ログ</a>
+      <a href="#refs">参考文献</a>
+    </div>
+  </div>
+  <div class="footer-copy"><p>© 2026 卒業論文サイト. All rights reserved.</p></div>
+</footer>
+ 
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e,i) => { if(e.isIntersecting) setTimeout(()=>e.target.classList.add('visible'),i*70); });
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
