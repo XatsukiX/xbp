@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2025 My Goals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ─────────────────────────────────────────── */
+    :root {
+      --white:   #ffffff;
+      --off:     #f8f9ff;
+      --sky:     #7dd3fc;
+      --sky-l:   #bae6fd;
+      --sky-d:   #38bdf8;
+      --pink:    #f9a8d4;
+      --pink-l:  #fce7f3;
+      --pink-d:  #ec4899;
+      --ink:     #1e2030;
+      --muted:   #94a3b8;
+      --border:  #e2e8f0;
+      --radius:  20px;
+      --shadow:  0 8px 40px rgba(125,211,252,.18), 0 2px 8px rgba(249,168,212,.12);
+    }
+
+    /* ── Reset ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      background: var(--white);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ── Utility ───────────────────────────────────────────── */
+    .tag {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 99px;
+    }
+    .tag-sky  { background: var(--sky-l);  color: #0369a1; }
+    .tag-pink { background: var(--pink-l); color: #9d174d; }
+
+    /* ── Header ────────────────────────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid var(--border);
+    }
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      letter-spacing: .02em;
+      background: linear-gradient(110deg, var(--sky-d), var(--pink-d));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    nav { display: flex; gap: 2rem; }
+    nav a {
+      font-size: .88rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--ink); }
+
+    /* ── Hero ──────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 7rem 2rem 5rem;
+      text-align: center;
+    }
+    /* decorative blobs */
+    .hero::before, .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .35;
+      animation: float 8s ease-in-out infinite alternate;
+    }
+    .hero::before {
+      width: 520px; height: 520px;
+      background: var(--sky-l);
+      top: -160px; left: -140px;
+    }
+    .hero::after {
+      width: 400px; height: 400px;
+      background: var(--pink-l);
+      bottom: -120px; right: -80px;
+      animation-delay: -4s;
+    }
+    @keyframes float {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.08); }
+    }
+
+    .hero-year {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(5rem, 16vw, 11rem);
+      font-weight: 700;
+      line-height: 1;
+      background: linear-gradient(120deg, var(--sky-d) 20%, var(--pink-d) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .8s ease both;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      color: var(--muted);
+      margin-top: .5rem;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .8s .15s ease both;
+    }
+    .hero-badge {
+      margin-top: 2rem;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp .8s .3s ease both;
+      display: flex;
+      justify-content: center;
+      gap: .75rem;
+      flex-wrap: wrap;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Main ──────────────────────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    /* section title */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1.5px;
+      background: linear-gradient(90deg, var(--border) 60%, transparent);
+    }
+
+    /* ── Goal Cards ─────────────────────────────────────────── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    .card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      box-shadow: var(--shadow);
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp .6s ease both;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(125,211,252,.22), 0 4px 12px rgba(249,168,212,.18);
+    }
+    /* left accent bar */
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 5px;
+      border-radius: var(--radius) 0 0 var(--radius);
+    }
+    .card.sky::before  { background: linear-gradient(180deg, var(--sky-d), var(--sky)); }
+    .card.pink::before { background: linear-gradient(180deg, var(--pink-d), var(--pink)); }
+
+    .card:nth-child(1) { animation-delay: .05s; }
+    .card:nth-child(2) { animation-delay: .12s; }
+    .card:nth-child(3) { animation-delay: .19s; }
+    .card:nth-child(4) { animation-delay: .26s; }
+    .card:nth-child(5) { animation-delay: .33s; }
+    .card:nth-child(6) { animation-delay: .40s; }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: .8rem;
+    }
+    .card-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: .4rem 0 .3rem;
+    }
+    .card-desc {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    /* progress bar */
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: .75rem;
+      color: var(--muted);
+      margin-bottom: .35rem;
+    }
+    .progress-track {
+      height: 8px;
+      background: var(--off);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      position: relative;
+      animation: grow 1.2s cubic-bezier(.4,0,.2,1) both;
+    }
+    .progress-fill.sky  { background: linear-gradient(90deg, var(--sky-l), var(--sky-d)); }
+    .progress-fill.pink { background: linear-gradient(90deg, var(--pink-l), var(--pink-d)); }
+    @keyframes grow {
+      from { width: 0 !important; }
+    }
+
+    /* ── Milestones ─────────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 4rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px; top: 4px; bottom: 4px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--sky), var(--pink));
+      border-radius: 99px;
+    }
+    .tm-item {
+      position: relative;
+      margin-bottom: 1.6rem;
+      animation: fadeUp .5s ease both;
+    }
+    .tm-item:nth-child(1) { animation-delay: .05s; }
+    .tm-item:nth-child(2) { animation-delay: .12s; }
+    .tm-item:nth-child(3) { animation-delay: .19s; }
+    .tm-item:nth-child(4) { animation-delay: .26s; }
+
+    .tm-dot {
+      position: absolute;
+      left: -2rem;
+      top: .3rem;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 2.5px solid var(--white);
+      box-shadow: 0 0 0 2px var(--sky-d);
+    }
+    .tm-dot.done { background: var(--sky-d); }
+    .tm-dot.wip  { background: var(--pink-d); }
+    .tm-dot.todo { background: var(--border); box-shadow: 0 0 0 2px var(--border); }
+
+    .tm-month {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .2rem;
+    }
+    .tm-text {
+      font-size: .92rem;
+      font-weight: 400;
+    }
+    .tm-status {
+      font-size: .72rem;
+      margin-left: .5rem;
+      padding: 1px 7px;
+      border-radius: 99px;
+      font-weight: 700;
+    }
+    .tm-status.done { background: var(--sky-l); color: #0369a1; }
+    .tm-status.wip  { background: var(--pink-l); color: #9d174d; }
+    .tm-status.todo { background: var(--off); color: var(--muted); }
+
+    /* ── Quote ──────────────────────────────────────────────── */
+    .quote-block {
+      background: linear-gradient(120deg, var(--sky-l) 0%, var(--pink-l) 100%);
+      border-radius: var(--radius);
+      padding: 2.4rem 2.8rem;
+      margin-bottom: 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-block::before {
+      content: '\201C';
+      font-family: 'Playfair Display', serif;
+      font-size: 9rem;
+      line-height: 1;
+      color: rgba(255,255,255,.55);
+      position: absolute;
+      top: -1.5rem; left: 1rem;
+    }
+    .quote-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--ink);
+      position: relative;
+      z-index: 1;
+      line-height: 1.65;
+    }
+    .quote-author {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: .8rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: #94a3b8;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+    .footer-inner { max-width: 1100px; margin: 0 auto; }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      background: linear-gradient(110deg, var(--sky), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: .6rem;
+    }
+    .footer-copy {
+      font-size: .78rem;
+      letter-spacing: .04em;
+    }
+    .footer-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--sky), var(--pink));
+      margin: 1.2rem auto;
+      border-radius: 99px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <div class="logo">My Goals 2026</div>
+    <nav>
+      <a href="#goals">目標</a>
+      <a href="#milestones">マイルストーン</a>
+      <a href="#quote">言葉</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ HERO ════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-year">2026</div>
+  <p class="hero-sub">今年、わたしが成し遂げたいこと。</p>
+  <div class="hero-badge">
+    <span class="tag tag-sky">✦ 成長</span>
+    <span class="tag tag-pink">✦ 挑戦</span>
+    <span class="tag tag-sky">✦ 継続</span>
+    <span class="tag tag-pink">✦ 健康</span>
+  </div>
+</section>
+
+<!-- ══ MAIN ═════════════════════════════════════════════════ -->
+<main>
+
+  <!-- 目標カード -->
+  <h2 class="section-title" id="goals">🎯 今年の目標</h2>
+  <div class="cards">
+
+    <div class="card sky">
+      <div class="card-header">
+        <span class="card-icon">📚</span>
+        <span class="tag tag-sky">スキル</span>
+      </div>
+      <div class="card-title">英語力アップ</div>
+      <div class="card-desc">毎日30分のリスニングと単語学習。年末までにTOEIC 800点を目指す。</div>
+      <div class="progress-label"><span>進捗</span><span>40%</span></div>
+      <div class="progress-track"><div class="progress-fill sky" style="width:40%"></div></div>
+    </div>
+
+    <div class="card pink">
+      <div class="card-header">
+        <span class="card-icon">🏃</span>
+        <span class="tag tag-pink">健康</span>
+      </div>
+      <div class="card-title">週3回ランニング</div>
+      <div class="card-desc">5kmを習慣化し、秋のハーフマラソンへ出走。体力と精神力を鍛える。</div>
+      <div class="progress-label"><span>進捗</span><span>60%</span></div>
+      <div class="progress-track"><div class="progress-fill pink" style="width:60%"></div></div>
+    </div>
+
+    <div class="card sky">
+      <div class="card-header">
+        <span class="card-icon">💻</span>
+        <span class="tag tag-sky">スキル</span>
+      </div>
+      <div class="card-title">プログラミング学習</div>
+      <div class="card-desc">Pythonを使ったデータ分析を習得。個人プロジェクトを1本リリースする。</div>
+      <div class="progress-label"><span>進捗</span><span>25%</span></div>
+      <div class="progress-track"><div class="progress-fill sky" style="width:25%"></div></div>
+    </div>
+
+    <div class="card pink">
+      <div class="card-header">
+        <span class="card-icon">📖</span>
+        <span class="tag tag-pink">教養</span>
+      </div>
+      <div class="card-title">年間24冊読書</div>
+      <div class="card-desc">月2冊のペースで読書。ビジネス書・小説・自己啓発をバランスよく読む。</div>
+      <div class="progress-label"><span>進捗</span><span>50%</span></div>
+      <div class="progress-track"><div class="progress-fill pink" style="width:50%"></div></div>
+    </div>
+
+    <div class="card sky">
+      <div class="card-header">
+        <span class="card-icon">🍳</span>
+        <span class="tag tag-sky">生活</span>
+      </div>
+      <div class="card-title">自炊習慣をつける</div>
+      <div class="card-desc">週4日は自炊する。食費を節約しながら、料理スキルを身につける。</div>
+      <div class="progress-label"><span>進捗</span><span>70%</span></div>
+      <div class="progress-track"><div class="progress-fill sky" style="width:70%"></div></div>
+    </div>
+
+    <div class="card pink">
+      <div class="card-header">
+        <span class="card-icon">✈️</span>
+        <span class="tag tag-pink">体験</span>
+      </div>
+      <div class="card-title">国内旅行 3ヶ所</div>
+      <div class="card-desc">知らない土地を訪れ、視野を広げる。季節ごとに1ヶ所を目標にする。</div>
+      <div class="progress-label"><span>進捗</span><span>33%</span></div>
+      <div class="progress-track"><div class="progress-fill pink" style="width:33%"></div></div>
+    </div>
+
+  </div><!-- /cards -->
+
+  <!-- マイルストーン -->
+  <h2 class="section-title" id="milestones">📅 マイルストーン</h2>
+  <div class="timeline">
+    <div class="tm-item">
+      <div class="tm-dot done"></div>
+      <div class="tm-month">1月 – 2月</div>
+      <div class="tm-text">英語アプリ登録・習慣化スタート <span class="tm-status done">完了</span></div>
+    </div>
+    <div class="tm-item">
+      <div class="tm-dot done"></div>
+      <div class="tm-month">3月 – 4月</div>
+      <div class="tm-text">Pythonコース受講開始・ランニング習慣化 <span class="tm-status done">完了</span></div>
+    </div>
+    <div class="tm-item">
+      <div class="tm-dot wip"></div>
+      <div class="tm-month">5月 – 6月</div>
+      <div class="tm-text">TOEIC 受験・読書12冊達成 <span class="tm-status wip">進行中</span></div>
+    </div>
+    <div class="tm-item">
+      <div class="tm-dot todo"></div>
+      <div class="tm-month">7月 – 9月</div>
+      <div class="tm-text">個人プロジェクトリリース・国内旅行 2ヶ所目 <span class="tm-status todo">予定</span></div>
+    </div>
+    <div class="tm-item">
+      <div class="tm-dot todo"></div>
+      <div class="tm-month">10月 – 12月</div>
+      <div class="tm-text">ハーフマラソン完走・全目標の最終チェック <span class="tm-status todo">予定</span></div>
+    </div>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote-block" id="quote">
+    <p class="quote-text">
+      今日できることを精一杯やれば、<br>明日は今日よりも少し遠くへ行ける。
+    </p>
+    <p class="quote-author">— 自分への約束, 2025</p>
+  </div>
+
+</main>
+
+<!-- ══ FOOTER ════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">My Goals 2025</div>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">© 2025 My Vision Board — Keep going, one step at a time.</p>
+  </div>
+</footer>
+
+</body>
+</html>

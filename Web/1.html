@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webプログラミング入門 - Lecture Notes</title>
+    <link rel="stylesheet" href="./css/note.css">
+<body>
+
+    <header>
+        <a href="./index.html" class="btn-back">← 一覧に戻る</a>
+        <div class="logo">Lecture<span>Note</span></div>
+        <div style="width: 80px;"></div> <!-- バランス用 -->
+    </header>
+
+    <main>
+        <article>
+            <div class="note-header">
+                <h1>Webプログラミング入門</h1>
+            </div>
+
+            <div class="note-content">
+                <h2>1.Webページとは</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>用語</th>
+                            <th>説明</th>
+                        </tr>
+                        <tr>
+                            <th>WEBページ</th>
+                            <td>ブラウザ上で閲覧する1枚1枚の写真。</td>
+                        </tr>
+                        <tr>
+                            <th>HTML</th>
+                            <td>Hyper Text Markup Language: WEBページの<strong>文章構造</strong>を定義する言語。</td>
+                        </tr>
+                        <tr>
+                            <th>タグ</th>
+                            <td>＜tag＞と＜/tag＞のように要素の始まりと終わりをマークする記述方式</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>HTMLの基本構造（例と解説）</h2>
+
+                <code>
+                        <ol style="list-style:decimal-leading-zero outside;in-left:0;padding-left:36px;margin:0;background-color:#EEF;color:#000;">
+                        <li style="background-color:#EFF;">&lt;html&gt;</li>
+                        <li style="background-color:#EEF;"></li>
+                        <li style="background-color:#EFF;">&lt;head&gt;</li>
+                        <li style="background-color:#EEF;"></li>
+                        <li style="background-color:#EFF;">&lt;title&gt;あつきのHP&lt;/title&gt;</li>
+                        <li style="background-color:#EEF;"></li>
+                        <li style="background-color:#EFF;">&lt;/head&gt;</li>
+                        <li style="background-color:#EEF;"></li>
+                        <li style="background-color:#EFF;">&lt;body&gt;</li>
+                        <li style="background-color:#EEF;"></li>
+                        <li style="background-color:#EFF;">&lt;hr&gt;</li>
+                        <li style="background-color:#EEF;"></li>
+                        <li style="background-color:#EFF;">&lt;center&gt;私の名前は瀬戸あつきです&lt;/center&gt;</li>
+                        <li style="background-color:#EEF;"></li>
+                        <li style="background-color:#EFF;">&lt;hr&gt;</li>
+                        <li style="background-color:#EEF;"></li>
+                        <li style="background-color:#EFF;">&lt;/body&gt;</li>
+                        <li style="background-color:#EEF;"></li>
+                        <li style="background-color:#EFF;">&lt;/html&gt;</li>
+                    </ol>
+                </code>
+
+                <a href="./sample.html" target="_blank">実際のページ</a>
+
+                <br><br>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>タグ</th>
+                            <td>内容・役割</td>
+                        </tr>
+                        <tr>
+                            <th><pre>&lt;html&gt;</pre></th>
+                            <td>html文書の開始</td>
+                        </tr>
+                        <tr>
+                            <th><pre>&lt;head&gt;</pre></th>
+                            <td>ユーザーの目に見えない情報（タイトルなど）</td>
+                        </tr>
+                         <tr>
+                            <th><pre>&lt;title&gt;</pre></th>
+                            <td>ブラウザのタブ表示されるページ名</td>
+                        </tr>
+                         <tr>
+                            <th><pre>&lt;body&gt;</pre></th>
+                            <td>ユーザーが目にする本文エリア</td>
+                        </tr>
+                         <tr>
+                            <th><pre>&lt;hr&gt;</pre></th>
+                            <td>水平線を表示</td>
+                        </tr>
+                         <tr>
+                            <th><pre>&lt;center&gt;</pre></th>
+                            <td>中央揃え</td>
+                        </tr>
+                         <tr>
+                            <th><pre>&lt;font&gt;</pre></th>
+                            <td>色やサイズの指定</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h2>CSSとは？</h2>
+                <table>
+                    <tbody>
+                         <tr>
+                            <th>項目</th>
+                            <th>内容</th>
+                        </tr>
+                        <tr>
+                            <th>CSS</th>
+                            <td>Caccading Style Sheets:HTMLのデザインを定義する仕組み</td>
+                        </tr>
+                        <tr>
+                            <th>用途</th>
+                            <td>色・サイズ・背景・余白・配置・線などの設定</td>
+                        </tr>
+                        <tr>
+                            <th>分ける理由</th>
+                            <td>デザインと構造の分離→WebマーケにおけるSEO対策などにも有効</td>
+                        </tr>
+                        <tr>
+                            <th>適用方法</th>
+                            <td><pre>&lt;head&gt;内に&lt;link rel="stylesheet" href="style.css"&gt;で読み込み</pre></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>HTML vs CSSの役割分担</h2>
+                <table>
+                    <tr>
+                        <th>要素</th>
+                        <th>HTMLで書く内容</th>
+                        <th>CSSで書く内容</th>
+                    </tr>
+                    <tr>
+                        <th>本文</th>
+                        <td>タイトル、文章、リンク等</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>見た目の調整</th>
+                        <td>×（非推奨）</td>
+                        <td>背景色、文字サイズ、位置、色、余白など</td>
+                    </tr>
+                    <tr>
+                        <th>構造</th>
+                        <td><pre>&lt;div&gt;でブロック分け</pre></td>
+                        <td>div{border: 1px solid #000;}など</td>
+                    </tr>
+                </table>
+
+                <h2>4.CSSの記述例（style.css）</h2>
+
+                <h2>5.用語まとめ</h2>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>用語</th>
+                            <th>説明</th>
+                        </tr>
+                        <tr>
+                            <th>SEO</th>
+                            <td>検索エンジン最適化</td>
+                        </tr>
+                        <tr>
+                            <th>div</th>
+                            <td>HTML内でレイアウトを整理するための区切りブロック</td>
+                        </tr>
+                        <tr>
+                            <th>style.css</th>
+                            <td>見た目のスタイルを記述するファイル</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="important-box">
+                    <h4>💡 Tips</h4>
+                    <ul>
+                        <li>HTML/CSSは<strong>メモ帳でも簡単に書ける</strong></li>
+                        <li>.htmlと.cssを作り、<strong>ローカルでブラウザ表示</strong>して学習できる</li>
+                        <li>Web制作ツール（VSCode）を使うとより快適に作業可能</li>
+                    </ul>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Campus Notes. Recorded by Student ID: 2024XXXX</p>
+    </footer>
+
+</body>
+</html>
