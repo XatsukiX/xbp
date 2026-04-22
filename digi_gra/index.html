@@ -1,57 +1,71 @@
-
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>演習ノート一覧</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/colum.css" rel="stylesheet">
-        <link rel="shortcut icon" href="../images/xbp.ico">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デジタルグラフィックス</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
 
-    <body>
-        <div id="news" class="big-bg">
-            <header class="page-header wrapper">
-                <h1><a href="../index.html"><img class="logo" src="../images/logo.PNG" alt="home_img"></a></h1>
-            </header>
+    <header>
+        <a href="../index.html" class="btn-back">← TOP</a>
+        <div class="logo" style="color: var(--primary-blue); font-weight: bold;">Campus<span>Note</span></div>
+        <div style="width: 100px;"></div>
+    </header>
 
-            <div class="wrapper">
-                <h2 class="page-title">Portfolio</h2>
+    <div class="course-banner">
+        <h1>デジタルグラフィックス</h1>
+    </div>
+
+    <main>
+        <section class="lectures">
+            <h2 class="section-title">講義ノート</h2>
+            <div class="lecture-list">
+                <!-- 第1回 -->
+                <a href="./1.html" target="_blank" class="lecture-item">
+                    <div class="lecture-number">01</div>
+                    <div class="lecture-body">
+                        <h3>Illustratorについて</h3>
+                    </div>
+                </a>
+
+                <!-- 第2回 -->
+                <a href="./2.html" target="_blank" class="lecture-item">
+                    <div class="lecture-number">02</div>
+                    <div class="lecture-body">
+                        <h3>細かい環境について</h3>
+                    </div>
+                </a>
+
+                                <!-- 第3回 -->
+                <a href="./fab.html" target="_blank" class="lecture-item">
+                    <div class="lecture-number">03</div>
+                    <div class="lecture-body">
+                        <h3>Fablabについて</h3>
+                    </div>
+                </a>
+
             </div>
-        </div>
+        </section>
 
-        <div class="news-contents wrapper">
-            <article>
-                <header class="post-info">
-                    <h2 class="post-title">演習ノート一覧</h2>
-                    <p class="post-date">7/20 <span>2024</span></p>
-                    <p class="post-cat">デジタルグラフィックス</p>
-                </header>
-
-				<ul>
-					<li><a href="./1.html" target="_blank">Illustratorとは？</a></li>
-					<li><a href="./2.html" target="_blank">細かい環境について</a></li>
-					<li><a href="./fab.html" target="_blank">fablabについて</a></li>
-				</ul>
-
-				
-
- 
-
-            </article>
-
-            <aside>
-				<h3 class="sub-title">この授業について</h3>
-                <p>
-                    グラフィックソフトウェアであるAdobe Illustrator、Photoshop、さらにデジタルファブリケーションを使った制作方法を学習し、講義と実技を交えながら、テーマに基づいた課題を製作する。
-                </p>
-            </aside>
-        </div>
-
-        <footer>
-            <div class="wrapper">
-                <p>All rights reserved</p>
+        <aside class="sidebar">
+            <!-- 教科書・リンク -->
+            <div class="widget">
+                <h4>📚 参考情報</h4>
+                <!-- <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.8rem;">
+                    指定教科書：『よくわかる心理学 第3版』(ミネルヴァ書房)
+                </p> -->
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 5px;"><a href="https://webstation-koukai.kanagawa-u.ac.jp/syllabus/2024/150/150_23AA508_ja_JP.html" target="_blank" style="color: var(--primary-blue); font-size: 0.85rem; text-decoration: none;">・シラバス</a></li>
+                </ul>
             </div>
-        </footer>
-    </body>
+        </aside>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DIGITAL GRAPHICS </p>
+    </footer>
+
+</body>
 </html>

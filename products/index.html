@@ -1,82 +1,121 @@
-
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>作品一覧</title>
-        <meta name="description" content="">
-        <link rel="icon" href="../note/img/fab.png">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARCHIVE | PRODUCTS</title>
+  <link rel="stylesheet" href="./css/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
 
-    <!-- CSS -->
-        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
-        <link href="./css/style.css" rel="stylesheet">
-    </head>
+  <header>
+    <div class="header-inner">
+      <a href="../" class="brand-logo">
+        <div class="polarys-icon"></div>
+        <span>P.O.L.A.R.Y.S.</span>
+      </a>
+      <nav style="display: flex; gap: 1.5rem;">
+        <a href="mailto:r202301989ko@jindai.jp" style="text-decoration:none; color:var(--accent-blue); font-family:var(--mono); font-size:0.7rem;">[ CONTACT ]</a>
+      </nav>
+    </div>
+  </header>
 
-    <body>
-        <div id="menu" class="big-bg">
-            <header class="page-header wrapper">
-                <h1><a href="../index.html"><img class="logo" src="../images/logo.PNG" alt="logo image"></a></h1>
-                <nav>
+  <main>
+    <!-- Archive Header -->
+    <section class="archive-header">
+      <div class="breadcrumbs">
+        <a href="../index.html">ROOT</a><span>/</span> <span style="color:var(--ink)">PRODUCT_ARCHIVE</span>
+      </div>
+      <div class="archive-title">
+        <h1>PRODUCT<br>ARCHIVE</h1>
+        <div class="archive-stats">
+          TOTAL_RECORDS: 003<br>
+          LAST_UPDATE: 2026.04.22
+        </div>
+      </div>
+    </section>
 
-            </header>
+    <!-- System Message -->
+    <section class="system-notice">
+      <div class="notice-box">
+        <p>
+        </p>
+      </div>
+    </section>
 
-            <div class="menu-content wrapper">
-                <h2 class="page-title">Products</h2>
-                <p>
-                    ここでは私が作った作品を載せていきます。また、タイトルが赤文字になっている作品は無料でデータを配布しています。
-                    SNS等で#AtsukiMakesをつけて投稿していただけると大変光栄です。よろしくお願いいたします。
-                </p>
-            </div><!-- /.menu-content -->
-        </div><!-- /#menu -->
+    <!-- Product Directory -->
+    <section class="directory-section">
+      <span class="dir-label">// INDEX_OF / MANUFACTURED_PRODUCTS</span>
+      
+      <div class="data-grid">
+        <!-- Product 01 -->
+        <a href="./suvenia_lo.html" target="_blank" class="data-card">
+          <div class="thumbnail-wrap">
+            <img src="./img/survenia.jpg" alt="スーベニアキーホルダー" onerror="this.style.display='none'">
+          </div>
+          <div class="card-body">
+            <div class="meta">
+              <span>PROD_ID: PRD_001</span>
+              <span class="status-tag">LASER_CUT</span>
+            </div>
+            <h3>スーベニアキーホルダー</h3>
+            <div class="footer-info">
+              <span>CAT: ACCESSORY</span>
+              <span>VIEW_DETAILS ></span>
+            </div>
+          </div>
+        </a>
 
+        <!-- Product 02 (FREE) -->
+        <a href="./laser/stend_stand.html" target="_blank" class="data-card">
+          <div class="thumbnail-wrap">
+            <img src="./img/stend_stand.jpg" alt="ミニステンドグラス" onerror="this.style.display='none'">
+          </div>
+          <div class="card-body">
+            <div class="meta">
+              <span>PROD_ID: PRD_002</span>
+              <span class="status-tag status-free">FREE_ASSET</span>
+            </div>
+            <h3 class="free-title">ミニステンドグラス</h3>
+            <div class="footer-info">
+              <span>CAT: INTERIOR</span>
+              <span>GET_DATA ></span>
+            </div>
+          </div>
+        </a>
 
-		<!-- 画像サイズをステンドスタンドの大きさに併せる -->
+        <!-- Product 03 -->
+        <div class="data-card">
+          <div class="thumbnail-wrap">
+            <img src="./img/pack_charm.jpg" alt="パックチャーム" onerror="this.style.display='none'">
+          </div>
+          <div class="card-body">
+            <div class="meta">
+              <span>PROD_ID: PRD_003</span>
+              <span class="status-tag">LASER_CUT</span>
+            </div>
+            <h3>パックチャーム</h3>
+            <div class="footer-info">
+              <span>CAT: ACCESSORY</span>
+              <span style="color:var(--mid); opacity:0.5;">DETAILS_LOCKED</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <div class="wrapper grid">
-            <div class="item">
-                <img src="./img/survenia.jpg" alt="">
-                <p><a href="./laser/suvenia.html" target="_blank">スーベニアキーホルダー</a></p>
-            </div>
-            <!-- <div class="item">
-                <img src="./img/survenia_case.jpg" alt="">
-                <p>写真キャプション写真キャプション</p>
-            </div> -->
-            <div class="item">
-                <img src="./img/stend_stand.jpg" alt="">
-                <p><a href="./laser/stend_stand.html" class="free" target="_blank">ミニステンドグラス</a></p>
-            </div>
-            <div class="item">
-                <img src="./img/pack_charm.jpg" alt="">
-                <p><!--<a href="" target="_blank"></a>-->パックチャーム</p>
-            </div>
-            <!-- <div class="item">
-                <img src="images/menu5.jpg" alt="">
-                <p>写真キャプション写真キャプション</p>
-            </div>
-            <div class="item">
-                <img src="images/menu6.jpg" alt="">
-                <p>写真キャプション写真キャプション</p>
-            </div>
-            <div class="item">
-                <img src="images/menu7.jpg" alt="">
-                <p>写真キャプション写真キャプション</p>
-            </div>
-            <div class="item">
-                <img src="images/menu8.jpg" alt="">
-                <p>写真キャプション写真キャプション</p>
-            </div>
-            <div class="item">
-                <img src="images/menu9.jpg" alt="">
-                <p>写真キャプション写真キャプション</p>
-            </div> -->
-        </div><!-- /.grid -->
+  </main>
 
-        <footer>
-            <div class="wrapper">
-                <p>All rights reserverd</p>
-            </div>
-        </footer>
-    </body>
+  <footer>
+    © 2026 P.O.L.A.R.Y.S. ARCHIVE_SYSTEM // STATUS: OPERATIONAL
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
 </html>

@@ -1,61 +1,96 @@
-
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <title>演習ノート一覧</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/colum.css" rel="stylesheet">
-        <link rel="shortcut icon" href="../images/xbp.ico">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>デザイン演習Ⅲ・Ⅳ</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="shortcut icon" href="../images/xbp.ico">
+</head>
+<body>
 
-    <body>
-        <div id="news" class="big-bg">
-            <header class="page-header wrapper">
-                <h1><a href="../index.html"><img class="logo" src="../images/logo.PNG" alt="home_img"></a></h1>
-            </header>
+    <header>
+        <a href="../index.html" class="btn-back">← TOP</a>
+        <div class="logo" style="color: var(--primary-blue); font-weight: bold;">Campus<span>Note</span></div>
+        <div style="width: 100px;"></div>
+    </header>
 
-            <div class="wrapper">
-                <h2 class="page-title">Portfolio</h2>
+    <div class="course-banner">
+        <h1>デザイン演習Ⅲ・Ⅳ</h1>
+    </div>
+
+    <main>
+        <section class="lectures">
+            <h2 class="section-title">講義ノート</h2>
+            <div class="lecture-list">
+                <!-- 第1回 -->
+                <a href="./1.html" target="_blank" class="lecture-item">
+                    <div class="lecture-number">01</div>
+                    <div class="lecture-body">
+                        <h3>身近にあるプログラム</h3>
+                    </div>
+                </a>
+
+                <!-- 第2回 -->
+                <a href="./2.html" target="_blank" class="lecture-item">
+                    <div class="lecture-number">02</div>
+                    <div class="lecture-body">
+                        <h3>IOTについて</h3>
+                    </div>
+                </a>
+
+                                <!-- 第3回 -->
+                <a href="./3.html" target="_blank" class="lecture-item">
+                    <div class="lecture-number">03</div>
+                    <div class="lecture-body">
+                        <h3>IOTのデータ</h3>
+                    </div>
+                </a>
+
+                                <!-- 第4回 -->
+                <a href="./4.html" target="_blank" class="lecture-item">
+                    <div class="lecture-number">04</div>
+                    <div class="lecture-body">
+                        <h3>モーターとNEOPIXEL</h3>
+                    </div>
+                </a>
+
+                                <!-- 第5回 -->
+                <a href="./5.html" target="_blank" class="lecture-item">
+                    <div class="lecture-number">05</div>
+                    <div class="lecture-body">
+                        <h3>コレスポンデンス分析とクラスター分析</h3>
+                    </div>
+                </a>
+
+                                <!-- 第6回 -->
+                <a href="./6.html" target="_blank" class="lecture-item">
+                    <div class="lecture-number">06</div>
+                    <div class="lecture-body">
+                        <h3>PROJECT NOTE</h3>
+                    </div>
+                </a>
             </div>
-        </div>
+        </section>
 
-        <div class="news-contents wrapper">
-            <article>
-                <header class="post-info">
-                    <h2 class="post-title">演習ノート一覧</h2>
-                    <p class="post-date">7/22 <span>2024</span></p>
-                    <p class="post-cat">デザイン演習Ⅲ・Ⅳ</p>
-                </header>
+        <aside class="sidebar">
 
-				<li><a href="./1.html" target="_blank">身近にあるプログラム</a></li>
-				<li><a href="./2.html" target="_blank">Iotについて</a></li>
-				<li><a href="./3.html" target="_blank">Iotのデータ</a></li>
-				<li><a href="./4.html" target="_blank">モーターとNeoPixel</a></li>
-				<li><a href="./5.html" target="_blank">コレスポンデンス分析とクラスター分析</a></li>
-				<li><a href="https://shirai2278.github.io/xbp/de34/6.html" target="_blank">Project Note</a></li>
-
-            </article>
-
-            <aside>
-
-
-				<h3 class="sub-title">関連知識</h3>
-				<ul class="sub-menu">
-					<li><a href="./o1.html" target="_blank">マイコンについて</a></li>
-				</ul>
-
-                <h3 class="sub-title">この授業について</h3>
-                <p>
-                    フィジカルコンピューティング、プログラミング、IoT技術などプロトタイピングに必要なテクノロジーを身につけるとともに、創造的な思考・行動プロセスを身につける。
-                </p>
-            </aside>
-        </div>
-
-        <footer>
-            <div class="wrapper">
-                <p>All rights reserved</p>
+            <!-- 教科書・リンク -->
+            <div class="widget">
+                <h4>📚 参考情報</h4>
+                <!-- <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 0.8rem;">
+                    指定教科書：『よくわかる心理学 第3版』(ミネルヴァ書房)
+                </p> -->
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 5px;"><a href="https://webstation-koukai.kanagawa-u.ac.jp/syllabus/2024/150/150_23AA503_ja_JP.html" target="_blank" style="color: var(--primary-blue); font-size: 0.85rem; text-decoration: none;">・シラバス</a></li>
+                </ul>
             </div>
-        </footer>
-    </body>
+        </aside>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DESIGN EXERCISE Ⅲ・Ⅳ </p>
+    </footer>
+
+</body>
 </html>
