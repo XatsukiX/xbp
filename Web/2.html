@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrapとレイアウト構築 - Lecture Notes</title>
+    <link rel="stylesheet" href="./css/note.css">
+    <link rel="shortcut icon" href="../images/polarys.ico" type="image/x-icon">
+<body>
+
+    <header>
+        <a href="./index.html" class="btn-back">← 一覧に戻る</a>
+        <div class="logo">Lecture<span>Note</span></div>
+        <div style="width: 80px;"></div> <!-- バランス用 -->
+    </header>
+
+    <main>
+        <article>
+            <div class="note-header">
+                <h1>Bootstrapとレイアウト構築</h1>
+            </div>
+
+            <div class="note-content">
+                <h2>1.Bootstrapとは</h2>
+                <p>
+                    Webサイトやアプリのフロントエンド開発を高速化する、世界的に有名なCSS・JSフレームワークのことを指す。
+                    レスポンシブデザイン（スマホ対応）のボタン、フォーム、レイアウトなどの部品があらかじめ用意されており、HTMLにクラス名を追加するだけでWebを構築することが可能
+                </p>
+
+
+                <h2>2.colとrowを使った基本構築</h2>
+
+                <p>
+                    Bootstrapにはカラムシステムが備わっている。
+                    これの考え方は横を１２等分されていて、そこからいくつかとって構築するという考え方である
+                    図式化すると以下のようになる。
+                </p>
+
+                <table>
+                    <tbody>
+                        <tr>
+                        <td colspan="12">12</td>
+                        </tr>
+                        <tr>
+                        <td colspan="4">col-4</td>
+                        <td colspan="4">col4</td>
+                        <td colspan="4">col-4</td>
+                        </tr>
+                        <tr>
+                        <td colspan="3">col-3</td>
+                        <td colspan="3">col-3</td>
+                        <td colspan="3">col-3</td>
+                        <td colspan="3">col-3</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <br>
+
+                <p>
+                    さらにCol-○の中からさらに１２等分して細分化することもできる
+                </p>
+
+                <table>
+                    <tbody>
+                        <tr>
+                        <td colspan="12">Col-4</td>
+                        </tr>
+                        <tr>
+                        <td colspan="4">col-4</td>
+                        <td colspan="4">col4</td>
+                        <td colspan="4">col-4</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="./sample2.html" target="_blank">実際のホームページ</a>
+
+                <h2>3.背景色の変更</h2>
+                <p>
+                    Bootstrapで背景色を変更する場合、従来のhtml/cssとは違い、htmlに直接クラスを付与することで変更するkとができる。
+                    例えば青色の場合、<pre>&lt;div class=col-3 bg-primary&gt;...........&lt;/div&gt;</pre>
+                    のように記述することで背景色を変更することができる。
+                </p>
+
+                <h2>4.レスポンシブ対応した画像の挿入</h2>
+                <p>
+                    コラムクラスを入れたdivタグにimg-fluidクラスを入れたimgタグを入れるとレスポンシブ対応した画像を挿入することができる。
+                    レスポンシブ対応をさせることで画像サイズが横幅に合わせてスケールするようになる。
+                </p>
+
+                <h2>5.マージンについて</h2>
+                <p>
+                    マージンとは要素の外側に透明な余白を作成し、要素同士の距離を調整するプロパティのことを指す。
+                    Bootstrapにおいてはタグの中に以下のクラスを付与する
+                </p>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>クラス名</th>
+                            <th>マージンが追加される場所</th>
+                        </tr>
+                        <tr>
+                            <th>mt-○</th>
+                            <td>上</td>
+                        </tr>
+                        <tr>
+                            <th>mb-○</th>
+                            <td>下</td>
+                        </tr>
+                        <tr>
+                            <th>ms-○</th>
+                            <td>右</td>
+                        </tr>
+                        <tr>
+                            <th>me-○</th>
+                            <td>左</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="important-box">
+                    <h4>💡 Tips</h4>
+                    <ul>
+                        <li>Bootstrapを使うと<strong>クラスを追加するだけで</strong>簡単にWebを構築できる</li>
+                        <li>カラムシステムでは、分割したカラムの中に<strong>さらに分割することができる</strong></li>
+                        <li>レスポンシブ対応させた画像は<strong>横幅に合わせて自動的にスケールされる</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 My Campus Notes. Recorded by Student ID: 202301989</p>
+    </footer>
+
+</body>
+</html>
