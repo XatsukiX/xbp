@@ -1,122 +1,353 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ARCHIVE | PRODUCTS</title>
-  <link rel="stylesheet" href="./css/index.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="shortcut icon" href="../images/polarys.ico" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@300;400;700&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ものづくりラボ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+JP:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FFFBF1;
+    --ink: #1B1B1F;
+    --paper: #FFFFFF;
+    --lime: #C6EE3E;
+    --coral: #FF5A36;
+    --blue: #3B6BFF;
+    --pink: #FF3D9A;
+    --sun: #FFC93C;
+    --line: #1B1B1F;
+    --font-jp: 'Noto Sans JP', sans-serif;
+    --font-disp: 'Space Grotesk', var(--font-jp);
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-jp);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    background-image: radial-gradient(var(--line) .7px, transparent .7px);
+    background-size: 22px 22px;
+    background-position: -8px -8px;
+    background-attachment: fixed;
+  }
+  a{ color:inherit; text-decoration:none; }
+  ::selection{ background:var(--coral); color:#fff; }
+  :focus-visible{ outline:3px solid var(--blue); outline-offset:3px; }
+
+  .wrap{ max-width:1160px; margin:0 auto; padding:0 28px; position:relative; }
+
+  /* ---------- sticker tag ---------- */
+  .tag-sticker{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-weight:700; font-size:12px;
+    letter-spacing:.03em; text-transform:uppercase;
+    background:var(--paper); border:2px solid var(--ink);
+    padding:6px 14px; border-radius:999px;
+    box-shadow:3px 3px 0 var(--ink);
+    transform:rotate(-2deg);
+  }
+  .tag-sticker .dot{ width:7px; height:7px; border-radius:50%; background:var(--coral); }
+
+  /* ---------- header ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:var(--bg);
+    border-bottom:3px solid var(--ink);
+  }
+  header.site .bar{
+    display:flex; align-items:center; justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    font-family:var(--font-disp); font-weight:700; font-size:20px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .badge{
+    width:34px; height:34px; background:var(--lime); border:2.5px solid var(--ink);
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-weight:700; font-size:14px; transform:rotate(-6deg);
+  }
+
+  nav.main{ display:flex; gap:10px; }
+  nav.main a{
+    font-family:var(--font-mono); font-weight:700; font-size:13px; color:var(--ink);
+    padding:9px 16px; border:2px solid transparent; border-radius:999px; transition:.15s;
+  }
+  nav.main a:hover{ border-color:var(--ink); background:var(--sun); }
+  .nav-toggle{ display:none; }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:76px 0 60px; position:relative; }
+  .hero .shape{
+    position:absolute; z-index:0; border:3px solid var(--ink); opacity:.9;
+  }
+  .hero .shape.circle{ width:130px; height:130px; border-radius:50%; background:var(--pink); top:20px; right:60px; }
+  .hero .shape.square{ width:60px; height:60px; background:var(--blue); bottom:-10px; left:6%; transform:rotate(18deg); border-radius:10px; }
+  .hero .shape.tri{
+    width:0; height:0; border-left:34px solid transparent; border-right:34px solid transparent;
+    border-bottom:58px solid var(--sun); border-top:none; background:none; border-color:transparent transparent var(--sun) transparent;
+    top:70%; right:14%;
+  }
+
+  .hero-inner{ position:relative; z-index:1; max-width:720px; }
+  .hero h1{
+    font-family:var(--font-jp); font-weight:900; font-size:clamp(34px,6vw,66px);
+    line-height:1.28; margin:22px 0 20px;
+  }
+  .hero h1 .hl{
+    background:var(--lime); padding:2px 10px; border-radius:8px; border:3px solid var(--ink);
+    display:inline-block; transform:rotate(-1.5deg);
+  }
+  .hero p.lead{ font-size:16px; color:#454549; max-width:48ch; }
+
+  .hero-strip{
+    margin-top:38px; display:flex; flex-wrap:wrap; gap:12px;
+  }
+
+  /* ---------- section heading ---------- */
+  .sec-head{ padding:64px 0 34px; display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+  .sec-head h2{
+    font-family:var(--font-jp); font-weight:900; font-size:clamp(26px,3.4vw,38px);
+    margin-top:12px;
+  }
+  .sec-head p{ color:#54545a; margin-top:8px; max-width:52ch; font-size:14.5px; }
+
+  /* ---------- works ---------- */
+  .works{ padding-bottom:90px; }
+  .work-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:26px;
+  }
+  .work-card{
+    background:var(--paper); border:3px solid var(--ink); border-radius:16px;
+    box-shadow:6px 6px 0 var(--ink);
+    display:flex; flex-direction:column; overflow:hidden;
+    transition:transform .18s, box-shadow .18s;
+  }
+  .work-card:hover{ transform:translate(-3px,-3px); box-shadow:9px 9px 0 var(--ink); }
+
+  .work-thumb{ aspect-ratio:4/3; border-bottom:3px solid var(--ink); position:relative; }
+  .work-thumb svg{ width:100%; height:100%; display:block; }
+
+  .work-body{ padding:20px 20px 22px; flex:1; display:flex; flex-direction:column; }
+  .work-body .tag-sticker{ align-self:flex-start; transform:rotate(-2deg); font-size:10.5px; padding:5px 12px; box-shadow:2px 2px 0 var(--ink); }
+  .work-body h3{ font-size:18px; font-weight:900; margin:14px 0 8px; }
+  .work-body p{ font-size:13.5px; color:#54545a; flex:1; }
+  .work-meta{
+    margin-top:16px; padding-top:14px; border-top:2px dashed var(--ink);
+    display:flex; justify-content:space-between; font-family:var(--font-mono); font-size:11px; font-weight:700; color:#54545a;
+  }
+
+  /* ---------- machines ---------- */
+  .machines{ padding-bottom:100px; }
+  .machine-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .machine-card{
+    background:var(--paper); border:3px solid var(--ink); border-radius:16px;
+    padding:22px 24px; box-shadow:6px 6px 0 var(--ink);
+    display:flex; gap:16px; align-items:flex-start;
+  }
+  .machine-card .icon{
+    width:52px; height:52px; border-radius:12px; border:2.5px solid var(--ink); flex:none;
+    display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-weight:700;
+    transform:rotate(-4deg);
+  }
+  .machine-card .name{ font-size:16px; font-weight:900; }
+  .machine-card .detail{ font-size:13px; color:#54545a; margin-top:6px; }
+  .machine-card .prec{
+    margin-top:10px; font-family:var(--font-mono); font-size:11px; font-weight:700;
+    display:inline-block; background:var(--sun); border:2px solid var(--ink); border-radius:999px; padding:3px 10px;
+  }
+
+  /* ---------- footer ---------- */
+  footer.site{ border-top:3px solid var(--ink); padding:34px 0; }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .foot-links{ display:flex; gap:10px; }
+  .foot-links a{
+    font-family:var(--font-mono); font-weight:700; font-size:12px;
+    border:2px solid var(--ink); border-radius:999px; padding:7px 14px;
+    transition:.15s;
+  }
+  .foot-links a:hover{ background:var(--lime); }
+  .foot-copy{ font-family:var(--font-mono); font-size:11.5px; color:#77777c; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:860px){
+    nav.main{
+      position:fixed; inset:76px 0 0 0; background:var(--bg);
+      flex-direction:column; padding:26px; gap:12px; align-items:flex-start;
+      transform:translateX(100%); transition:transform .25s ease; border-top:3px solid var(--ink);
+    }
+    nav.main.open{ transform:translateX(0); }
+    nav.main a{ width:100%; padding:14px 16px; border-bottom:2px solid var(--line); border-radius:0; }
+    .nav-toggle{
+      display:flex; align-items:center; justify-content:center;
+      background:var(--lime); border:2.5px solid var(--ink); border-radius:8px; color:var(--ink);
+      width:40px; height:40px; font-family:var(--font-mono); font-weight:700; font-size:16px;
+    }
+    .work-grid{ grid-template-columns:1fr; }
+    .machine-grid{ grid-template-columns:1fr; }
+    .hero .shape.circle{ width:80px; height:80px; right:20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ transition:none !important; animation:none !important; }
+  }
+</style>
 </head>
 <body>
 
-  <header>
-    <div class="header-inner">
-      <a href="../" class="brand-logo">
-        <div class="polarys-icon"></div>
-        <span>P.O.L.A.R.Y.S.</span>
-      </a>
-      <nav style="display: flex; gap: 1.5rem;">
-        <a href="mailto:r202301989ko@jindai.jp" style="text-decoration:none; color:var(--accent-blue); font-family:var(--mono); font-size:0.7rem;">[ CONTACT ]</a>
-      </nav>
-    </div>
-  </header>
+<header class="site">
+  <div class="wrap bar">
+    <a href="#top" class="logo"><span class="badge">LAB</span>ものづくりラボ</a>
+    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">☰</button>
+    <nav class="main" id="mainNav">
+      <a href="#works">作品</a>
+      <a href="#machines">使用機材</a>
+    </nav>
+  </div>
+</header>
 
-  <main>
-    <!-- Archive Header -->
-    <section class="archive-header">
-      <div class="breadcrumbs">
-        <a href="../index.html">ROOT</a><span>/</span> <span style="color:var(--ink)">PRODUCT_ARCHIVE</span>
-      </div>
-      <div class="archive-title">
-        <h1>PRODUCT<br>ARCHIVE</h1>
-        <div class="archive-stats">
-          TOTAL_RECORDS: 003<br>
-          LAST_UPDATE: 2026.04.22
-        </div>
-      </div>
-    </section>
+<main id="top">
 
-    <!-- System Message -->
-    <section class="system-notice">
-      <div class="notice-box">
-        <p>
+  <section class="hero">
+    <div class="wrap">
+      <span class="shape circle" aria-hidden="true"></span>
+      <span class="shape square" aria-hidden="true"></span>
+      <span class="shape tri" aria-hidden="true"></span>
+      <div class="hero-inner">
+        <span class="tag-sticker"><span class="dot"></span>Digital Fabrication</span>
+        <h1>データを、<span class="hl">手で触れる</span>かたちに。</h1>
+        <p class="lead">
+          3Dプリンター・レーザーカッター・CNCフライスを使って、思いついたものをどんどん実物にしています。
+          作った作品を集めたポートフォリオです。
         </p>
-      </div>
-    </section>
-
-    <!-- Product Directory -->
-    <section class="directory-section">
-      <span class="dir-label">// INDEX_OF / MANUFACTURED_PRODUCTS</span>
-      
-      <div class="data-grid">
-        <!-- Product 01 -->
-        <a href="./suvenia_lo.html" target="_blank" class="data-card">
-          <div class="thumbnail-wrap">
-            <img src="./img/survenia.jpg" alt="スーベニアキーホルダー" onerror="this.style.display='none'">
-          </div>
-          <div class="card-body">
-            <div class="meta">
-              <span>PROD_ID: PRD_001</span>
-              <span class="status-tag">LASER_CUT</span>
-            </div>
-            <h3>スーベニアキーホルダー</h3>
-            <div class="footer-info">
-              <span>CAT: ACCESSORY</span>
-              <span>VIEW_DETAILS ></span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Product 02 (FREE) -->
-        <a href="./laser/stend_stand.html" target="_blank" class="data-card">
-          <div class="thumbnail-wrap">
-            <img src="./img/stend_stand.jpg" alt="ミニステンドグラス" onerror="this.style.display='none'">
-          </div>
-          <div class="card-body">
-            <div class="meta">
-              <span>PROD_ID: PRD_002</span>
-              <span class="status-tag status-free">FREE_ASSET</span>
-            </div>
-            <h3 class="free-title">ミニステンドグラス</h3>
-            <div class="footer-info">
-              <span>CAT: INTERIOR</span>
-              <span>GET_DATA ></span>
-            </div>
-          </div>
-        </a>
-
-        <!-- Product 03 -->
-        <div class="data-card">
-          <div class="thumbnail-wrap">
-            <img src="./img/pack_charm.jpg" alt="パックチャーム" onerror="this.style.display='none'">
-          </div>
-          <div class="card-body">
-            <div class="meta">
-              <span>PROD_ID: PRD_003</span>
-              <span class="status-tag">LASER_CUT</span>
-            </div>
-            <h3>パックチャーム</h3>
-            <div class="footer-info">
-              <span>CAT: ACCESSORY</span>
-              <span style="color:var(--mid); opacity:0.5;">DETAILS_LOCKED</span>
-            </div>
-          </div>
+        <div class="hero-strip">
+          <span class="tag-sticker" style="transform:rotate(2deg); background:var(--lime);">3Dプリント</span>
+          <span class="tag-sticker" style="transform:rotate(-3deg); background:var(--sun);">レーザー加工</span>
+          <span class="tag-sticker" style="transform:rotate(2deg); background:var(--pink); color:#fff;">CNC切削</span>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <section id="works" class="works">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="tag-sticker">Works</span>
+          <h2>作品一覧</h2>
+          <p>これまでに作ったものたち。写真部分はプレースホルダーなので、実際の写真に差し替えてください。</p>
+        </div>
+      </div>
 
-  <footer>
-    © 2026 P.O.L.A.R.Y.S. ARCHIVE_SYSTEM // STATUS: OPERATIONAL
-  </footer>
+      <div class="work-grid" id="workGrid"></div>
+    </div>
+  </section>
 
-  <script>
-    lucide.createIcons();
-  </script>
+  <section id="machines" class="machines">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="tag-sticker" style="background:var(--blue); color:#fff;">Equipment</span>
+          <h2>使用機材</h2>
+        </div>
+      </div>
+
+      <div class="machine-grid" id="machineGrid"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap foot-row">
+    <div class="foot-copy">© 2026 ものづくりラボ</div>
+    <div class="foot-links">
+      <a href="#">Instagram</a>
+      <a href="#">X</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // --- nav toggle (mobile) ---
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+  navToggle?.addEventListener('click', () => {
+    const open = mainNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  mainNav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    mainNav.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+  }));
+
+  // --- work data ---
+  const works = [
+    { tag:'3Dプリント', title:'モジュラー植木鉢', material:'PLA', machine:'FDM', year:'2026', desc:'積み重ねて高さを変えられる、分割式のプランター。', color:'lime' },
+    { tag:'レーザー加工', title:'組み木の小型棚', material:'シナ合板 4mm', machine:'CO2レーザー', year:'2025', desc:'接着剤を使わず、はめ込みだけで組み立てる棚。', color:'sun' },
+    { tag:'CNC切削', title:'アルミ製ペン立て', material:'アルミ A5052', machine:'CNCフライス', year:'2025', desc:'一枚の板から削り出した、継ぎ目のない一体成型。', color:'blue' },
+    { tag:'光造形', title:'ミニチュア建築模型', material:'レジン', machine:'SLA', year:'2025', desc:'0.05mm単位のディテールを再現した縮小模型。', color:'pink' },
+    { tag:'レーザー加工', title:'名刺入れ', material:'ヌメ革 + アクリル', machine:'CO2レーザー', year:'2024', desc:'革とアクリルを組み合わせた、経年変化を楽しむ一品。', color:'sun' },
+    { tag:'3Dプリント', title:'関節可動フィギュア', material:'PETG + TPU', machine:'FDM', year:'2024', desc:'印刷したまま可動する、支持材なしの関節構造。', color:'lime' },
+  ];
+
+  const colorMap = { lime:'#C6EE3E', sun:'#FFC93C', blue:'#3B6BFF', pink:'#FF3D9A' };
+
+  function thumbSvg(color){
+    const c = colorMap[color];
+    const shapes = {
+      '#C6EE3E': `<circle cx="120" cy="150" r="70" fill="${c}" stroke="#1B1B1F" stroke-width="4"/><circle cx="270" cy="110" r="34" fill="#fff" stroke="#1B1B1F" stroke-width="4"/>`,
+      '#FFC93C': `<rect x="60" y="70" width="150" height="150" rx="18" fill="${c}" stroke="#1B1B1F" stroke-width="4" transform="rotate(-8 135 145)"/><rect x="230" y="150" width="80" height="80" rx="14" fill="#fff" stroke="#1B1B1F" stroke-width="4"/>`,
+      '#3B6BFF': `<polygon points="200,40 320,260 80,260" fill="${c}" stroke="#1B1B1F" stroke-width="4"/><circle cx="90" cy="90" r="28" fill="#fff" stroke="#1B1B1F" stroke-width="4"/>`,
+      '#FF3D9A': `<rect x="90" y="90" width="220" height="140" rx="20" fill="${c}" stroke="#1B1B1F" stroke-width="4" transform="rotate(4 200 160)"/><circle cx="90" cy="220" r="30" fill="#fff" stroke="#1B1B1F" stroke-width="4"/>`,
+    };
+    return `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="100%" height="100%" fill="#FFFBF1"/>${shapes[c]}</svg>`;
+  }
+
+  const grid = document.getElementById('workGrid');
+  grid.innerHTML = works.map(w => `
+    <article class="work-card">
+      <div class="work-thumb">${thumbSvg(w.color)}</div>
+      <div class="work-body">
+        <span class="tag-sticker" style="background:${colorMap[w.color]};${w.color==='blue'||w.color==='pink' ? 'color:#fff;' : ''}">${w.tag}</span>
+        <h3>${w.title}</h3>
+        <p>${w.desc}</p>
+        <div class="work-meta">
+          <span>${w.material}</span>
+          <span>${w.machine}</span>
+          <span>${w.year}</span>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  // --- machine data ---
+  const machines = [
+    { icon:'3DP', name:'FDM式3Dプリンター', detail:'Creality ender3 S1 PRO',color:'lime' },
+    { icon:'LSR', name:'レーザー加工機', detail:'Trotec speedy 100', color:'sun' },
+    { icon:'UV', name:'UVプリンター', detail:'Roland', color:'pink' },
+    { icon:'CNC', name:'CNCルーター', detail:'Shopbot' ,color:'blue' },
+  ];
+
+  const mGrid = document.getElementById('machineGrid');
+  mGrid.innerHTML = machines.map(m => `
+    <div class="machine-card">
+      <div class="icon" style="background:${colorMap[m.color]};${m.color==='blue'||m.color==='pink' ? 'color:#fff;' : ''}">${m.icon}</div>
+      <div>
+        <div class="name">${m.name}</div>
+        <div class="detail">${m.detail}</div>
+      </div>
+    </div>
+  `).join('');
+</script>
+
 </body>
 </html>
