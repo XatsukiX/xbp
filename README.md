@@ -1,2 +1,2 @@
 # xbpformat
-All rights reserved 2024
+All rights reserved 2026
